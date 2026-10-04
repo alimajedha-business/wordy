@@ -19,7 +19,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { AppShell } from './components/AppShell';
 import { TeamSetupView } from './features/setup/TeamSetupView';
 import { GameReviewView } from './features/setup/GameReviewView';
-import { Team } from './game/types';
+import { Team, PlannedPrompt } from './game/types';
 import { ROUND_CONFIGS } from './game/rules';
 import { toPersianDigits } from './utils/persian';
 
@@ -31,8 +31,10 @@ const INITIAL_TEAMS: Team[] = [
 export function App() {
   const [setupStep, setSetupStep] = useState<'home' | 'team_setup' | 'review' | 'started'>('home');
   const [teams, setTeams] = useState<Team[]>(INITIAL_TEAMS);
+  const [promptPlan, setPromptPlan] = useState<PlannedPrompt[]>([]);
 
-  const handleStartGame = () => {
+  const handleStartGame = (plan: PlannedPrompt[]) => {
+    setPromptPlan(plan);
     setSetupStep('started');
   };
 
@@ -286,7 +288,7 @@ export function App() {
             بازی با {toPersianDigits(teams.length)} تیم آغاز شد!
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            ترتیب نوبت تیم‌ها و قوانین بازی با موفقیت قفل شد.
+            ترتیب نوبت تیم‌ها و برنامه عادلانه کلمات آماده شد ({toPersianDigits(promptPlan.length)} کلمه تخصیص‌یافته).
           </Typography>
           <Typography variant="subtitle1" fontWeight={700} color="primary.light" sx={{ mb: 3 }}>
             نوبت اول: {teams[0]?.name}
