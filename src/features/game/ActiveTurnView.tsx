@@ -28,7 +28,7 @@ import { Team, RoundNumber, Prompt, PlannedPrompt, PromptAttempt, PromptOutcome 
 import { ROUND_CONFIGS } from '../../game/rules';
 import { calculateRemainingSeconds, formatTimeMMSS, getTimeUrgency } from '../../game/timer';
 import { calculatePointsDelta, applyScoreDelta } from '../../game/scoring';
-import { replacePlannedPrompt } from '../../game/promptPlanner';
+import { replacePlannedPrompt, drawNextPromptForTurn } from '../../game/promptPlanner';
 import { toPersianDigits } from '../../utils/persian';
 
 interface ActiveTurnViewProps {
@@ -63,6 +63,22 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
   const [currentScore, setCurrentScore] = useState(team.score);
   const [isRevealed, setIsRevealed] = useState(true);
   const [isActionLocked, setIsActionLocked] = useState(false);
+
+  // Active prompts sequence for this turn - unlimited dynamically expanding list
+  const [turnPrompts, setTurnPrompts] = useState<PlannedPrompt[]>(() => {
+    if (plannedPrompts && plannedPrompts.length > 0) {
+      return [...plannedPrompts];
+    }
+    return [
+      drawNextPromptForTurn(round, team.id, 0, [], allPromptsBank, allPlannedInRound),
+    ];
+  });
+
+  useEffect(() => {
+    if (plannedPrompts && plannedPrompts.length > 0) {
+      setTurnPrompts((prev) => (prev.length === 0 ? [...plannedPrompts] : prev));
+    }
+  }, [plannedPrompts]);
 
   // Feedback states
   const [confirmEndOpen, setConfirmEndOpen] = useState(false);
@@ -104,11 +120,11 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
   }, [deadlineAt, finishTurn]);
 
   // Current prompt lookup
-  const currentPlanItem = plannedPrompts[currentPromptIndex];
+  const currentPlanItem = turnPrompts[currentPromptIndex];
   const [activePlanItem, setActivePlanItem] = useState<PlannedPrompt | undefined>(currentPlanItem);
   useEffect(() => {
-    setActivePlanItem(plannedPrompts[currentPromptIndex]);
-  }, [plannedPrompts, currentPromptIndex]);
+    setActivePlanItem(turnPrompts[currentPromptIndex]);
+  }, [turnPrompts, currentPromptIndex]);
 
   const currentPrompt = allPromptsBank.find(
     (p) => p.id === (activePlanItem?.promptId || currentPlanItem?.promptId)
@@ -137,15 +153,22 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
     setAttempts(newAttempts);
     setCurrentScore(scoreResult.newScore);
 
-    // Advance to next prompt
-    if (currentPromptIndex + 1 < plannedPrompts.length) {
-      setCurrentPromptIndex((prev) => prev + 1);
-      setIsRevealed(true); // Player sees next word immediately after pressing action button
-    } else {
-      // Completed all available planned prompts
-      completedRef.current = true;
-      onTurnComplete(newAttempts, scoreResult.newScore);
+    // Advance to next prompt - unlimited: draw dynamically if needed
+    const nextIndex = currentPromptIndex + 1;
+    if (nextIndex >= turnPrompts.length) {
+      const drawn = drawNextPromptForTurn(
+        round,
+        team.id,
+        nextIndex,
+        turnPrompts,
+        allPromptsBank,
+        allPlannedInRound
+      );
+      setTurnPrompts((prev) => [...prev, drawn]);
     }
+
+    setCurrentPromptIndex(nextIndex);
+    setIsRevealed(true); // Player sees next word immediately after pressing action button
 
     if (lockTimerRef.current) {
       clearTimeout(lockTimerRef.current);
@@ -159,10 +182,16 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
   const handleReplacePrompt = () => {
     const itemToReplace = activePlanItem || currentPlanItem;
     if (!itemToReplace) return;
-    const replacement = replacePlannedPrompt(itemToReplace, allPromptsBank, allPlannedInRound);
+    const replacement = replacePlannedPrompt(itemToReplace, allPromptsBank, [
+      ...allPlannedInRound,
+      ...turnPrompts,
+    ]);
     if (replacement) {
       itemToReplace.promptId = replacement.id;
       setActivePlanItem({ ...itemToReplace });
+      setTurnPrompts((prev) =>
+        prev.map((p, idx) => (idx === currentPromptIndex ? { ...itemToReplace } : p))
+      );
     }
   };
 

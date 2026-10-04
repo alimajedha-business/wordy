@@ -193,6 +193,74 @@ export function replacePlannedPrompt(
   return replacementPool[Math.floor(Math.random() * replacementPool.length)];
 }
 
+/**
+ * Draws the next prompt for a team's active turn dynamically.
+ * Ensures the team never runs out of words while time remains on the clock.
+ */
+export function drawNextPromptForTurn(
+  round: RoundNumber,
+  teamId: string,
+  slotIndex: number,
+  currentTurnPrompts: PlannedPrompt[],
+  allPromptsBank: Prompt[],
+  allPlannedInRound: PlannedPrompt[] = []
+): PlannedPrompt {
+  const blueprints = generateRoundSlotBlueprints(round, 10);
+  const targetBlueprint = blueprints[slotIndex % blueprints.length];
+  const targetType = targetBlueprint.type;
+  const targetDifficulty = targetBlueprint.difficulty;
+
+  const usedInTurn = new Set(currentTurnPrompts.map((p) => p.promptId));
+  const usedInRound = new Set(allPlannedInRound.map((p) => p.promptId));
+
+  // Tier 1: exact round, exact type, exact difficulty, not used in turn or round
+  let candidates = allPromptsBank.filter(
+    (p) =>
+      p.allowedRounds.includes(round) &&
+      p.type === targetType &&
+      p.difficulty === targetDifficulty &&
+      !usedInTurn.has(p.id) &&
+      !usedInRound.has(p.id)
+  );
+
+  // Tier 2: exact round, exact type, not used in turn
+  if (candidates.length === 0) {
+    candidates = allPromptsBank.filter(
+      (p) =>
+        p.allowedRounds.includes(round) &&
+        p.type === targetType &&
+        !usedInTurn.has(p.id)
+    );
+  }
+
+  // Tier 3: any prompt allowed in this round not used in this turn
+  if (candidates.length === 0) {
+    candidates = allPromptsBank.filter(
+      (p) => p.allowedRounds.includes(round) && !usedInTurn.has(p.id)
+    );
+  }
+
+  // Tier 4: any prompt allowed in this round (recycle if entire bank exhausted in one turn)
+  if (candidates.length === 0) {
+    candidates = allPromptsBank.filter((p) => p.allowedRounds.includes(round));
+  }
+
+  // Fallback failsafe
+  const chosenPrompt =
+    candidates.length > 0
+      ? candidates[Math.floor(Math.random() * candidates.length)]
+      : allPromptsBank[Math.floor(Math.random() * allPromptsBank.length)];
+
+  return {
+    teamId,
+    round,
+    slotIndex,
+    promptId: chosenPrompt.id,
+    type: chosenPrompt.type,
+    difficulty: chosenPrompt.difficulty,
+  };
+}
+
 function defaultShuffle<T>(array: T[]): T[] {
   const result = [...array];
   for (let i = result.length - 1; i > 0; i--) {
@@ -201,3 +269,4 @@ function defaultShuffle<T>(array: T[]): T[] {
   }
   return result;
 }
+

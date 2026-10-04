@@ -126,4 +126,32 @@ describe('User Fixes Verification', () => {
       expect(screen.getByRole('button', { name: 'شروع بازی جدید' })).toBeInTheDocument();
     });
   });
+
+  it('4- Supplies continuous unlimited words while time remains on the clock', async () => {
+    render(
+      <CacheProvider value={cacheRtl}>
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
+      </CacheProvider>
+    );
+
+    // Setup and start game
+    fireEvent.click(screen.getByRole('button', { name: 'شروع بازی جدید' }));
+    fireEvent.click(screen.getByRole('button', { name: 'ادامه به بررسی و شروع بازی' }));
+    fireEvent.click(screen.getByRole('button', { name: 'شروع رسمی بازی' }));
+    fireEvent.click(screen.getByRole('button', { name: 'شروع نوبت' }));
+
+    // Answer 8 words in a row to exceed any initial slot limit
+    for (let wordNum = 1; wordNum <= 8; wordNum++) {
+      const correctBtn = screen.getByRole('button', { name: /درست/ });
+      fireEvent.click(correctBtn);
+      await new Promise((resolve) => setTimeout(resolve, 200));
+    }
+
+    // Word 9 is available and turn remains active (not terminated)
+    expect(screen.getByText('کلمه ۹')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /درست/ })).toBeInTheDocument();
+    expect(screen.queryByText('نتیجه نوبت')).toBeNull();
+  });
 });

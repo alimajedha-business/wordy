@@ -4,481 +4,5141 @@
     "text": "هندوانه",
     "type": "WORD",
     "difficulty": "EASY",
-    "allowedRounds": [1, 2, 3],
-    "tags": ["خوراکی", "میوه"]
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "خوراکی",
+      "میوه"
+    ]
   },
   {
     "id": "word-bicycle",
     "text": "دوچرخه",
     "type": "WORD",
     "difficulty": "EASY",
-    "allowedRounds": [1, 2, 3],
-    "tags": ["وسیله نقلیه", "ورزش"]
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "وسیله نقلیه",
+      "ورزش"
+    ]
   },
   {
     "id": "word-umbrella",
     "text": "چتر",
     "type": "WORD",
     "difficulty": "EASY",
-    "allowedRounds": [1, 2, 3],
-    "tags": ["اشیا"]
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "اشیا"
+    ]
   },
   {
     "id": "word-sunglasses",
     "text": "عینک آفتابی",
     "type": "WORD",
     "difficulty": "EASY",
-    "allowedRounds": [1, 2, 3],
-    "tags": ["پوشاک", "اشیا"]
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "پوشاک",
+      "اشیا"
+    ]
   },
   {
     "id": "word-cherry",
     "text": "آلبالو",
     "type": "WORD",
     "difficulty": "EASY",
-    "allowedRounds": [1, 2, 3],
-    "tags": ["خوراکی", "میوه"]
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "خوراکی",
+      "میوه"
+    ]
   },
   {
     "id": "word-backpack",
     "text": "کوله پشتی",
     "type": "WORD",
     "difficulty": "EASY",
-    "allowedRounds": [1, 2, 3],
-    "tags": ["اشیا"]
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "اشیا"
+    ]
   },
   {
     "id": "word-telescope",
     "text": "تلسکوپ",
     "type": "WORD",
     "difficulty": "EASY",
-    "allowedRounds": [1, 2, 3],
-    "tags": ["علمی", "اشیا"]
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "علمی",
+      "اشیا"
+    ]
   },
   {
     "id": "word-clock",
     "text": "ساعت دیواری",
     "type": "WORD",
     "difficulty": "EASY",
-    "allowedRounds": [1, 2, 3],
-    "tags": ["خانه", "اشیا"]
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "خانه",
+      "اشیا"
+    ]
   },
   {
     "id": "word-guitar",
     "text": "گیتار",
     "type": "WORD",
     "difficulty": "EASY",
-    "allowedRounds": [1, 2, 3],
-    "tags": ["موسیقی"]
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "موسیقی"
+    ]
   },
   {
     "id": "word-sandwich",
     "text": "ساندویچ",
     "type": "WORD",
     "difficulty": "EASY",
-    "allowedRounds": [1, 2, 3],
-    "tags": ["خوراکی"]
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "خوراکی"
+    ]
   },
   {
     "id": "word-flashlight",
     "text": "چراغ قوه",
     "type": "WORD",
     "difficulty": "EASY",
-    "allowedRounds": [1, 2, 3],
-    "tags": ["اشیا"]
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "اشیا"
+    ]
   },
   {
     "id": "word-mirror",
     "text": "آینه",
     "type": "WORD",
     "difficulty": "EASY",
-    "allowedRounds": [1, 2, 3],
-    "tags": ["خانه"]
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "خانه"
+    ]
   },
   {
     "id": "phrase-brush-teeth",
     "text": "مسواک زدن",
     "type": "PHRASE",
     "difficulty": "EASY",
-    "allowedRounds": [1, 2, 3],
-    "tags": ["سلامت", "عمل روزمره"]
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "سلامت",
+      "عمل روزمره"
+    ]
   },
   {
     "id": "phrase-electric-heater",
     "text": "بخاری برقی",
     "type": "PHRASE",
     "difficulty": "EASY",
-    "allowedRounds": [1, 2, 3],
-    "tags": ["خانه", "اشیا"]
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "خانه",
+      "اشیا"
+    ]
   },
   {
     "id": "phrase-drink-tea",
     "text": "چای نوشیدن",
     "type": "PHRASE",
     "difficulty": "EASY",
-    "allowedRounds": [1, 2, 3],
-    "tags": ["خوراکی", "عادت"]
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "خوراکی",
+      "عادت"
+    ]
   },
   {
     "id": "phrase-tie-shoes",
     "text": "بستن بند کفش",
     "type": "PHRASE",
     "difficulty": "EASY",
-    "allowedRounds": [1, 2, 3],
-    "tags": ["پوشاک", "عمل"]
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "پوشاک",
+      "عمل"
+    ]
   },
   {
     "id": "phrase-watering-flower",
     "text": "آب دادن به گل",
     "type": "PHRASE",
     "difficulty": "EASY",
-    "allowedRounds": [1, 2, 3],
-    "tags": ["طبیعت", "باغبانی"]
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "طبیعت",
+      "باغبانی"
+    ]
   },
   {
     "id": "phrase-reading-newspaper",
     "text": "روزنامه خواندن",
     "type": "PHRASE",
     "difficulty": "EASY",
-    "allowedRounds": [1, 2, 3],
-    "tags": ["سرگرمی", "مطالعه"]
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "سرگرمی",
+      "مطالعه"
+    ]
   },
   {
     "id": "phrase-cut-cake",
     "text": "بریدن کیک تولد",
     "type": "PHRASE",
     "difficulty": "EASY",
-    "allowedRounds": [1, 2, 3],
-    "tags": ["جشن", "خوراکی"]
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "جشن",
+      "خوراکی"
+    ]
   },
   {
     "id": "phrase-wash-dishes",
     "text": "شستن ظرف‌ها",
     "type": "PHRASE",
     "difficulty": "EASY",
-    "allowedRounds": [1, 2, 3],
-    "tags": ["خانه", "عمل"]
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "خانه",
+      "عمل"
+    ]
   },
-
   {
     "id": "word-parachute",
     "text": "چتر نجات",
     "type": "WORD",
     "difficulty": "MEDIUM",
-    "allowedRounds": [2, 3],
-    "tags": ["ورزش", "پرواز"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ورزش",
+      "پرواز"
+    ]
   },
   {
     "id": "word-firefighter",
     "text": "آتش‌نشان",
     "type": "WORD",
     "difficulty": "MEDIUM",
-    "allowedRounds": [2, 3],
-    "tags": ["شغل"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "شغل"
+    ]
   },
   {
     "id": "word-scarecrow",
     "text": "مترسک",
     "type": "WORD",
     "difficulty": "MEDIUM",
-    "allowedRounds": [2, 3],
-    "tags": ["مزرعه"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "مزرعه"
+    ]
   },
   {
     "id": "word-gardener",
     "text": "باغبان",
     "type": "WORD",
     "difficulty": "MEDIUM",
-    "allowedRounds": [2, 3],
-    "tags": ["شغل", "طبیعت"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "شغل",
+      "طبیعت"
+    ]
   },
   {
     "id": "word-stethoscope",
     "text": "گوشی پزشکی",
     "type": "WORD",
     "difficulty": "MEDIUM",
-    "allowedRounds": [2, 3],
-    "tags": ["پزشکی", "اشیا"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "پزشکی",
+      "اشیا"
+    ]
   },
   {
     "id": "word-binoculars",
     "text": "دوربین شکاری",
     "type": "WORD",
     "difficulty": "MEDIUM",
-    "allowedRounds": [2, 3],
-    "tags": ["طبیعت", "اشیا"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "طبیعت",
+      "اشیا"
+    ]
   },
   {
     "id": "word-helicopter",
     "text": "بالگرد",
     "type": "WORD",
     "difficulty": "MEDIUM",
-    "allowedRounds": [2, 3],
-    "tags": ["وسیله نقلیه"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "وسیله نقلیه"
+    ]
   },
   {
     "id": "word-anchor",
     "text": "لنگر کشتی",
     "type": "WORD",
     "difficulty": "MEDIUM",
-    "allowedRounds": [2, 3],
-    "tags": ["دریانوردی"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "دریانوردی"
+    ]
   },
   {
     "id": "phrase-fishing",
     "text": "ماهی‌گیری در دریاچه",
     "type": "PHRASE",
     "difficulty": "MEDIUM",
-    "allowedRounds": [2, 3],
-    "tags": ["ورزش", "طبیعت"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ورزش",
+      "طبیعت"
+    ]
   },
   {
     "id": "phrase-flying-kite",
     "text": "بادبادک هوا کردن",
     "type": "PHRASE",
     "difficulty": "MEDIUM",
-    "allowedRounds": [2, 3],
-    "tags": ["بازی", "سرگرمی"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "بازی",
+      "سرگرمی"
+    ]
   },
   {
     "id": "phrase-tailoring",
     "text": "خیاطی و سوزن نخ کردن",
     "type": "PHRASE",
     "difficulty": "MEDIUM",
-    "allowedRounds": [2, 3],
-    "tags": ["حرفه"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "حرفه"
+    ]
   },
   {
     "id": "phrase-riding-horse",
     "text": "اسب‌سواری در دشت",
     "type": "PHRASE",
     "difficulty": "MEDIUM",
-    "allowedRounds": [2, 3],
-    "tags": ["ورزش", "طبیعت"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ورزش",
+      "طبیعت"
+    ]
   },
   {
     "id": "phrase-vacuuming",
     "text": "جاروبرقی کشیدن اتاق",
     "type": "PHRASE",
     "difficulty": "MEDIUM",
-    "allowedRounds": [2, 3],
-    "tags": ["خانه", "عمل"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "خانه",
+      "عمل"
+    ]
   },
   {
     "id": "phrase-setting-tent",
     "text": "برپا کردن چادر مسافرتی",
     "type": "PHRASE",
     "difficulty": "MEDIUM",
-    "allowedRounds": [2, 3],
-    "tags": ["سفر", "طبیعت"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "سفر",
+      "طبیعت"
+    ]
   },
   {
     "id": "phrase-taking-photo",
     "text": "عکس دسته‌جمعی گرفتن",
     "type": "PHRASE",
     "difficulty": "MEDIUM",
-    "allowedRounds": [2, 3],
-    "tags": ["سرگرمی"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "سرگرمی"
+    ]
   },
   {
     "id": "phrase-baking-bread",
     "text": "نان پختن در تنور",
     "type": "PHRASE",
     "difficulty": "MEDIUM",
-    "allowedRounds": [2, 3],
-    "tags": ["آشپزی", "شغل"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "آشپزی",
+      "شغل"
+    ]
   },
   {
     "id": "proverb-camel-saw",
     "text": "شتر دیدی ندیدی",
     "type": "PROVERB",
     "difficulty": "MEDIUM",
-    "allowedRounds": [2, 3],
-    "tags": ["ضرب‌المثل"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل"
+    ]
   },
   {
     "id": "proverb-water-in-mortar",
     "text": "آب در هاون کوبیدن",
     "type": "PROVERB",
     "difficulty": "MEDIUM",
-    "allowedRounds": [2, 3],
-    "tags": ["ضرب‌المثل"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل"
+    ]
   },
   {
     "id": "proverb-crow-peacock",
     "text": "کلاغ خواست راه رفتن کبک را یاد بگیرد",
     "type": "PROVERB",
     "difficulty": "MEDIUM",
-    "allowedRounds": [2, 3],
-    "tags": ["ضرب‌المثل"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل"
+    ]
   },
   {
     "id": "proverb-mouse-hole",
     "text": "موش تو سوراخ نمی‌رفت جارو به دمبش می‌بست",
     "type": "PROVERB",
     "difficulty": "MEDIUM",
-    "allowedRounds": [2, 3],
-    "tags": ["ضرب‌المثل"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل"
+    ]
   },
   {
     "id": "proverb-cat-meat",
     "text": "گربه دستش به گوشت نمی‌رسه می‌گه پیف پیف",
     "type": "PROVERB",
     "difficulty": "MEDIUM",
-    "allowedRounds": [2, 3],
-    "tags": ["ضرب‌المثل"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل"
+    ]
   },
   {
     "id": "proverb-bird-in-hand",
     "text": "سیلی نقد به از حلوای نسیه",
     "type": "PROVERB",
     "difficulty": "MEDIUM",
-    "allowedRounds": [2, 3],
-    "tags": ["ضرب‌المثل"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل"
+    ]
   },
-
   {
     "id": "word-hot-air-balloon",
     "text": "بالن هوای گرم",
     "type": "WORD",
     "difficulty": "HARD",
-    "allowedRounds": [2, 3],
-    "tags": ["پرواز", "اشیا"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "پرواز",
+      "اشیا"
+    ]
   },
   {
     "id": "word-astronaut",
     "text": "فضانورد با لباس فضایی",
     "type": "WORD",
     "difficulty": "HARD",
-    "allowedRounds": [2, 3],
-    "tags": ["فضا", "شغل"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "فضا",
+      "شغل"
+    ]
   },
   {
     "id": "word-deep-sea-diver",
     "text": "غواص در اعماق اقیانوس",
     "type": "WORD",
     "difficulty": "HARD",
-    "allowedRounds": [2, 3],
-    "tags": ["دریا", "ورزش"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "دریا",
+      "ورزش"
+    ]
   },
   {
     "id": "word-windmill",
     "text": "آسیاب بادی قدیمی",
     "type": "WORD",
     "difficulty": "HARD",
-    "allowedRounds": [2, 3],
-    "tags": ["بنا", "طبیعت"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "بنا",
+      "طبیعت"
+    ]
   },
   {
     "id": "word-lighthouse",
     "text": "فانوس دریایی صخره‌ای",
     "type": "WORD",
     "difficulty": "HARD",
-    "allowedRounds": [2, 3],
-    "tags": ["دریا", "بنا"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "دریا",
+      "بنا"
+    ]
   },
   {
     "id": "word-submarine",
     "text": "زیردریایی اکتشافی",
     "type": "WORD",
     "difficulty": "HARD",
-    "allowedRounds": [2, 3],
-    "tags": ["وسیله نقلیه", "دریا"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "وسیله نقلیه",
+      "دریا"
+    ]
   },
   {
     "id": "phrase-two-watermelons",
     "text": "با یک دست دو هندوانه برداشتن",
     "type": "PHRASE",
     "difficulty": "HARD",
-    "allowedRounds": [2, 3],
-    "tags": ["کنایه", "عمل"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "کنایه",
+      "عمل"
+    ]
   },
   {
     "id": "phrase-carrying-coal",
     "text": "ذغال بردن به جنگل",
     "type": "PHRASE",
     "difficulty": "HARD",
-    "allowedRounds": [2, 3],
-    "tags": ["کنایه"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "کنایه"
+    ]
   },
   {
     "id": "phrase-tightrope-walking",
     "text": "بندبازی روی طناب در ارتفاع",
     "type": "PHRASE",
     "difficulty": "HARD",
-    "allowedRounds": [2, 3],
-    "tags": ["سیرک", "مهارت"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "سیرک",
+      "مهارت"
+    ]
   },
   {
     "id": "phrase-building-sandcastle",
     "text": "ساختن قلعه شنی در ساحل",
     "type": "PHRASE",
     "difficulty": "HARD",
-    "allowedRounds": [2, 3],
-    "tags": ["بازی", "ساحل"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "بازی",
+      "ساحل"
+    ]
   },
   {
     "id": "phrase-ice-skating",
     "text": "پاتیناژ و رقص روی یخ",
     "type": "PHRASE",
     "difficulty": "HARD",
-    "allowedRounds": [2, 3],
-    "tags": ["ورزش", "زمستان"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ورزش",
+      "زمستان"
+    ]
   },
   {
     "id": "phrase-archeologist-dig",
     "text": "کشف فسیل توسط باستان‌شناس",
     "type": "PHRASE",
     "difficulty": "HARD",
-    "allowedRounds": [2, 3],
-    "tags": ["علمی", "اکتشاف"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "علمی",
+      "اکتشاف"
+    ]
   },
   {
     "id": "proverb-drop-by-drop",
     "text": "قطره قطره جمع گردد وانگهی دریا شود",
     "type": "PROVERB",
     "difficulty": "HARD",
-    "allowedRounds": [2, 3],
-    "tags": ["ضرب‌المثل"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل"
+    ]
   },
   {
     "id": "proverb-pot-calls-kettle",
     "text": "دیگ به دیگ می‌گه روت سیاه",
     "type": "PROVERB",
     "difficulty": "HARD",
-    "allowedRounds": [2, 3],
-    "tags": ["ضرب‌المثل"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل"
+    ]
   },
   {
     "id": "proverb-cooks-spoil-broth",
     "text": "آشپز که دو تا شد آش یا شور می‌شه یا بی‌نمک",
     "type": "PROVERB",
     "difficulty": "HARD",
-    "allowedRounds": [2, 3],
-    "tags": ["ضرب‌المثل"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل"
+    ]
   },
   {
     "id": "proverb-chickens-autumn",
     "text": "جوجه را آخر پاییز می‌شمارند",
     "type": "PROVERB",
     "difficulty": "HARD",
-    "allowedRounds": [2, 3],
-    "tags": ["ضرب‌المثل"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل"
+    ]
   },
   {
     "id": "proverb-no-pain-no-gain",
     "text": "نابرده رنج گنج میسر نمی‌شود",
     "type": "PROVERB",
     "difficulty": "HARD",
-    "allowedRounds": [2, 3],
-    "tags": ["ضرب‌المثل"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل"
+    ]
   },
   {
     "id": "proverb-wind-blows",
     "text": "هر که بامش بیش برفش بیشتر",
     "type": "PROVERB",
     "difficulty": "HARD",
-    "allowedRounds": [2, 3],
-    "tags": ["ضرب‌المثل"]
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل"
+    ]
+  },
+  {
+    "id": "word-100",
+    "text": "انار",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "میوه",
+      "خوراکی"
+    ]
+  },
+  {
+    "id": "word-101",
+    "text": "هویج",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "سبزیجات",
+      "خوراکی"
+    ]
+  },
+  {
+    "id": "word-102",
+    "text": "انگور",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "میوه",
+      "خوراکی"
+    ]
+  },
+  {
+    "id": "word-103",
+    "text": "سیب زمینی",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "سبزیجات",
+      "خوراکی"
+    ]
+  },
+  {
+    "id": "word-104",
+    "text": "خیار چنبر",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "میوه",
+      "خوراکی"
+    ]
+  },
+  {
+    "id": "word-105",
+    "text": "توت فرنگی",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "میوه",
+      "خوراکی"
+    ]
+  },
+  {
+    "id": "word-106",
+    "text": "گردو",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "خشکبار",
+      "خوراکی"
+    ]
+  },
+  {
+    "id": "word-107",
+    "text": "پسته",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "خشکبار",
+      "خوراکی"
+    ]
+  },
+  {
+    "id": "word-108",
+    "text": "بادام زمینی",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "خشکبار",
+      "خوراکی"
+    ]
+  },
+  {
+    "id": "word-109",
+    "text": "نان بربری",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "نان",
+      "خوراکی"
+    ]
+  },
+  {
+    "id": "word-110",
+    "text": "نان سنگک",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "نان",
+      "خوراکی"
+    ]
+  },
+  {
+    "id": "word-111",
+    "text": "ماست و خیار",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "پیش‌غذا",
+      "خوراکی"
+    ]
+  },
+  {
+    "id": "word-112",
+    "text": "لوبیا پلو",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "غذا",
+      "ایرانی"
+    ]
+  },
+  {
+    "id": "word-113",
+    "text": "قورمه سبزی",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "غذا",
+      "ایرانی"
+    ]
+  },
+  {
+    "id": "word-114",
+    "text": "کباب کوبیده",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "غذا",
+      "کباب"
+    ]
+  },
+  {
+    "id": "word-115",
+    "text": "دیزی سنگی",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "غذا",
+      "سنتی"
+    ]
+  },
+  {
+    "id": "word-116",
+    "text": "آش رشته",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "غذا",
+      "سنتی"
+    ]
+  },
+  {
+    "id": "word-117",
+    "text": "شله زرد",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "دسر",
+      "سنتی"
+    ]
+  },
+  {
+    "id": "word-118",
+    "text": "باقلوا",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "شیرینی",
+      "سنتی"
+    ]
+  },
+  {
+    "id": "word-119",
+    "text": "زولبیا و بامیه",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "شیرینی",
+      "ماه رمضان"
+    ]
+  },
+  {
+    "id": "word-120",
+    "text": "سوهان قم",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "سوغات",
+      "شیرینی"
+    ]
+  },
+  {
+    "id": "word-121",
+    "text": "گز اصفهان",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "سوغات",
+      "شیرینی"
+    ]
+  },
+  {
+    "id": "word-122",
+    "text": "شیر کاکائو",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "نوشیدنی"
+    ]
+  },
+  {
+    "id": "word-123",
+    "text": "چای قندپهلو",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "نوشیدنی",
+      "سنتی"
+    ]
+  },
+  {
+    "id": "word-124",
+    "text": "دوغ نعنایی",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "نوشیدنی",
+      "سنتی"
+    ]
+  },
+  {
+    "id": "word-125",
+    "text": "سطل آشغال",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "اشیا",
+      "خانه"
+    ]
+  },
+  {
+    "id": "word-126",
+    "text": "بالش پر",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "اتاق خواب",
+      "اشیا"
+    ]
+  },
+  {
+    "id": "word-127",
+    "text": "پتو مسافرتی",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "اشیا",
+      "سفر"
+    ]
+  },
+  {
+    "id": "word-128",
+    "text": "شانه چوبی",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "بهداشتی",
+      "اشیا"
+    ]
+  },
+  {
+    "id": "word-129",
+    "text": "صابون گلنار",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "بهداشتی",
+      "نوستالژی"
+    ]
+  },
+  {
+    "id": "word-130",
+    "text": "حوله حمام",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "بهداشتی",
+      "اشیا"
+    ]
+  },
+  {
+    "id": "word-131",
+    "text": "مسواک برقی",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "بهداشتی",
+      "اشیا"
+    ]
+  },
+  {
+    "id": "word-132",
+    "text": "کلید یدک",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "ابزار",
+      "اشیا"
+    ]
+  },
+  {
+    "id": "word-133",
+    "text": "چسب نواری",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "لوازم تحریر"
+    ]
+  },
+  {
+    "id": "word-134",
+    "text": "مدادتراش رومیزی",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "لوازم تحریر"
+    ]
+  },
+  {
+    "id": "word-135",
+    "text": "پاک کن",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "لوازم تحریر"
+    ]
+  },
+  {
+    "id": "word-136",
+    "text": "خط کش فلزی",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "لوازم تحریر"
+    ]
+  },
+  {
+    "id": "word-137",
+    "text": "قیچی کاغذبری",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "لوازم تحریر"
+    ]
+  },
+  {
+    "id": "word-138",
+    "text": "چراغ مطالعه",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "وسایل اتاق"
+    ]
+  },
+  {
+    "id": "word-139",
+    "text": "بادکنک رنگی",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "جشن",
+      "بازی"
+    ]
+  },
+  {
+    "id": "word-140",
+    "text": "کلاه پشمی",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "پوشاک",
+      "زمستان"
+    ]
+  },
+  {
+    "id": "word-141",
+    "text": "دستکش چرمی",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "پوشاک",
+      "زمستان"
+    ]
+  },
+  {
+    "id": "word-142",
+    "text": "چکمه پلاستیکی",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "پوشاک",
+      "باران"
+    ]
+  },
+  {
+    "id": "word-143",
+    "text": "کفش ورزشی",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "پوشاک",
+      "ورزش"
+    ]
+  },
+  {
+    "id": "word-144",
+    "text": "خرگوش سفید",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "حیوان"
+    ]
+  },
+  {
+    "id": "word-145",
+    "text": "گربه ملوس",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "حیوان"
+    ]
+  },
+  {
+    "id": "word-146",
+    "text": "گوسفند شاخدار",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "حیوان"
+    ]
+  },
+  {
+    "id": "word-147",
+    "text": "مرغ و خروس",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "پرنده",
+      "حیوان"
+    ]
+  },
+  {
+    "id": "word-148",
+    "text": "کبوتر چاهی",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "پرنده"
+    ]
+  },
+  {
+    "id": "word-149",
+    "text": "پروانه خالدار",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "حشره"
+    ]
+  },
+  {
+    "id": "word-150",
+    "text": "کفشدوزک قرمز",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "حشره"
+    ]
+  },
+  {
+    "id": "word-151",
+    "text": "مورچه کارگر",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "حشره"
+    ]
+  },
+  {
+    "id": "word-152",
+    "text": "زنبور عسل",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "حشره"
+    ]
+  },
+  {
+    "id": "word-153",
+    "text": "ماهی قرمز تنگ",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "نوروز",
+      "آبزی"
+    ]
+  },
+  {
+    "id": "word-154",
+    "text": "فلامینگو",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "پرنده",
+      "حیات وحش"
+    ]
+  },
+  {
+    "id": "word-155",
+    "text": "پلیکان",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "پرنده"
+    ]
+  },
+  {
+    "id": "word-156",
+    "text": "کانگورو",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "حیوان",
+      "استرالیا"
+    ]
+  },
+  {
+    "id": "word-157",
+    "text": "کرگدن شاخدار",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "حیوان"
+    ]
+  },
+  {
+    "id": "word-158",
+    "text": "پنگوئن امپراتور",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "پرنده",
+      "قطب"
+    ]
+  },
+  {
+    "id": "word-159",
+    "text": "جوجه تیغی",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "حیوان"
+    ]
+  },
+  {
+    "id": "word-160",
+    "text": "یوزپلنگ ایرانی",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "حیات وحش",
+      "ملی"
+    ]
+  },
+  {
+    "id": "word-161",
+    "text": "هشت پا",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "آبزی",
+      "اقیانوس"
+    ]
+  },
+  {
+    "id": "word-162",
+    "text": "اسب آبی",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "حیوان",
+      "رودخانه"
+    ]
+  },
+  {
+    "id": "word-163",
+    "text": "دارکوب درختی",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "پرنده",
+      "جنگل"
+    ]
+  },
+  {
+    "id": "word-164",
+    "text": "شترمرغ صحرایی",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "پرنده",
+      "صحرا"
+    ]
+  },
+  {
+    "id": "word-165",
+    "text": "دلفین باهوش",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "آبزی",
+      "پستاندار"
+    ]
+  },
+  {
+    "id": "word-166",
+    "text": "سنتور چوبی",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "موسیقی",
+      "سنتی"
+    ]
+  },
+  {
+    "id": "word-167",
+    "text": "کمانچه لری",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "موسیقی",
+      "سنتی"
+    ]
+  },
+  {
+    "id": "word-168",
+    "text": "دف پوستی",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "موسیقی",
+      "سنتی"
+    ]
+  },
+  {
+    "id": "word-169",
+    "text": "تنبک اصفهان",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "موسیقی",
+      "سنتی"
+    ]
+  },
+  {
+    "id": "word-170",
+    "text": "سه تار",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "موسیقی",
+      "سنتی"
+    ]
+  },
+  {
+    "id": "word-171",
+    "text": "آکاردئون",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "موسیقی",
+      "ساز"
+    ]
+  },
+  {
+    "id": "word-172",
+    "text": "شیپور جنگی",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "موسیقی",
+      "ساز بادی"
+    ]
+  },
+  {
+    "id": "word-173",
+    "text": "فلوت کلیددار",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "موسیقی",
+      "ساز بادی"
+    ]
+  },
+  {
+    "id": "word-174",
+    "text": "اره برقی نجاری",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "ابزار",
+      "کارگاهی"
+    ]
+  },
+  {
+    "id": "word-175",
+    "text": "دریل چکشی",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "ابزار",
+      "ساختمان"
+    ]
+  },
+  {
+    "id": "word-176",
+    "text": "ترازوی عقربه ای",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "ابزار",
+      "قدیمی"
+    ]
+  },
+  {
+    "id": "word-177",
+    "text": "دوربین دوچشمی شکاری",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "اپتیک",
+      "طبیعت"
+    ]
+  },
+  {
+    "id": "word-178",
+    "text": "ذره بین پایه دار",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "علمی",
+      "ابزار"
+    ]
+  },
+  {
+    "id": "word-179",
+    "text": "فانوس نفتی قدیمی",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "روشنایی",
+      "نوستالژی"
+    ]
+  },
+  {
+    "id": "word-180",
+    "text": "هاون برنجی",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "آشپزخانه",
+      "سنتی"
+    ]
+  },
+  {
+    "id": "word-181",
+    "text": "سماور زغالی مسی",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "چای",
+      "سنتی"
+    ]
+  },
+  {
+    "id": "word-182",
+    "text": "چرتکه چوبی",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "محاسبه",
+      "سنتی"
+    ]
+  },
+  {
+    "id": "word-183",
+    "text": "قطب نما کوهنوردی",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "جهت‌یابی",
+      "کوه"
+    ]
+  },
+  {
+    "id": "word-184",
+    "text": "تراکتور مزرعه",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "کشاورزی",
+      "ماشین‌آلات"
+    ]
+  },
+  {
+    "id": "word-185",
+    "text": "کمباین گندم",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "کشاورزی",
+      "ماشین‌آلات"
+    ]
+  },
+  {
+    "id": "word-186",
+    "text": "قایق بادبانی دو دکله",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "دریانوردی",
+      "ورزش"
+    ]
+  },
+  {
+    "id": "word-187",
+    "text": "هلیکوپتر امداد",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "امداد",
+      "هواپیما"
+    ]
+  },
+  {
+    "id": "word-188",
+    "text": "کالسکه اسبی",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "حمل‌ونقل",
+      "قدیمی"
+    ]
+  },
+  {
+    "id": "word-189",
+    "text": "فرفره بادی",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "اسباب‌بازی",
+      "نوستالژی"
+    ]
+  },
+  {
+    "id": "word-190",
+    "text": "قلاب ماهیگیری تلسکوپی",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "ورزش",
+      "طبیعت"
+    ]
+  },
+  {
+    "id": "word-191",
+    "text": "چادر مسافرتی عصایی",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "کمپینگ",
+      "سفر"
+    ]
+  },
+  {
+    "id": "word-192",
+    "text": "کیسه خواب زمستانی",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "کوهنوردی",
+      "تجهیزات"
+    ]
+  },
+  {
+    "id": "word-193",
+    "text": "فلاسک چای استیل",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "پیک‌نیک",
+      "سفر"
+    ]
+  },
+  {
+    "id": "word-194",
+    "text": "ماسک غواصی",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "ورزش",
+      "شنا"
+    ]
+  },
+  {
+    "id": "word-195",
+    "text": "آتش نشان شجاع",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "شغل",
+      "امداد"
+    ]
+  },
+  {
+    "id": "word-196",
+    "text": "نجار کارکشته",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "شغل",
+      "صنایع چوب"
+    ]
+  },
+  {
+    "id": "word-197",
+    "text": "آهنگر پتک به دست",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "شغل",
+      "سنتی"
+    ]
+  },
+  {
+    "id": "word-198",
+    "text": "غواص اعماق دریا",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "شغل",
+      "ورزش"
+    ]
+  },
+  {
+    "id": "word-199",
+    "text": "شعبده باز با کلاه سیلندر",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "سرگرمی",
+      "نمایش"
+    ]
+  },
+  {
+    "id": "word-200",
+    "text": "فضانورد در سفینه",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "علمی",
+      "فضا"
+    ]
+  },
+  {
+    "id": "word-201",
+    "text": "آسیاب بادی روستایی",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "سازه‌های سنتی"
+    ]
+  },
+  {
+    "id": "word-202",
+    "text": "فانوس دریایی صخره ای",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "دریانوردی",
+      "معماری"
+    ]
+  },
+  {
+    "id": "word-203",
+    "text": "کاروانسرای شاه عباسی",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "تاریخی",
+      "معماری"
+    ]
+  },
+  {
+    "id": "word-204",
+    "text": "برج مراقبت فرودگاه",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "هوانوردی",
+      "معماری"
+    ]
+  },
+  {
+    "id": "word-205",
+    "text": "حمام سنتی کاشی کاری",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "تاریخی",
+      "معماری"
+    ]
+  },
+  {
+    "id": "word-206",
+    "text": "بادگیر یزد",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "معماری سنتی",
+      "یزد"
+    ]
+  },
+  {
+    "id": "word-207",
+    "text": "سی وسه پل اصفهان",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "پل",
+      "اصفهان"
+    ]
+  },
+  {
+    "id": "word-208",
+    "text": "کوزه شکسته زیرخاکی",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "باستان‌شناسی"
+    ]
+  },
+  {
+    "id": "word-209",
+    "text": "تابوت مومیایی مصری",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "تاریخی",
+      "موزه"
+    ]
+  },
+  {
+    "id": "word-210",
+    "text": "سنگواره دایناسور",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "دیرینه‌شناسی"
+    ]
+  },
+  {
+    "id": "word-211",
+    "text": "اسطرلاب برنجی نجومی",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "نجوم",
+      "تاریخ علم"
+    ]
+  },
+  {
+    "id": "word-212",
+    "text": "ساعت شنی شیشه ای",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "زمان",
+      "اشیا"
+    ]
+  },
+  {
+    "id": "word-213",
+    "text": "تخته سیاه و گچ رنگی",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "مدرسه",
+      "نوستالژی"
+    ]
+  },
+  {
+    "id": "word-214",
+    "text": "چادر عشایری قشقایی",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "فرهنگ بومی",
+      "عشایر"
+    ]
+  },
+  {
+    "id": "word-215",
+    "text": "فرش دستباف کاشان",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "صنایع دستی",
+      "فرش"
+    ]
+  },
+  {
+    "id": "word-216",
+    "text": "دستگاه نوار کاست خور",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "نوستالژی",
+      "صدا"
+    ]
+  },
+  {
+    "id": "word-217",
+    "text": "صندوقچه مادربزرگ",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "نوستالژی",
+      "خاطره"
+    ]
+  },
+  {
+    "id": "word-218",
+    "text": "چرخ نخ ریسی چوبی",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "صنایع دستی",
+      "روستایی"
+    ]
+  },
+  {
+    "id": "word-219",
+    "text": "دیوار چین باستان",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "عجایب هفتگانه"
+    ]
+  },
+  {
+    "id": "word-220",
+    "text": "قله پوشیده از برف دماوند",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "کوهستان",
+      "ایران"
+    ]
+  },
+  {
+    "id": "word-221",
+    "text": "جنگل های حرا قشم",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "طبیعت",
+      "خلیج فارس"
+    ]
+  },
+  {
+    "id": "phrase-222",
+    "text": "تخم مرغ نیمرو پختن",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "آشپزی",
+      "صبحانه"
+    ]
+  },
+  {
+    "id": "phrase-223",
+    "text": "هندوانه قاچ زدن",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "تابستان",
+      "میوه"
+    ]
+  },
+  {
+    "id": "phrase-224",
+    "text": "باد کردن بادکنک با دهان",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "جشن",
+      "اکشن"
+    ]
+  },
+  {
+    "id": "phrase-225",
+    "text": "عکس سلفی دونفره انداختن",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "عکاسی",
+      "روزمره"
+    ]
+  },
+  {
+    "id": "phrase-226",
+    "text": "پنچرگیری چرخ دوچرخه",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "ورزش",
+      "تعمیر"
+    ]
+  },
+  {
+    "id": "phrase-227",
+    "text": "فوتبال گل کوچک در کوچه",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "ورزش",
+      "نوستالژی"
+    ]
+  },
+  {
+    "id": "phrase-228",
+    "text": "پیاز داغ طلایی درست کردن",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "آشپزی",
+      "غذا"
+    ]
+  },
+  {
+    "id": "phrase-229",
+    "text": "ماهیگیری لب رودخانه خروشان",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "طبیعت",
+      "سرگرمی"
+    ]
+  },
+  {
+    "id": "phrase-230",
+    "text": "ایستادن در صف سنگک داغ",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "زندگی شهری",
+      "نان"
+    ]
+  },
+  {
+    "id": "phrase-231",
+    "text": "پیاده روی زیر باران بهاری",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "عاشقانه",
+      "طبیعت"
+    ]
+  },
+  {
+    "id": "phrase-232",
+    "text": "باز کردن چتر در باد شدید",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "طوفان",
+      "حرکتی"
+    ]
+  },
+  {
+    "id": "phrase-233",
+    "text": "کاشتن نهال گل در باغچه",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "باغبانی",
+      "طبیعت"
+    ]
+  },
+  {
+    "id": "phrase-234",
+    "text": "جارو کشیدن حیاط خانه",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "خانه‌داری",
+      "نظافت"
+    ]
+  },
+  {
+    "id": "phrase-235",
+    "text": "پارو کردن برف پشت بام",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "زمستان",
+      "نوستالژی"
+    ]
+  },
+  {
+    "id": "phrase-236",
+    "text": "بستن بند کتانی دویدنی",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "لباس",
+      "روزمره"
+    ]
+  },
+  {
+    "id": "phrase-237",
+    "text": "نخ کردن سوزن خیاطی ریز",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "تمرکز",
+      "خیاطی"
+    ]
+  },
+  {
+    "id": "phrase-238",
+    "text": "بستنی قیفی میوه ای لیس زدن",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "خوراکی",
+      "کودکانه"
+    ]
+  },
+  {
+    "id": "phrase-239",
+    "text": "چای قندپهلو ریختن در استکان",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "سنتی",
+      "پذیرایی"
+    ]
+  },
+  {
+    "id": "phrase-240",
+    "text": "پاک کردن سبزی خوردن با مادر",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "آشپزی",
+      "خانوادگی"
+    ]
+  },
+  {
+    "id": "phrase-241",
+    "text": "گذاشتن کیسه زباله سر کوچه",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "روزمره",
+      "خانه"
+    ]
+  },
+  {
+    "id": "phrase-242",
+    "text": "فوت کردن شمع کیک تولد",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "تولد",
+      "جشن"
+    ]
+  },
+  {
+    "id": "phrase-243",
+    "text": "آب دادن به گلدان های شمعدانی",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "گلکاری",
+      "خانه"
+    ]
+  },
+  {
+    "id": "phrase-244",
+    "text": "تمیز کردن شیشه با روزنامه",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "نظافت",
+      "نوستالژی"
+    ]
+  },
+  {
+    "id": "phrase-245",
+    "text": "شستن ماشین جلوی درب پارکینگ",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "ماشین",
+      "روزمره"
+    ]
+  },
+  {
+    "id": "phrase-246",
+    "text": "قایم باشک بازی کردن با بچه ها",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "بازی",
+      "کودکانه"
+    ]
+  },
+  {
+    "id": "phrase-247",
+    "text": "خواب ماندن برای امتحان نهایی",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "مدرسه",
+      "استرس"
+    ]
+  },
+  {
+    "id": "phrase-248",
+    "text": "زنگ در خانه زدن و فرار کردن",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "شیطنت",
+      "نوستالژی"
+    ]
+  },
+  {
+    "id": "phrase-249",
+    "text": "شکستن قولنج کمر با پیچش بدنی",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "بدنی",
+      "سلامت"
+    ]
+  },
+  {
+    "id": "phrase-250",
+    "text": "رقص چاقو جلوی عروس و داماد",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "عروسی",
+      "شادی"
+    ]
+  },
+  {
+    "id": "phrase-251",
+    "text": "باد زدن کباب روی منقل پردود",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "پیک‌نیک",
+      "کباب"
+    ]
+  },
+  {
+    "id": "phrase-252",
+    "text": "خمیازه کشیدن طولانی وسط جلسه رسمی",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "اداری",
+      "خنده‌دار"
+    ]
+  },
+  {
+    "id": "phrase-253",
+    "text": "گره زدن کراوات جلوی آینه قدی",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "پوشاک",
+      "مهمانی"
+    ]
+  },
+  {
+    "id": "phrase-254",
+    "text": "سوت بلبلی زدن با دو انگشت",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "صدا",
+      "مهارت"
+    ]
+  },
+  {
+    "id": "phrase-255",
+    "text": "طناب بازی دوبل در حیاط مدرسه",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "ورزش",
+      "مدرسه"
+    ]
+  },
+  {
+    "id": "phrase-256",
+    "text": "موج سواری روی تخته در دریای طوفانی",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "ورزش آبی",
+      "هیجان"
+    ]
+  },
+  {
+    "id": "phrase-257",
+    "text": "اسکی روی برف های لغزنده پیست",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "ورزش زمستانی",
+      "کوهستان"
+    ]
+  },
+  {
+    "id": "phrase-258",
+    "text": "بندبازی روی طناب باریک سیرک",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "سیرک",
+      "تعادل"
+    ]
+  },
+  {
+    "id": "phrase-259",
+    "text": "چادر زدن در شبی بارانی در جنگل",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "طبیعت‌گردی",
+      "سفر"
+    ]
+  },
+  {
+    "id": "phrase-260",
+    "text": "ورق زدن آلبوم عکس های سیاه و سفید",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "خاطره",
+      "نوستالژی"
+    ]
+  },
+  {
+    "id": "phrase-261",
+    "text": "پیدا کردن لنگه جوراب لنگه به لنگه",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "روزمره",
+      "طنز"
+    ]
+  },
+  {
+    "id": "phrase-262",
+    "text": "آفتاب سوختگی کنار ساحل دریا",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "سفر",
+      "تابستان"
+    ]
+  },
+  {
+    "id": "phrase-263",
+    "text": "گم شدن چمدان در بخش بار فرودگاه",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "سفر",
+      "حادثه"
+    ]
+  },
+  {
+    "id": "phrase-264",
+    "text": "گیر کردن لای در آسانسور خراب",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "حادثه",
+      "ساختمان"
+    ]
+  },
+  {
+    "id": "phrase-265",
+    "text": "حراجی رفتن در شلوغی بازار شب عید",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "خرید",
+      "نوروز"
+    ]
+  },
+  {
+    "id": "phrase-266",
+    "text": "پانتومیم بازی کردن در دورهمی فامیلی",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "بازی",
+      "مهمانی"
+    ]
+  },
+  {
+    "id": "phrase-267",
+    "text": "سوختن ته دیگ سیب زمینی روی گاز",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "آشپزی",
+      "سوختگی"
+    ]
+  },
+  {
+    "id": "phrase-268",
+    "text": "سرسره بازی روی کوه های برفی با تیوپ",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "تفریح",
+      "زمستان"
+    ]
+  },
+  {
+    "id": "phrase-269",
+    "text": "افتادن کنترل تلویزیون پشت مبل راحتی",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "خانه",
+      "طنز"
+    ]
+  },
+  {
+    "id": "phrase-270",
+    "text": "کشیدن دندان عقل توسط دندانپزشک",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "پزشکی",
+      "درد"
+    ]
+  },
+  {
+    "id": "phrase-271",
+    "text": "جا گذاشتن دسته کلید پشت در ورودی",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "حواس‌پرتی",
+      "خانه"
+    ]
+  },
+  {
+    "id": "phrase-272",
+    "text": "پیدا کردن سوزن در انبار کاه بزرگ",
+    "type": "PHRASE",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "تمثیل",
+      "دشواری"
+    ]
+  },
+  {
+    "id": "phrase-273",
+    "text": "دوختن دکمه افتاده کت در ترافیک اتوبوس",
+    "type": "PHRASE",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "شهری",
+      "عجله"
+    ]
+  },
+  {
+    "id": "phrase-274",
+    "text": "فرود اضطراری هواپیما روی آب دریاچه",
+    "type": "PHRASE",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "هوانوردی",
+      "امداد"
+    ]
+  },
+  {
+    "id": "phrase-275",
+    "text": "شمارش ستاره های کهکشان با تلسکوپ قدیمی",
+    "type": "PHRASE",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "نجوم",
+      "علمی"
+    ]
+  },
+  {
+    "id": "phrase-276",
+    "text": "تعمیر ساعت مکانیکی با ذره بین ساعت سازی",
+    "type": "PHRASE",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "صنایع ظریف",
+      "ابزار"
+    ]
+  },
+  {
+    "id": "phrase-277",
+    "text": "رانندگی در مه غلیظ جاده چالوس",
+    "type": "PHRASE",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "جاده",
+      "سفر"
+    ]
+  },
+  {
+    "id": "phrase-278",
+    "text": "رام کردن اسب وحشی در دشت سرسبز",
+    "type": "PHRASE",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "دامداری",
+      "هیجان"
+    ]
+  },
+  {
+    "id": "phrase-279",
+    "text": "رمزگشایی از نقشه گنج دفن شده جزیره",
+    "type": "PHRASE",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "ماجراجویی",
+      "باستان"
+    ]
+  },
+  {
+    "id": "phrase-280",
+    "text": "بریدن کیک عروسی هفت طبقه با شمشیر",
+    "type": "PHRASE",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "عروسی",
+      "مراسم"
+    ]
+  },
+  {
+    "id": "phrase-281",
+    "text": "کشف فسیل دایناسور زیر خاک رس غار",
+    "type": "PHRASE",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "باستان‌شناسی",
+      "کشف"
+    ]
+  },
+  {
+    "id": "phrase-282",
+    "text": "حرکت مارپیچ روی یخ با کفش پاتیناژ",
+    "type": "PHRASE",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "ورزش",
+      "یخ"
+    ]
+  },
+  {
+    "id": "phrase-283",
+    "text": "شکستن طلسم شهر پریان در قصه کهن",
+    "type": "PHRASE",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "ادبیات",
+      "فولکلور"
+    ]
+  },
+  {
+    "id": "phrase-284",
+    "text": "فرار از دست زنبورهای عصبانی در کندو",
+    "type": "PHRASE",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "روستایی",
+      "خطر"
+    ]
+  },
+  {
+    "id": "phrase-285",
+    "text": "تعویض تایر زاپاس تریلی هجده چرخ در بیابان",
+    "type": "PHRASE",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "جاده",
+      "تجهیزات"
+    ]
+  },
+  {
+    "id": "phrase-286",
+    "text": "شکار لحظه غروب آفتاب از بالای قله برفی",
+    "type": "PHRASE",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "عکاسی",
+      "کوهنوردی"
+    ]
+  },
+  {
+    "id": "proverb-287",
+    "text": "یک دست صدا ندارد",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "همکاری"
+    ]
+  },
+  {
+    "id": "proverb-288",
+    "text": "مرغ همسایه غاز است",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "طمع"
+    ]
+  },
+  {
+    "id": "proverb-289",
+    "text": "کبوتر با کبوتر باز با باز",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "هم‌نشینی"
+    ]
+  },
+  {
+    "id": "proverb-290",
+    "text": "دندان اسب پیشکشی را نمی شمارند",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "هدیه"
+    ]
+  },
+  {
+    "id": "proverb-291",
+    "text": "تا نباشد چیزکی مردم نگویند چیزها",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "حرف مردم"
+    ]
+  },
+  {
+    "id": "proverb-292",
+    "text": "بادمجان بم آفت ندارد",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "جان‌سخت"
+    ]
+  },
+  {
+    "id": "proverb-293",
+    "text": "آب از دستش نمی چکد",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "خسیس"
+    ]
+  },
+  {
+    "id": "proverb-294",
+    "text": "چاه کن همیشه ته چاه است",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "عدالت"
+    ]
+  },
+  {
+    "id": "proverb-295",
+    "text": "سرکه نقد به از حلوای نسیه",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "قناعت"
+    ]
+  },
+  {
+    "id": "proverb-296",
+    "text": "گر صبر کنی ز غوره حلوا سازی",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "صبر"
+    ]
+  },
+  {
+    "id": "proverb-297",
+    "text": "دیگ به دیگ می گوید رویت سیاه",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "عیب‌جویی"
+    ]
+  },
+  {
+    "id": "proverb-298",
+    "text": "سوزن به خودت بزن جوالدوز به دیگران",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "انصاف"
+    ]
+  },
+  {
+    "id": "proverb-299",
+    "text": "ماهی را هر وقت از آب بگیری تازه است",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "شروع دوباره"
+    ]
+  },
+  {
+    "id": "proverb-300",
+    "text": "بار کج به منزل نمی رسد",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "راستی"
+    ]
+  },
+  {
+    "id": "proverb-301",
+    "text": "چوب خدا صدا ندارد",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "مکافات عمل"
+    ]
+  },
+  {
+    "id": "proverb-302",
+    "text": "نه خانی آمده نه خانی رفته",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "آرامش"
+    ]
+  },
+  {
+    "id": "proverb-303",
+    "text": "از کوزه همان برون تراود که در اوست",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "ذات"
+    ]
+  },
+  {
+    "id": "proverb-304",
+    "text": "جیک جیک مستونت بود فکر زمستونت بود؟",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "آینده‌نگری"
+    ]
+  },
+  {
+    "id": "proverb-305",
+    "text": "آش دهان سوزی نیست",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "ارزش"
+    ]
+  },
+  {
+    "id": "proverb-306",
+    "text": "گاو نه من شیرده",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "خرابکاری"
+    ]
+  },
+  {
+    "id": "proverb-307",
+    "text": "پیاده شو با هم بریم",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "ادعا"
+    ]
+  },
+  {
+    "id": "proverb-308",
+    "text": "فیلش یاد هندوستان کرده",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "دلتنگی"
+    ]
+  },
+  {
+    "id": "proverb-309",
+    "text": "کفگیر به ته دیگ خورده",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "بی‌پولی"
+    ]
+  },
+  {
+    "id": "proverb-310",
+    "text": "گربه دستش به گوشت نمی رسد می گوید بو می دهد",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "توجیه"
+    ]
+  },
+  {
+    "id": "proverb-311",
+    "text": "موش به سوراخ نمی رفت جارو به دمش می بست",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "زیاده‌روی"
+    ]
+  },
+  {
+    "id": "proverb-312",
+    "text": "خفته را خفته کی کند بیدار",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "غفلت"
+    ]
+  },
+  {
+    "id": "proverb-313",
+    "text": "دست و پنجه نرم کردن با روزگار",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "مبارزه"
+    ]
+  },
+  {
+    "id": "proverb-314",
+    "text": "سر بی گناه تا پای دار می رود اما بالای دار نمی رود",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "حقیقت"
+    ]
+  },
+  {
+    "id": "proverb-315",
+    "text": "با دم شیر بازی کردن",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "خطر"
+    ]
+  },
+  {
+    "id": "proverb-316",
+    "text": "پای ملخ به مورچه هدیه دادن",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "تواضع"
+    ]
+  },
+  {
+    "id": "proverb-317",
+    "text": "سر پیری و معرکه گیری",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "طنز"
+    ]
+  },
+  {
+    "id": "proverb-318",
+    "text": "از خرس مویی کندن غنیمت است",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "فرصت"
+    ]
+  },
+  {
+    "id": "proverb-319",
+    "text": "کاسه داغ تر از آش شدن",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "افراط"
+    ]
+  },
+  {
+    "id": "proverb-320",
+    "text": "روغن ریخته را نذر امامزاده کردن",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "ریا"
+    ]
+  },
+  {
+    "id": "proverb-321",
+    "text": "کک در تنبان کسی افتادن",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "بی‌قراری"
+    ]
+  },
+  {
+    "id": "proverb-322",
+    "text": "دست پیش را گرفتن که پس نیفتد",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "پیش‌دستی"
+    ]
+  },
+  {
+    "id": "proverb-323",
+    "text": "کوزه گر از کوزه شکسته آب می خورد",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "محرومیت"
+    ]
+  },
+  {
+    "id": "proverb-324",
+    "text": "اگر نخوردیم نان گندم، دیدیم دست مردم",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "تجربه"
+    ]
+  },
+  {
+    "id": "proverb-325",
+    "text": "هر که طاووس خواهد جور هندوستان کشد",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "تلاش"
+    ]
+  },
+  {
+    "id": "proverb-326",
+    "text": "سالی که نکوست از بهارش پیداست",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "آغاز"
+    ]
+  },
+  {
+    "id": "proverb-327",
+    "text": "شاهنامه آخرش خوش است",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "پایان"
+    ]
+  },
+  {
+    "id": "proverb-328",
+    "text": "از هول حلیم افتاد توی دیگ",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "عجله"
+    ]
+  },
+  {
+    "id": "proverb-329",
+    "text": "دایه مهربان تر از مادر شدن",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "دلسوزی نابجا"
+    ]
+  },
+  {
+    "id": "proverb-330",
+    "text": "مالت را خار کن، خودت را عزیز",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "بخشندگی"
+    ]
+  },
+  {
+    "id": "proverb-331",
+    "text": "سرش به تنش زیادی می کند",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "جسارت"
+    ]
+  },
+  {
+    "id": "proverb-332",
+    "text": "کلاغ آمد راه رفتن کبک را یاد بگیرد راه رفتن خودش را فراموش کرد",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "تقلید"
+    ]
+  },
+  {
+    "id": "word-294",
+    "text": "کرسی سنتی زمستانی",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "نوستالژی",
+      "خانه"
+    ]
+  },
+  {
+    "id": "word-296",
+    "text": "لحاف چهل تکه مادربزرگ",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "صنایع دستی",
+      "خاطره"
+    ]
+  },
+  {
+    "id": "word-298",
+    "text": "قلک سفالی خوکچه",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "پس‌انداز",
+      "کودکانه"
+    ]
+  },
+  {
+    "id": "word-300",
+    "text": "گیوه دست دوز ملایر",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "پوشاک",
+      "سنتی"
+    ]
+  },
+  {
+    "id": "word-302",
+    "text": "کلاه شاپو مخملی",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "پوشاک",
+      "قدیمی"
+    ]
+  },
+  {
+    "id": "word-304",
+    "text": "دیوان نفیس حافظ",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "کتاب",
+      "ادبیات"
+    ]
+  },
+  {
+    "id": "word-306",
+    "text": "شاهنامه کهن فردوسی",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "ادبیات",
+      "ملی"
+    ]
+  },
+  {
+    "id": "word-308",
+    "text": "نقشه کره زمین پایه دار",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "جغرافیا",
+      "آموزشی"
+    ]
+  },
+  {
+    "id": "word-310",
+    "text": "دوربین فیلمبرداری سوپر هشت",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "سینما",
+      "قدیمی"
+    ]
+  },
+  {
+    "id": "word-312",
+    "text": "جعبه مدادرنگی ۴۸ رنگ",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "نقاشی",
+      "مدرسه"
+    ]
+  },
+  {
+    "id": "word-314",
+    "text": "آکواریوم ماهی های مرجانی",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "طبیعت",
+      "خانه"
+    ]
+  },
+  {
+    "id": "word-316",
+    "text": "تیرکمان سنگی چوبی",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "بازی",
+      "نوستالژی"
+    ]
+  },
+  {
+    "id": "word-318",
+    "text": "میناکاری اصفهان",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "صنایع دستی",
+      "هنر"
+    ]
+  },
+  {
+    "id": "word-320",
+    "text": "خاتم کاری شیراز",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "صنایع دستی",
+      "هنر"
+    ]
+  },
+  {
+    "id": "word-322",
+    "text": "شیشه گلاب ناب کاشان",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "سوغات",
+      "سنتی"
+    ]
+  },
+  {
+    "id": "word-324",
+    "text": "ساعت زنگ دار عقربه ای کوکی",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "زمان",
+      "اشیا"
+    ]
+  },
+  {
+    "id": "word-326",
+    "text": "چادرشب گیلان",
+    "type": "WORD",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "صنایع دستی",
+      "شمال"
+    ]
+  },
+  {
+    "id": "word-328",
+    "text": "چوب سیگار چوبی قدیمی",
+    "type": "WORD",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "قدیمی",
+      "اشیا"
+    ]
+  },
+  {
+    "id": "word-330",
+    "text": "لنگ قرمز حمام سنتی",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "سنتی",
+      "نوستالژی"
+    ]
+  },
+  {
+    "id": "word-332",
+    "text": "بادبزن حصیری رنگی",
+    "type": "WORD",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "تابستان",
+      "اشیا"
+    ]
+  },
+  {
+    "id": "phrase-334",
+    "text": "فال حافظ گرفتن در شب یلدا",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "آیین",
+      "یلدا"
+    ]
+  },
+  {
+    "id": "phrase-336",
+    "text": "سبزه گره زدن در سیزده بدر",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "آیین",
+      "نوروز"
+    ]
+  },
+  {
+    "id": "phrase-338",
+    "text": "پرتاب دارت به هدف گرد تخته",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "ورزش",
+      "دقت"
+    ]
+  },
+  {
+    "id": "phrase-340",
+    "text": "انداختن توپ سنگین بولینگ",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "ورزش",
+      "بازی"
+    ]
+  },
+  {
+    "id": "phrase-342",
+    "text": "جوجه کباب زعفرانی به سیخ کشیدن",
+    "type": "PHRASE",
+    "difficulty": "EASY",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "آشپزی",
+      "کباب"
+    ]
+  },
+  {
+    "id": "phrase-344",
+    "text": "لیز خوردن ناگهانی روی پوست موز",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "طنز",
+      "حرکتی"
+    ]
+  },
+  {
+    "id": "phrase-346",
+    "text": "رقص باباکرم با کت و شلوار و کلاه",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "نمایش",
+      "شادی"
+    ]
+  },
+  {
+    "id": "phrase-348",
+    "text": "چیدن توت سفید از بالای شاخه درخت",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "طبیعت",
+      "تابستان"
+    ]
+  },
+  {
+    "id": "phrase-350",
+    "text": "شکستن گردوی درشت با لنگه در چوبی",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "نوستالژی",
+      "طنز"
+    ]
+  },
+  {
+    "id": "phrase-352",
+    "text": "باز کردن درب نوشابه شیشه ای با قاشق",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "مهارت",
+      "نوستالژی"
+    ]
+  },
+  {
+    "id": "phrase-354",
+    "text": "زمین خوردن ناگهانی سینی چای در مهمانی",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "دستپاچگی",
+      "حادثه"
+    ]
+  },
+  {
+    "id": "phrase-356",
+    "text": "گرفتن تاکسی دربستی زیر رگبار شدید",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "شهری",
+      "باران"
+    ]
+  },
+  {
+    "id": "phrase-358",
+    "text": "چانه زدن شدید با مغازه دار سر قیمت",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "خرید",
+      "بازار"
+    ]
+  },
+  {
+    "id": "phrase-360",
+    "text": "بستن زیپ چمدان پر از سوغاتی با فشار پا",
+    "type": "PHRASE",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "سفر",
+      "طنز"
+    ]
+  },
+  {
+    "id": "phrase-362",
+    "text": "گم شدن در کوچه پس کوچه های بازار سرپوشیده",
+    "type": "PHRASE",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "بازار",
+      "گردشگری"
+    ]
+  },
+  {
+    "id": "phrase-364",
+    "text": "مشت و مال دادن پهلوان در زورخانه باستانی",
+    "type": "PHRASE",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "ورزش باستانی",
+      "زورخانه"
+    ]
+  },
+  {
+    "id": "phrase-366",
+    "text": "شیرجه زدن از روی صخره بلند به اعماق آب",
+    "type": "PHRASE",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "ورزش",
+      "هیجان"
+    ]
+  },
+  {
+    "id": "phrase-368",
+    "text": "پختن نان تیری سنتی روی ساج عشایری",
+    "type": "PHRASE",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "عشایر",
+      "آشپزی"
+    ]
+  },
+  {
+    "id": "phrase-370",
+    "text": "موج مکزیکی رفتن تماشاگران در استادیوم آزادی",
+    "type": "PHRASE",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "فوتبال",
+      "هیجان"
+    ]
+  },
+  {
+    "id": "phrase-372",
+    "text": "خاموش کردن فیوز اصلی برق در تاریکی مطلق",
+    "type": "PHRASE",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      1,
+      2,
+      3
+    ],
+    "tags": [
+      "برق",
+      "حادثه"
+    ]
+  },
+  {
+    "id": "proverb-374",
+    "text": "کاچی به از هیچی",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "قناعت"
+    ]
+  },
+  {
+    "id": "proverb-376",
+    "text": "دست راستت زیر سر من",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "آرزو"
+    ]
+  },
+  {
+    "id": "proverb-378",
+    "text": "از این ستون به آن ستون فرج است",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "امید"
+    ]
+  },
+  {
+    "id": "proverb-380",
+    "text": "گاو پیشانی سفید بودن",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "معروفیت"
+    ]
+  },
+  {
+    "id": "proverb-382",
+    "text": "فیل و فنجان بودن",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "تضاد"
+    ]
+  },
+  {
+    "id": "proverb-384",
+    "text": "شتر در خواب بیند پنبه دانه",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "خیال"
+    ]
+  },
+  {
+    "id": "proverb-386",
+    "text": "سنگ بزرگ علامت نزدن است",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "ادعا"
+    ]
+  },
+  {
+    "id": "proverb-388",
+    "text": "آب پاکی روی دست کسی ریختن",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "ناامید کردن"
+    ]
+  },
+  {
+    "id": "proverb-390",
+    "text": "دم به تله ندادن",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "زرنگی"
+    ]
+  },
+  {
+    "id": "proverb-392",
+    "text": "سرش بوی قرمه سبزی می دهد",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "خطرکردن"
+    ]
+  },
+  {
+    "id": "proverb-394",
+    "text": "کلاه خود را قاضی کردن",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "انصاف"
+    ]
+  },
+  {
+    "id": "proverb-396",
+    "text": "چشم بسته غیب گفتن",
+    "type": "PROVERB",
+    "difficulty": "MEDIUM",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "طنز"
+    ]
+  },
+  {
+    "id": "proverb-398",
+    "text": "مو را از ماست کشیدن",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "دقت"
+    ]
+  },
+  {
+    "id": "proverb-400",
+    "text": "یک کلاغ چهل کلاغ کردن",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "شایعه"
+    ]
+  },
+  {
+    "id": "proverb-402",
+    "text": "ماست ها را کیسه کردن",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "ترس"
+    ]
+  },
+  {
+    "id": "proverb-404",
+    "text": "نخود هر آش بودن",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "فضولی"
+    ]
+  },
+  {
+    "id": "proverb-406",
+    "text": "کلاغ پر بازی کردن با سرنوشت",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "ریسک"
+    ]
+  },
+  {
+    "id": "proverb-408",
+    "text": "آب از آسیاب افتادن",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "آرامش"
+    ]
+  },
+  {
+    "id": "proverb-410",
+    "text": "پشت گوش انداختن کارها",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "تنبلی"
+    ]
+  },
+  {
+    "id": "proverb-412",
+    "text": "چاقو دسته خودش را نمی برد",
+    "type": "PROVERB",
+    "difficulty": "HARD",
+    "allowedRounds": [
+      2,
+      3
+    ],
+    "tags": [
+      "ضرب‌المثل",
+      "خودی"
+    ]
   }
 ]

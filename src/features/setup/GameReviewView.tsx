@@ -279,7 +279,7 @@ export const GameReviewView: React.FC<GameReviewViewProps> = ({
                 تضمین عدالت قرعه‌کشی کلمات تایید شد
               </Typography>
               <Typography variant="caption" color="text.secondary">
-                تمام تیم‌ها در هر نوبت کلماتی با نوع و سطح سختی کاملاً متوازن و بدون تکرار دریافت خواهند کرد.
+                تعداد کلمات در هر نوبت نامحدود است؛ تا پایان زمان‌سنج نوبت، کلمات جدید با توازن نوع و سختی نمایش داده می‌شوند.
               </Typography>
             </Box>
           </Stack>
