@@ -1,0 +1,11 @@
+services:
+  wordy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: kalameh-bazi
+    restart: always
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
