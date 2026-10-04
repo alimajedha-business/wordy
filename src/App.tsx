@@ -15,7 +15,6 @@ import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
 import PanToolIcon from '@mui/icons-material/PanTool';
 import GestureIcon from '@mui/icons-material/Gesture';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 import { AppShell } from './components/AppShell';
 import { TeamSetupView } from './features/setup/TeamSetupView';
@@ -23,6 +22,9 @@ import { GameReviewView } from './features/setup/GameReviewView';
 import { TurnReadyView } from './features/game/TurnReadyView';
 import { ActiveTurnView } from './features/game/ActiveTurnView';
 import { TurnSummaryView } from './features/game/TurnSummaryView';
+
+import { RoundScoreboardView } from './features/scoreboard/RoundScoreboardView';
+import { FinalResultsView } from './features/scoreboard/FinalResultsView';
 
 import { Team, RoundNumber, PlannedPrompt, PromptAttempt, Prompt } from './game/types';
 import { ROUND_CONFIGS } from './game/rules';
@@ -42,7 +44,8 @@ export type AppStep =
   | 'turn_ready'
   | 'active_turn'
   | 'turn_summary'
-  | 'finished';
+  | 'round_summary'
+  | 'final_results';
 
 export function App() {
   const [step, setStep] = useState<AppStep>('home');
@@ -85,7 +88,7 @@ export function App() {
     setStep('turn_summary');
   };
 
-  // Continue from turn summary to next team or next round
+  // Continue from turn summary to next team or round scoreboard
   const handleContinueAfterSummary = () => {
     if (currentTeamIndex + 1 < teams.length) {
       setCurrentTeamIndex((prev) => prev + 1);
@@ -93,13 +96,24 @@ export function App() {
     } else {
       // Completed round for all teams
       if (currentRound < 3) {
-        setCurrentRound((prev) => (prev + 1) as RoundNumber);
-        setCurrentTeamIndex(0);
-        setStep('turn_ready');
+        setStep('round_summary');
       } else {
-        setStep('finished');
+        setStep('final_results');
       }
     }
+  };
+
+  const handleStartNextRound = () => {
+    setCurrentRound((prev) => (prev + 1) as RoundNumber);
+    setCurrentTeamIndex(0);
+    setStep('turn_ready');
+  };
+
+  const handleNewGame = () => {
+    setTeams((prev) => prev.map((t) => ({ ...t, score: 0 })));
+    setCurrentRound(1);
+    setCurrentTeamIndex(0);
+    setStep('team_setup');
   };
 
   const handleResetToHome = () => {
@@ -374,34 +388,20 @@ export function App() {
         />
       )}
 
-      {step === 'finished' && (
-        <Card sx={{ p: 3, textAlign: 'center' }}>
-          <Box
-            sx={{
-              width: 56,
-              height: 56,
-              borderRadius: '50%',
-              bgcolor: 'rgba(16, 185, 129, 0.15)',
-              color: 'success.main',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              mx: 'auto',
-              mb: 2,
-            }}
-          >
-            <CheckCircleIcon sx={{ fontSize: 36 }} />
-          </Box>
-          <Typography variant="h5" fontWeight={800} gutterBottom>
-            تمام مراحل بازی به پایان رسید!
-          </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-            تابلوی کامل نتایج و رتبه‌بندی در فاز بعدی پیاده‌سازی خواهد شد.
-          </Typography>
-          <Button variant="contained" color="primary" onClick={handleResetToHome} fullWidth>
-            شروع بازی جدید
-          </Button>
-        </Card>
+      {step === 'round_summary' && (
+        <RoundScoreboardView
+          completedRound={currentRound}
+          teams={teams}
+          onStartNextRound={handleStartNextRound}
+        />
+      )}
+
+      {step === 'final_results' && (
+        <FinalResultsView
+          teams={teams}
+          onNewGame={handleNewGame}
+          onHome={handleResetToHome}
+        />
       )}
     </AppShell>
   );
