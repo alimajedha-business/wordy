@@ -81,10 +81,10 @@ describe('Milestone 1: Scaffold, RTL Theme, AppShell, and PWA setup', () => {
     const startBtn = screen.getByRole('button', { name: /شروع بازی جدید/ });
     fireEvent.click(startBtn);
 
-    expect(screen.getByText('تنظیم تیم‌ها')).toBeInTheDocument();
+    expect(screen.getByText('تنظیم و نام‌گذاری تیم‌ها')).toBeInTheDocument();
 
     // Return home button works
-    const returnBtn = screen.getByRole('button', { name: /بازگشت به صفحه اصلی/ });
+    const returnBtn = screen.getByRole('button', { name: /بازگشت به خانه/ });
     fireEvent.click(returnBtn);
 
     expect(screen.getByRole('button', { name: /شروع بازی جدید/ })).toBeInTheDocument();

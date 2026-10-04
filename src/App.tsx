@@ -15,14 +15,34 @@ import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
 import PanToolIcon from '@mui/icons-material/PanTool';
 import GestureIcon from '@mui/icons-material/Gesture';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { AppShell } from './components/AppShell';
+import { TeamSetupView } from './features/setup/TeamSetupView';
+import { GameReviewView } from './features/setup/GameReviewView';
+import { Team } from './game/types';
+import { ROUND_CONFIGS } from './game/rules';
+import { toPersianDigits } from './utils/persian';
+
+const INITIAL_TEAMS: Team[] = [
+  { id: 'team-1', name: 'تیم ۱', score: 0 },
+  { id: 'team-2', name: 'تیم ۲', score: 0 },
+];
 
 export function App() {
-  const [activeView, setActiveView] = useState<'home' | 'setup'>('home');
+  const [setupStep, setSetupStep] = useState<'home' | 'team_setup' | 'review' | 'started'>('home');
+  const [teams, setTeams] = useState<Team[]>(INITIAL_TEAMS);
+
+  const handleStartGame = () => {
+    setSetupStep('started');
+  };
+
+  const handleResetToHome = () => {
+    setSetupStep('home');
+  };
 
   return (
-    <AppShell onHomeClick={() => setActiveView('home')}>
-      {activeView === 'home' ? (
+    <AppShell onHomeClick={handleResetToHome}>
+      {setupStep === 'home' && (
         <Stack spacing={3} sx={{ flex: 1, justifyContent: 'space-between' }}>
           {/* Hero Banner */}
           <Box sx={{ textAlign: 'center', pt: 1, pb: 1 }}>
@@ -95,18 +115,18 @@ export function App() {
                   <Grid item xs>
                     <Stack direction="row" alignItems="center" spacing={1} mb={0.5}>
                       <Typography variant="subtitle1" fontWeight={700}>
-                        مرحله ۱: توضیح در یک جمله
+                        {ROUND_CONFIGS[1].title}
                       </Typography>
-                      <Chip label="+۱ امتیاز" size="small" color="success" sx={{ height: 20, fontSize: '0.7rem' }} />
+                      <Chip label={`+${ROUND_CONFIGS[1].pointsPerCorrect} امتیاز`} size="small" color="success" sx={{ height: 20, fontSize: '0.7rem' }} />
                     </Stack>
                     <Typography variant="body2" color="text.secondary">
-                      توضیح کلمه با حداکثر ۱ جمله بدون ذکر ریشه
+                      {ROUND_CONFIGS[1].activity}
                     </Typography>
                   </Grid>
                   <Grid item>
                     <Chip
                       icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 16 } }} />}
-                      label="۵ دقیقه"
+                      label={`${ROUND_CONFIGS[1].durationSeconds / 60} دقیقه`}
                       variant="outlined"
                       size="small"
                       sx={{ borderColor: 'rgba(255,255,255,0.15)' }}
@@ -139,18 +159,18 @@ export function App() {
                   <Grid item xs>
                     <Stack direction="row" alignItems="center" spacing={1} mb={0.5}>
                       <Typography variant="subtitle1" fontWeight={700}>
-                        مرحله ۲: پانتومیم و ادابازی
+                        {ROUND_CONFIGS[2].title}
                       </Typography>
-                      <Chip label="+۳ امتیاز" size="small" color="success" sx={{ height: 20, fontSize: '0.7rem' }} />
+                      <Chip label={`+${ROUND_CONFIGS[2].pointsPerCorrect} امتیاز`} size="small" color="success" sx={{ height: 20, fontSize: '0.7rem' }} />
                     </Stack>
                     <Typography variant="body2" color="text.secondary">
-                      نمایش صامت با حرکات بدون کلام و نوشتن
+                      {ROUND_CONFIGS[2].activity}
                     </Typography>
                   </Grid>
                   <Grid item>
                     <Chip
                       icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 16 } }} />}
-                      label="۱۲ دقیقه"
+                      label={`${ROUND_CONFIGS[2].durationSeconds / 60} دقیقه`}
                       variant="outlined"
                       size="small"
                       sx={{ borderColor: 'rgba(255,255,255,0.15)' }}
@@ -183,18 +203,18 @@ export function App() {
                   <Grid item xs>
                     <Stack direction="row" alignItems="center" spacing={1} mb={0.5}>
                       <Typography variant="subtitle1" fontWeight={700}>
-                        مرحله ۳: نقاشی
+                        {ROUND_CONFIGS[3].title}
                       </Typography>
-                      <Chip label="+۵ امتیاز" size="small" color="success" sx={{ height: 20, fontSize: '0.7rem' }} />
+                      <Chip label={`+${ROUND_CONFIGS[3].pointsPerCorrect} امتیاز`} size="small" color="success" sx={{ height: 20, fontSize: '0.7rem' }} />
                     </Stack>
                     <Typography variant="body2" color="text.secondary">
-                      کشیدن نقاشی روی کاغذ/تخته بدون نوشتن کلمات
+                      {ROUND_CONFIGS[3].activity}
                     </Typography>
                   </Grid>
                   <Grid item>
                     <Chip
                       icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 16 } }} />}
-                      label="۲۰ دقیقه"
+                      label={`${ROUND_CONFIGS[3].durationSeconds / 60} دقیقه`}
                       variant="outlined"
                       size="small"
                       sx={{ borderColor: 'rgba(255,255,255,0.15)' }}
@@ -213,7 +233,7 @@ export function App() {
               size="large"
               fullWidth
               startIcon={<PlayArrowIcon />}
-              onClick={() => setActiveView('setup')}
+              onClick={() => setSetupStep('team_setup')}
               sx={{
                 py: 1.8,
                 fontSize: '1.15rem',
@@ -225,17 +245,54 @@ export function App() {
             </Button>
           </Box>
         </Stack>
-      ) : (
-        /* Placeholder for Milestone 2 Setup */
+      )}
+
+      {setupStep === 'team_setup' && (
+        <TeamSetupView
+          teams={teams}
+          onUpdateTeams={setTeams}
+          onContinue={() => setSetupStep('review')}
+          onBack={() => setSetupStep('home')}
+        />
+      )}
+
+      {setupStep === 'review' && (
+        <GameReviewView
+          teams={teams}
+          onStartGame={handleStartGame}
+          onBackToSetup={() => setSetupStep('team_setup')}
+        />
+      )}
+
+      {setupStep === 'started' && (
         <Card sx={{ p: 3, textAlign: 'center' }}>
-          <Typography variant="h5" fontWeight={700} gutterBottom>
-            تنظیم تیم‌ها
+          <Box
+            sx={{
+              width: 56,
+              height: 56,
+              borderRadius: '50%',
+              bgcolor: 'rgba(16, 185, 129, 0.15)',
+              color: 'success.main',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              mx: 'auto',
+              mb: 2,
+            }}
+          >
+            <CheckCircleIcon sx={{ fontSize: 36 }} />
+          </Box>
+          <Typography variant="h5" fontWeight={800} gutterBottom>
+            بازی با {toPersianDigits(teams.length)} تیم آغاز شد!
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-            بخش تنظیم تیم‌ها و مرور بازی در فاز بعدی پیاده‌سازی خواهد شد.
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            ترتیب نوبت تیم‌ها و قوانین بازی با موفقیت قفل شد.
           </Typography>
-          <Button variant="outlined" onClick={() => setActiveView('home')} fullWidth>
-            بازگشت به صفحه اصلی
+          <Typography variant="subtitle1" fontWeight={700} color="primary.light" sx={{ mb: 3 }}>
+            نوبت اول: {teams[0]?.name}
+          </Typography>
+          <Button variant="outlined" color="primary" onClick={handleResetToHome} fullWidth>
+            شروع مجدد و بازگشت به خانه
           </Button>
         </Card>
       )}
