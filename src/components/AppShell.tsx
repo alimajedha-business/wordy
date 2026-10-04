@@ -7,9 +7,15 @@ import {
   IconButton,
   Container,
   Tooltip,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
 } from '@mui/material';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import CasinoIcon from '@mui/icons-material/Casino';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { RulesDialog } from './RulesDialog';
 
 interface AppShellProps {
@@ -17,13 +23,16 @@ interface AppShellProps {
   activeRound?: number;
   currentTeamName?: string;
   onHomeClick?: () => void;
+  onResetAll?: () => void;
 }
 
 export const AppShell: React.FC<AppShellProps> = ({
   children,
   onHomeClick,
+  onResetAll,
 }) => {
   const [rulesOpen, setRulesOpen] = useState(false);
+  const [confirmResetOpen, setConfirmResetOpen] = useState(false);
 
   return (
     <Box
@@ -85,6 +94,23 @@ export const AppShell: React.FC<AppShellProps> = ({
 
             {/* Actions */}
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              {onResetAll && (
+                <Tooltip title="ریست کامل بازی">
+                  <IconButton
+                    id="reset-game-btn"
+                    onClick={() => setConfirmResetOpen(true)}
+                    color="inherit"
+                    sx={{
+                      bgcolor: 'rgba(255, 255, 255, 0.05)',
+                      '&:hover': { bgcolor: 'rgba(239, 68, 68, 0.2)', color: '#ef4444' },
+                    }}
+                    aria-label="ریست کامل بازی"
+                  >
+                    <RestartAltIcon />
+                  </IconButton>
+                </Tooltip>
+              )}
+
               <Tooltip title="قوانین بازی">
                 <IconButton
                   onClick={() => setRulesOpen(true)}
@@ -130,6 +156,38 @@ export const AppShell: React.FC<AppShellProps> = ({
 
       {/* Rules Modal */}
       <RulesDialog open={rulesOpen} onClose={() => setRulesOpen(false)} />
+
+      {/* Reset Confirmation Dialog */}
+      <Dialog
+        open={confirmResetOpen}
+        onClose={() => setConfirmResetOpen(false)}
+        aria-labelledby="reset-dialog-title"
+      >
+        <DialogTitle id="reset-dialog-title" fontWeight={800}>
+          بازنشانی کامل بازی
+        </DialogTitle>
+        <DialogContent>
+          <Typography variant="body2" color="text.secondary">
+            آیا از بازنشانی کامل بازی و بازگشت به نقطه شروع اطمینان دارید؟ تمام پیشرفت مسابقه، امتیازها و تنظیمات پاک خواهند شد.
+          </Typography>
+        </DialogContent>
+        <DialogActions sx={{ p: 2, pt: 0 }}>
+          <Button onClick={() => setConfirmResetOpen(false)} color="inherit">
+            انصراف
+          </Button>
+          <Button
+            id="confirm-reset-btn"
+            variant="contained"
+            color="error"
+            onClick={() => {
+              setConfirmResetOpen(false);
+              onResetAll?.();
+            }}
+          >
+            بله، بازنشانی شود
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

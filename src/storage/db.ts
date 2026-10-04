@@ -1,5 +1,5 @@
 import { openDB, IDBPDatabase } from 'idb';
-import { Team, RoundNumber, PlannedPrompt, PromptAttempt } from '../game/types';
+import { Team, RoundNumber, PlannedPrompt, PromptAttempt, GameSettings } from '../game/types';
 import { AppStep } from '../App';
 
 export interface SavedGameState {
@@ -11,6 +11,7 @@ export interface SavedGameState {
   activeDeadlineAt: number;
   lastTurnAttempts: PromptAttempt[];
   lastTurnScore: number;
+  settings?: GameSettings;
   updatedAt: number;
 }
 

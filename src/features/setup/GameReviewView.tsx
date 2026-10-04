@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Typography,
@@ -15,14 +15,15 @@ import {
 } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
-import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import StarRateIcon from '@mui/icons-material/StarRate';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import { Team, PlannedPrompt, Prompt } from '../../game/types';
-import { ROUND_CONFIGS } from '../../game/rules';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { Team, PlannedPrompt, Prompt, GameSettings, RoundNumber } from '../../game/types';
+import { ROUND_CONFIGS, DEFAULT_ROUND_DURATIONS } from '../../game/rules';
 import { toPersianDigits } from '../../utils/persian';
 import { createBalancedPromptPlan } from '../../game/promptPlanner';
 import seedPromptsData from '../../data/seedPrompts.json';
@@ -31,15 +32,32 @@ const seedPrompts = seedPromptsData as Prompt[];
 
 interface GameReviewViewProps {
   teams: Team[];
-  onStartGame: (promptPlan: PlannedPrompt[]) => void;
+  initialSettings?: GameSettings;
+  onStartGame: (promptPlan: PlannedPrompt[], settings: GameSettings) => void;
   onBackToSetup: () => void;
 }
 
 export const GameReviewView: React.FC<GameReviewViewProps> = ({
   teams,
+  initialSettings,
   onStartGame,
   onBackToSetup,
 }) => {
+  const [roundDurations, setRoundDurations] = useState<Record<RoundNumber, number>>(
+    initialSettings?.roundDurationsSeconds || DEFAULT_ROUND_DURATIONS
+  );
+
+  const handleAdjustDuration = (round: RoundNumber, deltaMinutes: number) => {
+    setRoundDurations((prev) => {
+      const currentMinutes = Math.round(prev[round] / 60);
+      const newMinutes = Math.max(1, Math.min(60, currentMinutes + deltaMinutes));
+      return {
+        ...prev,
+        [round]: newMinutes * 60,
+      };
+    });
+  };
+
   const planResult = React.useMemo(() => {
     return createBalancedPromptPlan(teams, seedPrompts, [1, 2, 3], 6);
   }, [teams]);
@@ -104,13 +122,36 @@ export const GameReviewView: React.FC<GameReviewViewProps> = ({
               <Typography variant="subtitle2" fontWeight={800} color="primary.light">
                 {ROUND_CONFIGS[1].title}
               </Typography>
-              <Stack direction="row" spacing={1}>
-                <Chip
-                  icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 14 } }} />}
-                  label="۵ دقیقه"
-                  size="small"
-                  variant="outlined"
-                />
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    bgcolor: 'rgba(255, 255, 255, 0.06)',
+                    borderRadius: 2,
+                    px: 0.5,
+                  }}
+                >
+                  <IconButton
+                    size="small"
+                    onClick={() => handleAdjustDuration(1, -1)}
+                    disabled={roundDurations[1] <= 60}
+                    aria-label="کاهش زمان مرحله ۱"
+                  >
+                    <RemoveCircleOutlineIcon fontSize="small" />
+                  </IconButton>
+                  <Typography variant="caption" fontWeight={800} sx={{ px: 0.8, minWidth: 48, textAlign: 'center' }}>
+                    {toPersianDigits(Math.round(roundDurations[1] / 60))} دقیقه
+                  </Typography>
+                  <IconButton
+                    size="small"
+                    onClick={() => handleAdjustDuration(1, 1)}
+                    disabled={roundDurations[1] >= 3600}
+                    aria-label="افزایش زمان مرحله ۱"
+                  >
+                    <AddCircleOutlineIcon fontSize="small" />
+                  </IconButton>
+                </Box>
                 <Chip
                   icon={<StarRateIcon sx={{ '&&': { fontSize: 14 } }} />}
                   label="+۱ امتیاز"
@@ -132,13 +173,36 @@ export const GameReviewView: React.FC<GameReviewViewProps> = ({
               <Typography variant="subtitle2" fontWeight={800} color="secondary.light">
                 {ROUND_CONFIGS[2].title}
               </Typography>
-              <Stack direction="row" spacing={1}>
-                <Chip
-                  icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 14 } }} />}
-                  label="۱۲ دقیقه"
-                  size="small"
-                  variant="outlined"
-                />
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    bgcolor: 'rgba(255, 255, 255, 0.06)',
+                    borderRadius: 2,
+                    px: 0.5,
+                  }}
+                >
+                  <IconButton
+                    size="small"
+                    onClick={() => handleAdjustDuration(2, -1)}
+                    disabled={roundDurations[2] <= 60}
+                    aria-label="کاهش زمان مرحله ۲"
+                  >
+                    <RemoveCircleOutlineIcon fontSize="small" />
+                  </IconButton>
+                  <Typography variant="caption" fontWeight={800} sx={{ px: 0.8, minWidth: 48, textAlign: 'center' }}>
+                    {toPersianDigits(Math.round(roundDurations[2] / 60))} دقیقه
+                  </Typography>
+                  <IconButton
+                    size="small"
+                    onClick={() => handleAdjustDuration(2, 1)}
+                    disabled={roundDurations[2] >= 3600}
+                    aria-label="افزایش زمان مرحله ۲"
+                  >
+                    <AddCircleOutlineIcon fontSize="small" />
+                  </IconButton>
+                </Box>
                 <Chip
                   icon={<StarRateIcon sx={{ '&&': { fontSize: 14 } }} />}
                   label="+۳ امتیاز"
@@ -160,13 +224,36 @@ export const GameReviewView: React.FC<GameReviewViewProps> = ({
               <Typography variant="subtitle2" fontWeight={800} sx={{ color: '#c4b5fd' }}>
                 {ROUND_CONFIGS[3].title}
               </Typography>
-              <Stack direction="row" spacing={1}>
-                <Chip
-                  icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 14 } }} />}
-                  label="۲۰ دقیقه"
-                  size="small"
-                  variant="outlined"
-                />
+              <Stack direction="row" spacing={1} alignItems="center">
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    bgcolor: 'rgba(255, 255, 255, 0.06)',
+                    borderRadius: 2,
+                    px: 0.5,
+                  }}
+                >
+                  <IconButton
+                    size="small"
+                    onClick={() => handleAdjustDuration(3, -1)}
+                    disabled={roundDurations[3] <= 60}
+                    aria-label="کاهش زمان مرحله ۳"
+                  >
+                    <RemoveCircleOutlineIcon fontSize="small" />
+                  </IconButton>
+                  <Typography variant="caption" fontWeight={800} sx={{ px: 0.8, minWidth: 48, textAlign: 'center' }}>
+                    {toPersianDigits(Math.round(roundDurations[3] / 60))} دقیقه
+                  </Typography>
+                  <IconButton
+                    size="small"
+                    onClick={() => handleAdjustDuration(3, 1)}
+                    disabled={roundDurations[3] >= 3600}
+                    aria-label="افزایش زمان مرحله ۳"
+                  >
+                    <AddCircleOutlineIcon fontSize="small" />
+                  </IconButton>
+                </Box>
                 <Chip
                   icon={<StarRateIcon sx={{ '&&': { fontSize: 14 } }} />}
                   label="+۵ امتیاز"
@@ -235,7 +322,9 @@ export const GameReviewView: React.FC<GameReviewViewProps> = ({
           disabled={!planResult.success}
           color="primary"
           startIcon={<PlayCircleFilledWhiteIcon />}
-          onClick={() => onStartGame(planResult.promptPlan)}
+          onClick={() =>
+            onStartGame(planResult.promptPlan, { roundDurationsSeconds: roundDurations })
+          }
           sx={{
             py: 1.8,
             fontSize: '1.15rem',

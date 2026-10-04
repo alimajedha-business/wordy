@@ -22,6 +22,7 @@ interface TurnReadyViewProps {
   round: RoundNumber;
   teamIndex: number;
   totalTeams: number;
+  durationSeconds?: number;
   onStartTurn: () => void;
 }
 
@@ -30,9 +31,11 @@ export const TurnReadyView: React.FC<TurnReadyViewProps> = ({
   round,
   teamIndex,
   totalTeams,
+  durationSeconds,
   onStartTurn,
 }) => {
   const roundConfig = ROUND_CONFIGS[round];
+  const effectiveDuration = durationSeconds ?? roundConfig.durationSeconds;
 
   return (
     <Stack spacing={3} sx={{ flex: 1, justifyContent: 'space-between' }}>
@@ -70,7 +73,7 @@ export const TurnReadyView: React.FC<TurnReadyViewProps> = ({
           <Stack direction="row" spacing={1.5} justifyContent="space-between" alignItems="center">
             <Chip
               icon={<TimerOutlinedIcon />}
-              label={`مدت نوبت: ${toPersianDigits(roundConfig.durationSeconds / 60)} دقیقه`}
+              label={`مدت نوبت: ${toPersianDigits(Math.round(effectiveDuration / 60))} دقیقه`}
               variant="outlined"
               size="small"
             />

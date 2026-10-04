@@ -61,7 +61,7 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
   const [currentPromptIndex, setCurrentPromptIndex] = useState(0);
   const [attempts, setAttempts] = useState<PromptAttempt[]>([]);
   const [currentScore, setCurrentScore] = useState(team.score);
-  const [isRevealed, setIsRevealed] = useState(false);
+  const [isRevealed, setIsRevealed] = useState(true);
   const [isActionLocked, setIsActionLocked] = useState(false);
 
   // Feedback states
@@ -69,6 +69,15 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
   const [floorWarningOpen, setFloorWarningOpen] = useState(false);
 
   const completedRef = useRef(false);
+  const lockTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (lockTimerRef.current) {
+        clearTimeout(lockTimerRef.current);
+      }
+    };
+  }, []);
 
   // Finish turn helper
   const finishTurn = useCallback(() => {
@@ -96,7 +105,14 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
 
   // Current prompt lookup
   const currentPlanItem = plannedPrompts[currentPromptIndex];
-  const currentPrompt = allPromptsBank.find((p) => p.id === currentPlanItem?.promptId);
+  const [activePlanItem, setActivePlanItem] = useState<PlannedPrompt | undefined>(currentPlanItem);
+  useEffect(() => {
+    setActivePlanItem(plannedPrompts[currentPromptIndex]);
+  }, [plannedPrompts, currentPromptIndex]);
+
+  const currentPrompt = allPromptsBank.find(
+    (p) => p.id === (activePlanItem?.promptId || currentPlanItem?.promptId)
+  );
 
   // Handle host scoring action
   const handleAction = (outcome: PromptOutcome) => {
@@ -124,30 +140,29 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
     // Advance to next prompt
     if (currentPromptIndex + 1 < plannedPrompts.length) {
       setCurrentPromptIndex((prev) => prev + 1);
-      setIsRevealed(false); // Hide next prompt initially for fair handoff
+      setIsRevealed(true); // Player sees next word immediately after pressing action button
     } else {
       // Completed all available planned prompts
       completedRef.current = true;
       onTurnComplete(newAttempts, scoreResult.newScore);
     }
 
-    setTimeout(() => {
+    if (lockTimerRef.current) {
+      clearTimeout(lockTimerRef.current);
+    }
+    lockTimerRef.current = setTimeout(() => {
       setIsActionLocked(false);
     }, 180);
   };
 
-  // Host prompt replacement before revealing
-  const [activePlanItem, setActivePlanItem] = useState<PlannedPrompt | undefined>(currentPlanItem);
-  useEffect(() => {
-    setActivePlanItem(plannedPrompts[currentPromptIndex]);
-  }, [plannedPrompts, currentPromptIndex]);
-
+  // Host prompt replacement
   const handleReplacePrompt = () => {
-    if (!activePlanItem) return;
-    const replacement = replacePlannedPrompt(activePlanItem, allPromptsBank, allPlannedInRound);
+    const itemToReplace = activePlanItem || currentPlanItem;
+    if (!itemToReplace) return;
+    const replacement = replacePlannedPrompt(itemToReplace, allPromptsBank, allPlannedInRound);
     if (replacement) {
-      activePlanItem.promptId = replacement.id;
-      setActivePlanItem({ ...activePlanItem });
+      itemToReplace.promptId = replacement.id;
+      setActivePlanItem({ ...itemToReplace });
     }
   };
 
@@ -272,18 +287,16 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
             />
           </Stack>
 
-          {!isRevealed && (
-            <Tooltip title="تعویض کلمه (پیش از نمایش)">
-              <IconButton
-                size="small"
-                onClick={handleReplacePrompt}
-                aria-label="تعویض کلمه قبل از نمایش"
-                sx={{ bgcolor: 'rgba(255,255,255,0.05)' }}
-              >
-                <ShuffleIcon fontSize="small" />
-              </IconButton>
-            </Tooltip>
-          )}
+          <Tooltip title="تعویض کلمه">
+            <IconButton
+              size="small"
+              onClick={handleReplacePrompt}
+              aria-label="تعویض کلمه"
+              sx={{ bgcolor: 'rgba(255,255,255,0.05)' }}
+            >
+              <ShuffleIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
         </Box>
 
         {/* Prompt Content Area */}

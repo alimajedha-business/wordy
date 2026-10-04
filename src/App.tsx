@@ -25,8 +25,8 @@ import { TurnSummaryView } from './features/game/TurnSummaryView';
 import { RoundScoreboardView } from './features/scoreboard/RoundScoreboardView';
 import { FinalResultsView } from './features/scoreboard/FinalResultsView';
 
-import { Team, RoundNumber, PlannedPrompt, PromptAttempt, Prompt } from './game/types';
-import { ROUND_CONFIGS } from './game/rules';
+import { Team, RoundNumber, PlannedPrompt, PromptAttempt, Prompt, GameSettings } from './game/types';
+import { ROUND_CONFIGS, DEFAULT_ROUND_DURATIONS } from './game/rules';
 import { calculateRemainingSeconds } from './game/timer';
 import {
   saveActiveGameState,
@@ -57,6 +57,9 @@ export function App() {
   const [step, setStep] = useState<AppStep>('home');
   const [teams, setTeams] = useState<Team[]>(INITIAL_TEAMS);
   const [promptPlan, setPromptPlan] = useState<PlannedPrompt[]>([]);
+  const [settings, setSettings] = useState<GameSettings>({
+    roundDurationsSeconds: { ...DEFAULT_ROUND_DURATIONS },
+  });
 
   // Turn progression
   const [currentRound, setCurrentRound] = useState<RoundNumber>(1);
@@ -71,6 +74,9 @@ export function App() {
   useEffect(() => {
     loadActiveGameState().then((saved) => {
       if (saved && saved.step !== 'home' && saved.step !== 'final_results') {
+        if (saved.settings) {
+          setSettings(saved.settings);
+        }
         if (saved.step === 'active_turn') {
           const rem = calculateRemainingSeconds(saved.activeDeadlineAt);
           if (rem <= 0) {
@@ -109,6 +115,7 @@ export function App() {
         activeDeadlineAt,
         lastTurnAttempts,
         lastTurnScore,
+        settings,
         updatedAt: Date.now(),
       });
     } else if (step === 'home') {
@@ -133,10 +140,14 @@ export function App() {
     activeDeadlineAt,
     lastTurnAttempts,
     lastTurnScore,
+    settings,
   ]);
 
   // Game start from review
-  const handleStartGame = (plan: PlannedPrompt[]) => {
+  const handleStartGame = (plan: PlannedPrompt[], newSettings?: GameSettings) => {
+    if (newSettings) {
+      setSettings(newSettings);
+    }
     setPromptPlan(plan);
     setCurrentRound(1);
     setCurrentTeamIndex(0);
@@ -145,7 +156,7 @@ export function App() {
 
   // Start active turn with wall-clock deadline
   const handleStartTurn = () => {
-    const duration = ROUND_CONFIGS[currentRound].durationSeconds;
+    const duration = settings.roundDurationsSeconds[currentRound] || ROUND_CONFIGS[currentRound].durationSeconds;
     setActiveDeadlineAt(Date.now() + duration * 1000);
     setStep('active_turn');
   };
@@ -197,6 +208,19 @@ export function App() {
     setTeams(INITIAL_TEAMS);
   };
 
+  const handleResetAll = () => {
+    clearActiveGameState();
+    setStep('home');
+    setCurrentRound(1);
+    setCurrentTeamIndex(0);
+    setTeams(INITIAL_TEAMS);
+    setPromptPlan([]);
+    setActiveDeadlineAt(0);
+    setLastTurnAttempts([]);
+    setLastTurnScore(0);
+    setSettings({ roundDurationsSeconds: { ...DEFAULT_ROUND_DURATIONS } });
+  };
+
   const currentTeam = teams[currentTeamIndex] || teams[0];
 
   // Filter planned prompts for current team and current round
@@ -207,7 +231,7 @@ export function App() {
   const allPlannedInRound = promptPlan.filter((p) => p.round === currentRound);
 
   return (
-    <AppShell onHomeClick={handleResetToHome}>
+    <AppShell onHomeClick={handleResetToHome} onResetAll={handleResetAll}>
       {step === 'home' && (
         <Stack spacing={3} sx={{ flex: 1, justifyContent: 'space-between' }}>
           {/* Hero Banner */}
@@ -425,6 +449,7 @@ export function App() {
       {step === 'review' && (
         <GameReviewView
           teams={teams}
+          initialSettings={settings}
           onStartGame={handleStartGame}
           onBackToSetup={() => setStep('team_setup')}
         />
@@ -436,6 +461,7 @@ export function App() {
           round={currentRound}
           teamIndex={currentTeamIndex}
           totalTeams={teams.length}
+          durationSeconds={settings.roundDurationsSeconds[currentRound]}
           onStartTurn={handleStartTurn}
         />
       )}
@@ -466,6 +492,11 @@ export function App() {
         <RoundScoreboardView
           completedRound={currentRound}
           teams={teams}
+          nextRoundDurationSeconds={
+            currentRound < 3
+              ? settings.roundDurationsSeconds[(currentRound + 1) as RoundNumber]
+              : undefined
+          }
           onStartNextRound={handleStartNextRound}
         />
       )}

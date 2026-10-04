@@ -41,6 +41,12 @@ export const ROUND_CONFIGS: Record<RoundNumber, RoundInfo> = {
 
 export const ERROR_PENALTY = 1;
 
+export const DEFAULT_ROUND_DURATIONS: Record<RoundNumber, number> = {
+  1: 300, // 5 minutes
+  2: 720, // 12 minutes
+  3: 1200, // 20 minutes
+};
+
 /**
  * Validates team setup.
  * Returns null if valid, or a Persian error message if invalid.

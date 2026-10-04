@@ -23,17 +23,20 @@ import { toPersianDigits } from '../../utils/persian';
 interface RoundScoreboardViewProps {
   completedRound: RoundNumber;
   teams: Team[];
+  nextRoundDurationSeconds?: number;
   onStartNextRound: () => void;
 }
 
 export const RoundScoreboardView: React.FC<RoundScoreboardViewProps> = ({
   completedRound,
   teams,
+  nextRoundDurationSeconds,
   onStartNextRound,
 }) => {
   const currentRoundConfig = ROUND_CONFIGS[completedRound];
   const nextRoundNumber = (completedRound + 1) as RoundNumber;
   const nextRoundConfig = ROUND_CONFIGS[nextRoundNumber];
+  const effectiveNextDuration = nextRoundDurationSeconds ?? nextRoundConfig?.durationSeconds;
 
   const { rankedTeams } = calculateRankings(teams);
 
@@ -129,7 +132,7 @@ export const RoundScoreboardView: React.FC<RoundScoreboardViewProps> = ({
             <Stack direction="row" spacing={1.5} justifyContent="space-between" alignItems="center">
               <Chip
                 icon={<TimerOutlinedIcon />}
-                label={`مدت: ${toPersianDigits(nextRoundConfig.durationSeconds / 60)} دقیقه`}
+                label={`مدت: ${toPersianDigits(Math.round(effectiveNextDuration / 60))} دقیقه`}
                 variant="outlined"
                 size="small"
               />

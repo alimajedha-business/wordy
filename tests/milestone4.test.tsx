@@ -89,7 +89,7 @@ describe('Milestone 4: Turn Screen, Timer, Prompt Reveal, and Scoring Actions', 
       { teamId: 'team-1', round: 1, slotIndex: 2, promptId: 'p-3', type: 'WORD', difficulty: 'EASY' },
     ];
 
-    it('keeps prompt hidden until player clicks reveal', () => {
+    it('shows prompt immediately, allows hiding and revealing if needed', () => {
       const handleComplete = vi.fn();
       render(
         <CacheProvider value={cacheRtl}>
@@ -107,20 +107,20 @@ describe('Milestone 4: Turn Screen, Timer, Prompt Reveal, and Scoring Actions', 
         </CacheProvider>
       );
 
-      // Secret prompt should be hidden initially
+      // Secret prompt should be visible immediately
+      expect(screen.getByText('هندوانه')).toBeInTheDocument();
+
+      // Can hide if player wants privacy
+      fireEvent.click(screen.getByRole('button', { name: 'مخفی کردن مجدد کلمه' }));
       expect(screen.queryByText('هندوانه')).not.toBeInTheDocument();
       expect(screen.getByText('مشاهده کلمه')).toBeInTheDocument();
 
-      // Click to reveal
+      // Click to reveal again
       fireEvent.click(screen.getByRole('button', { name: 'مشاهده کلمه' }));
       expect(screen.getByText('هندوانه')).toBeInTheDocument();
-
-      // Can hide again
-      fireEvent.click(screen.getByRole('button', { name: 'مخفی کردن مجدد کلمه' }));
-      expect(screen.queryByText('هندوانه')).not.toBeInTheDocument();
     });
 
-    it('scores Correct, advances prompt, and updates score in Round 1 (+1 point)', async () => {
+    it('scores Correct, advances prompt, and reveals next word immediately', async () => {
       const handleComplete = vi.fn();
       render(
         <CacheProvider value={cacheRtl}>
@@ -138,8 +138,7 @@ describe('Milestone 4: Turn Screen, Timer, Prompt Reveal, and Scoring Actions', 
         </CacheProvider>
       );
 
-      // Reveal first word
-      fireEvent.click(screen.getByRole('button', { name: 'مشاهده کلمه' }));
+      // First word is visible immediately
       expect(screen.getByText('هندوانه')).toBeInTheDocument();
 
       // Click Correct
@@ -149,15 +148,12 @@ describe('Milestone 4: Turn Screen, Timer, Prompt Reveal, and Scoring Actions', 
       // Score updated from 0 to 1
       expect(screen.getByText(/امتیاز: ۱/)).toBeInTheDocument();
 
-      // Prompt automatically hidden for next prompt handoff
+      // Prompt advances to word 2 AND shows next word immediately without needing to press "مشاهده کلمه"
       expect(screen.getByText('کلمه ۲')).toBeInTheDocument();
-
-      // Reveal next word
-      fireEvent.click(screen.getByRole('button', { name: 'مشاهده کلمه' }));
       expect(screen.getByText('مسواک زدن')).toBeInTheDocument();
     });
 
-    it('records Wrong/Skip with 0 points and advances prompt', () => {
+    it('records Wrong/Skip with 0 points and shows next word immediately', () => {
       const handleComplete = vi.fn();
       render(
         <CacheProvider value={cacheRtl}>
@@ -175,13 +171,17 @@ describe('Milestone 4: Turn Screen, Timer, Prompt Reveal, and Scoring Actions', 
         </CacheProvider>
       );
 
+      // First word is visible immediately
+      expect(screen.getByText('هندوانه')).toBeInTheDocument();
+
       // Click Wrong/Skip
       const skipBtn = screen.getByRole('button', { name: /رد کردن/ });
       fireEvent.click(skipBtn);
 
-      // Score stays 2
+      // Score stays 2, advances to word 2, and shows next word immediately
       expect(screen.getByText(/امتیاز: ۲/)).toBeInTheDocument();
       expect(screen.getByText('کلمه ۲')).toBeInTheDocument();
+      expect(screen.getByText('مسواک زدن')).toBeInTheDocument();
     });
 
     it('allows ending turn manually via confirmation dialog', () => {

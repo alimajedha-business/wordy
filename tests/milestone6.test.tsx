@@ -145,7 +145,7 @@ describe('Milestone 6: Persistence, Resume Behavior, and Recovery from Refresh',
       // App should recover into ActiveTurnView with timer running and prompt controls
       await waitFor(() => {
         expect(screen.getByText('شیرها')).toBeInTheDocument();
-        expect(screen.getByText('مشاهده کلمه')).toBeInTheDocument();
+        expect(screen.getByText('هندوانه')).toBeInTheDocument();
         expect(screen.getByRole('button', { name: /درست/ })).toBeInTheDocument();
       });
     });
