@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Box,
   Typography,
@@ -22,12 +22,18 @@ import { GameReviewView } from './features/setup/GameReviewView';
 import { TurnReadyView } from './features/game/TurnReadyView';
 import { ActiveTurnView } from './features/game/ActiveTurnView';
 import { TurnSummaryView } from './features/game/TurnSummaryView';
-
 import { RoundScoreboardView } from './features/scoreboard/RoundScoreboardView';
 import { FinalResultsView } from './features/scoreboard/FinalResultsView';
 
 import { Team, RoundNumber, PlannedPrompt, PromptAttempt, Prompt } from './game/types';
 import { ROUND_CONFIGS } from './game/rules';
+import { calculateRemainingSeconds } from './game/timer';
+import {
+  saveActiveGameState,
+  loadActiveGameState,
+  clearActiveGameState,
+  saveCompletedGame,
+} from './storage/db';
 import seedPromptsData from './data/seedPrompts.json';
 
 const allPromptsBank = seedPromptsData as Prompt[];
@@ -60,6 +66,74 @@ export function App() {
   // Turn summary temp storage
   const [lastTurnAttempts, setLastTurnAttempts] = useState<PromptAttempt[]>([]);
   const [lastTurnScore, setLastTurnScore] = useState<number>(0);
+
+  // Restore game state on mount (refresh recovery)
+  useEffect(() => {
+    loadActiveGameState().then((saved) => {
+      if (saved && saved.step !== 'home' && saved.step !== 'final_results') {
+        if (saved.step === 'active_turn') {
+          const rem = calculateRemainingSeconds(saved.activeDeadlineAt);
+          if (rem <= 0) {
+            // Deadline passed while away -> transition to turn summary
+            setTeams(saved.teams);
+            setPromptPlan(saved.promptPlan);
+            setCurrentRound(saved.currentRound);
+            setCurrentTeamIndex(saved.currentTeamIndex);
+            setLastTurnAttempts(saved.lastTurnAttempts || []);
+            setLastTurnScore(saved.lastTurnScore || 0);
+            setStep('turn_summary');
+            return;
+          }
+        }
+        setTeams(saved.teams);
+        setPromptPlan(saved.promptPlan);
+        setCurrentRound(saved.currentRound);
+        setCurrentTeamIndex(saved.currentTeamIndex);
+        setActiveDeadlineAt(saved.activeDeadlineAt);
+        setLastTurnAttempts(saved.lastTurnAttempts || []);
+        setLastTurnScore(saved.lastTurnScore || 0);
+        setStep(saved.step);
+      }
+    });
+  }, []);
+
+  // Persist game state on updates
+  useEffect(() => {
+    if (step !== 'home' && step !== 'final_results') {
+      saveActiveGameState({
+        step,
+        teams,
+        promptPlan,
+        currentRound,
+        currentTeamIndex,
+        activeDeadlineAt,
+        lastTurnAttempts,
+        lastTurnScore,
+        updatedAt: Date.now(),
+      });
+    } else if (step === 'home') {
+      clearActiveGameState();
+    } else if (step === 'final_results') {
+      clearActiveGameState();
+      const sorted = [...teams].sort((a, b) => b.score - a.score);
+      saveCompletedGame({
+        id: `game-${Date.now()}`,
+        completedAt: Date.now(),
+        teams,
+        winnerName: sorted[0]?.name || 'تیم برنده',
+        winnerScore: sorted[0]?.score || 0,
+      });
+    }
+  }, [
+    step,
+    teams,
+    promptPlan,
+    currentRound,
+    currentTeamIndex,
+    activeDeadlineAt,
+    lastTurnAttempts,
+    lastTurnScore,
+  ]);
 
   // Game start from review
   const handleStartGame = (plan: PlannedPrompt[]) => {
