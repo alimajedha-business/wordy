@@ -16,35 +16,111 @@ import PanToolIcon from '@mui/icons-material/PanTool';
 import GestureIcon from '@mui/icons-material/Gesture';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+
 import { AppShell } from './components/AppShell';
 import { TeamSetupView } from './features/setup/TeamSetupView';
 import { GameReviewView } from './features/setup/GameReviewView';
-import { Team, PlannedPrompt } from './game/types';
+import { TurnReadyView } from './features/game/TurnReadyView';
+import { ActiveTurnView } from './features/game/ActiveTurnView';
+import { TurnSummaryView } from './features/game/TurnSummaryView';
+
+import { Team, RoundNumber, PlannedPrompt, PromptAttempt, Prompt } from './game/types';
 import { ROUND_CONFIGS } from './game/rules';
-import { toPersianDigits } from './utils/persian';
+import seedPromptsData from './data/seedPrompts.json';
+
+const allPromptsBank = seedPromptsData as Prompt[];
 
 const INITIAL_TEAMS: Team[] = [
   { id: 'team-1', name: 'تیم ۱', score: 0 },
   { id: 'team-2', name: 'تیم ۲', score: 0 },
 ];
 
+export type AppStep =
+  | 'home'
+  | 'team_setup'
+  | 'review'
+  | 'turn_ready'
+  | 'active_turn'
+  | 'turn_summary'
+  | 'finished';
+
 export function App() {
-  const [setupStep, setSetupStep] = useState<'home' | 'team_setup' | 'review' | 'started'>('home');
+  const [step, setStep] = useState<AppStep>('home');
   const [teams, setTeams] = useState<Team[]>(INITIAL_TEAMS);
   const [promptPlan, setPromptPlan] = useState<PlannedPrompt[]>([]);
 
+  // Turn progression
+  const [currentRound, setCurrentRound] = useState<RoundNumber>(1);
+  const [currentTeamIndex, setCurrentTeamIndex] = useState<number>(0);
+  const [activeDeadlineAt, setActiveDeadlineAt] = useState<number>(0);
+
+  // Turn summary temp storage
+  const [lastTurnAttempts, setLastTurnAttempts] = useState<PromptAttempt[]>([]);
+  const [lastTurnScore, setLastTurnScore] = useState<number>(0);
+
+  // Game start from review
   const handleStartGame = (plan: PlannedPrompt[]) => {
     setPromptPlan(plan);
-    setSetupStep('started');
+    setCurrentRound(1);
+    setCurrentTeamIndex(0);
+    setStep('turn_ready');
+  };
+
+  // Start active turn with wall-clock deadline
+  const handleStartTurn = () => {
+    const duration = ROUND_CONFIGS[currentRound].durationSeconds;
+    setActiveDeadlineAt(Date.now() + duration * 1000);
+    setStep('active_turn');
+  };
+
+  // Turn completed
+  const handleTurnComplete = (attempts: PromptAttempt[], finalScore: number) => {
+    const activeTeam = teams[currentTeamIndex];
+    // Update team score
+    setTeams((prev) =>
+      prev.map((t) => (t.id === activeTeam.id ? { ...t, score: finalScore } : t))
+    );
+    setLastTurnAttempts(attempts);
+    setLastTurnScore(finalScore);
+    setStep('turn_summary');
+  };
+
+  // Continue from turn summary to next team or next round
+  const handleContinueAfterSummary = () => {
+    if (currentTeamIndex + 1 < teams.length) {
+      setCurrentTeamIndex((prev) => prev + 1);
+      setStep('turn_ready');
+    } else {
+      // Completed round for all teams
+      if (currentRound < 3) {
+        setCurrentRound((prev) => (prev + 1) as RoundNumber);
+        setCurrentTeamIndex(0);
+        setStep('turn_ready');
+      } else {
+        setStep('finished');
+      }
+    }
   };
 
   const handleResetToHome = () => {
-    setSetupStep('home');
+    setStep('home');
+    setCurrentRound(1);
+    setCurrentTeamIndex(0);
+    setTeams(INITIAL_TEAMS);
   };
+
+  const currentTeam = teams[currentTeamIndex] || teams[0];
+
+  // Filter planned prompts for current team and current round
+  const currentTeamPlannedPrompts = promptPlan.filter(
+    (p) => p.teamId === currentTeam.id && p.round === currentRound
+  );
+
+  const allPlannedInRound = promptPlan.filter((p) => p.round === currentRound);
 
   return (
     <AppShell onHomeClick={handleResetToHome}>
-      {setupStep === 'home' && (
+      {step === 'home' && (
         <Stack spacing={3} sx={{ flex: 1, justifyContent: 'space-between' }}>
           {/* Hero Banner */}
           <Box sx={{ textAlign: 'center', pt: 1, pb: 1 }}>
@@ -235,7 +311,7 @@ export function App() {
               size="large"
               fullWidth
               startIcon={<PlayArrowIcon />}
-              onClick={() => setSetupStep('team_setup')}
+              onClick={() => setStep('team_setup')}
               sx={{
                 py: 1.8,
                 fontSize: '1.15rem',
@@ -249,24 +325,56 @@ export function App() {
         </Stack>
       )}
 
-      {setupStep === 'team_setup' && (
+      {step === 'team_setup' && (
         <TeamSetupView
           teams={teams}
           onUpdateTeams={setTeams}
-          onContinue={() => setSetupStep('review')}
-          onBack={() => setSetupStep('home')}
+          onContinue={() => setStep('review')}
+          onBack={() => setStep('home')}
         />
       )}
 
-      {setupStep === 'review' && (
+      {step === 'review' && (
         <GameReviewView
           teams={teams}
           onStartGame={handleStartGame}
-          onBackToSetup={() => setSetupStep('team_setup')}
+          onBackToSetup={() => setStep('team_setup')}
         />
       )}
 
-      {setupStep === 'started' && (
+      {step === 'turn_ready' && (
+        <TurnReadyView
+          team={currentTeam}
+          round={currentRound}
+          teamIndex={currentTeamIndex}
+          totalTeams={teams.length}
+          onStartTurn={handleStartTurn}
+        />
+      )}
+
+      {step === 'active_turn' && (
+        <ActiveTurnView
+          team={currentTeam}
+          round={currentRound}
+          deadlineAt={activeDeadlineAt}
+          plannedPrompts={currentTeamPlannedPrompts}
+          allPromptsBank={allPromptsBank}
+          allPlannedInRound={allPlannedInRound}
+          onTurnComplete={handleTurnComplete}
+        />
+      )}
+
+      {step === 'turn_summary' && (
+        <TurnSummaryView
+          team={currentTeam}
+          round={currentRound}
+          attempts={lastTurnAttempts}
+          updatedScore={lastTurnScore}
+          onContinue={handleContinueAfterSummary}
+        />
+      )}
+
+      {step === 'finished' && (
         <Card sx={{ p: 3, textAlign: 'center' }}>
           <Box
             sx={{
@@ -285,16 +393,13 @@ export function App() {
             <CheckCircleIcon sx={{ fontSize: 36 }} />
           </Box>
           <Typography variant="h5" fontWeight={800} gutterBottom>
-            بازی با {toPersianDigits(teams.length)} تیم آغاز شد!
+            تمام مراحل بازی به پایان رسید!
           </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            ترتیب نوبت تیم‌ها و برنامه عادلانه کلمات آماده شد ({toPersianDigits(promptPlan.length)} کلمه تخصیص‌یافته).
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+            تابلوی کامل نتایج و رتبه‌بندی در فاز بعدی پیاده‌سازی خواهد شد.
           </Typography>
-          <Typography variant="subtitle1" fontWeight={700} color="primary.light" sx={{ mb: 3 }}>
-            نوبت اول: {teams[0]?.name}
-          </Typography>
-          <Button variant="outlined" color="primary" onClick={handleResetToHome} fullWidth>
-            شروع مجدد و بازگشت به خانه
+          <Button variant="contained" color="primary" onClick={handleResetToHome} fullWidth>
+            شروع بازی جدید
           </Button>
         </Card>
       )}

@@ -1,0 +1,468 @@
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import {
+  Box,
+  Typography,
+  Button,
+  Card,
+  Stack,
+  Chip,
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Snackbar,
+  Alert,
+  Tooltip,
+} from '@mui/material';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import ShuffleIcon from '@mui/icons-material/Shuffle';
+import StopCircleIcon from '@mui/icons-material/StopCircle';
+import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+
+import { Team, RoundNumber, Prompt, PlannedPrompt, PromptAttempt, PromptOutcome } from '../../game/types';
+import { ROUND_CONFIGS } from '../../game/rules';
+import { calculateRemainingSeconds, formatTimeMMSS, getTimeUrgency } from '../../game/timer';
+import { calculatePointsDelta, applyScoreDelta } from '../../game/scoring';
+import { replacePlannedPrompt } from '../../game/promptPlanner';
+import { toPersianDigits } from '../../utils/persian';
+
+interface ActiveTurnViewProps {
+  team: Team;
+  round: RoundNumber;
+  deadlineAt: number;
+  plannedPrompts: PlannedPrompt[];
+  allPromptsBank: Prompt[];
+  allPlannedInRound: PlannedPrompt[];
+  onTurnComplete: (attempts: PromptAttempt[], finalScore: number) => void;
+}
+
+export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
+  team,
+  round,
+  deadlineAt,
+  plannedPrompts,
+  allPromptsBank,
+  allPlannedInRound,
+  onTurnComplete,
+}) => {
+  const roundConfig = ROUND_CONFIGS[round];
+
+  // Timer state
+  const [remainingSeconds, setRemainingSeconds] = useState<number>(() =>
+    calculateRemainingSeconds(deadlineAt)
+  );
+
+  // Turn gameplay state
+  const [currentPromptIndex, setCurrentPromptIndex] = useState(0);
+  const [attempts, setAttempts] = useState<PromptAttempt[]>([]);
+  const [currentScore, setCurrentScore] = useState(team.score);
+  const [isRevealed, setIsRevealed] = useState(false);
+  const [isActionLocked, setIsActionLocked] = useState(false);
+
+  // Feedback states
+  const [confirmEndOpen, setConfirmEndOpen] = useState(false);
+  const [floorWarningOpen, setFloorWarningOpen] = useState(false);
+
+  const completedRef = useRef(false);
+
+  // Finish turn helper
+  const finishTurn = useCallback(() => {
+    if (completedRef.current) return;
+    completedRef.current = true;
+    onTurnComplete(attempts, currentScore);
+  }, [attempts, currentScore, onTurnComplete]);
+
+  // Wall-clock timer loop
+  useEffect(() => {
+    const updateTimer = () => {
+      const remaining = calculateRemainingSeconds(deadlineAt);
+      setRemainingSeconds(remaining);
+
+      if (remaining <= 0) {
+        finishTurn();
+      }
+    };
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 200);
+
+    return () => clearInterval(interval);
+  }, [deadlineAt, finishTurn]);
+
+  // Current prompt lookup
+  const currentPlanItem = plannedPrompts[currentPromptIndex];
+  const currentPrompt = allPromptsBank.find((p) => p.id === currentPlanItem?.promptId);
+
+  // Handle host scoring action
+  const handleAction = (outcome: PromptOutcome) => {
+    if (isActionLocked || remainingSeconds <= 0 || !currentPrompt) return;
+    setIsActionLocked(true);
+
+    const delta = calculatePointsDelta(outcome, round);
+    const scoreResult = applyScoreDelta(currentScore, delta);
+
+    if (scoreResult.clampedAtZero && delta < 0) {
+      setFloorWarningOpen(true);
+    }
+
+    const attempt: PromptAttempt = {
+      promptId: currentPrompt.id,
+      outcome,
+      pointsDelta: delta,
+      occurredAt: Date.now(),
+    };
+
+    const newAttempts = [...attempts, attempt];
+    setAttempts(newAttempts);
+    setCurrentScore(scoreResult.newScore);
+
+    // Advance to next prompt
+    if (currentPromptIndex + 1 < plannedPrompts.length) {
+      setCurrentPromptIndex((prev) => prev + 1);
+      setIsRevealed(false); // Hide next prompt initially for fair handoff
+    } else {
+      // Completed all available planned prompts
+      completedRef.current = true;
+      onTurnComplete(newAttempts, scoreResult.newScore);
+    }
+
+    setTimeout(() => {
+      setIsActionLocked(false);
+    }, 180);
+  };
+
+  // Host prompt replacement before revealing
+  const [activePlanItem, setActivePlanItem] = useState<PlannedPrompt | undefined>(currentPlanItem);
+  useEffect(() => {
+    setActivePlanItem(plannedPrompts[currentPromptIndex]);
+  }, [plannedPrompts, currentPromptIndex]);
+
+  const handleReplacePrompt = () => {
+    if (!activePlanItem) return;
+    const replacement = replacePlannedPrompt(activePlanItem, allPromptsBank, allPlannedInRound);
+    if (replacement) {
+      activePlanItem.promptId = replacement.id;
+      setActivePlanItem({ ...activePlanItem });
+    }
+  };
+
+  const urgency = getTimeUrgency(remainingSeconds);
+
+  const getUrgencyStyles = () => {
+    switch (urgency) {
+      case 'critical':
+        return {
+          color: '#ef4444',
+          border: '2px solid rgba(239, 68, 68, 0.6)',
+          bgcolor: 'rgba(239, 68, 68, 0.15)',
+          animation: 'pulse 1s infinite alternate',
+        };
+      case 'warning':
+        return {
+          color: '#f59e0b',
+          border: '2px solid rgba(245, 158, 11, 0.5)',
+          bgcolor: 'rgba(245, 158, 11, 0.1)',
+        };
+      default:
+        return {
+          color: '#ffffff',
+          border: '1px solid rgba(255, 255, 255, 0.12)',
+          bgcolor: 'rgba(255, 255, 255, 0.05)',
+        };
+    }
+  };
+
+  const promptTypeLabel = {
+    WORD: 'کلمه',
+    PHRASE: 'عبارت',
+    PROVERB: 'ضرب‌المثل',
+  }[currentPlanItem?.type || 'WORD'];
+
+  return (
+    <Stack spacing={2} sx={{ flex: 1, justifyContent: 'space-between' }}>
+      {/* Top Bar: Team, Round & Current Score */}
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Box>
+          <Typography variant="h6" fontWeight={800} sx={{ lineHeight: 1.1 }}>
+            {team.name}
+          </Typography>
+          <Typography variant="caption" color="text.secondary">
+            {roundConfig.title}
+          </Typography>
+        </Box>
+
+        <Chip
+          label={`امتیاز: ${toPersianDigits(currentScore)}`}
+          color="primary"
+          variant="filled"
+          sx={{ fontWeight: 800, fontSize: '0.9rem', px: 1 }}
+        />
+      </Box>
+
+      {/* Large Wall-Clock Timer Display */}
+      <Card
+        sx={{
+          py: 2,
+          px: 3,
+          textAlign: 'center',
+          transition: 'all 0.3s ease',
+          ...getUrgencyStyles(),
+        }}
+      >
+        <Stack direction="row" spacing={1} justifyContent="center" alignItems="center">
+          <AccessAlarmIcon sx={{ fontSize: { xs: 26, sm: 32 } }} />
+          <Typography
+            variant="h2"
+            component="div"
+            fontWeight={900}
+            sx={{
+              fontVariantNumeric: 'tabular-nums',
+              letterSpacing: -1,
+              fontSize: { xs: '3.2rem', sm: '4rem' },
+            }}
+          >
+            {formatTimeMMSS(remainingSeconds)}
+          </Typography>
+        </Stack>
+
+        <Typography variant="caption" sx={{ opacity: 0.8, display: 'block', mt: 0.5 }}>
+          {urgency === 'critical'
+            ? 'زمان رو به اتمام است!'
+            : urgency === 'warning'
+            ? 'کمتر از ۳۰ ثانیه باقی مانده'
+            : 'زمان باقی‌مانده نوبت'}
+        </Typography>
+      </Card>
+
+      {/* Secret Prompt Card */}
+      <Card
+        sx={{
+          flex: 1,
+          minHeight: 210,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          p: 2.5,
+          position: 'relative',
+          bgcolor: isRevealed ? 'background.paper' : 'rgba(21, 27, 46, 0.6)',
+          border: isRevealed
+            ? '2px solid rgba(99, 102, 241, 0.4)'
+            : '2px dashed rgba(255, 255, 255, 0.15)',
+        }}
+      >
+        {/* Prompt Card Header: Type Badge & Replace Button */}
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Stack direction="row" spacing={1} alignItems="center">
+            <Chip
+              label={promptTypeLabel}
+              size="small"
+              color={currentPlanItem?.type === 'PROVERB' ? 'secondary' : 'default'}
+              variant="outlined"
+            />
+            <Chip
+              label={`کلمه ${toPersianDigits(currentPromptIndex + 1)}`}
+              size="small"
+              variant="filled"
+              sx={{ bgcolor: 'rgba(255,255,255,0.08)' }}
+            />
+          </Stack>
+
+          {!isRevealed && (
+            <Tooltip title="تعویض کلمه (پیش از نمایش)">
+              <IconButton
+                size="small"
+                onClick={handleReplacePrompt}
+                aria-label="تعویض کلمه قبل از نمایش"
+                sx={{ bgcolor: 'rgba(255,255,255,0.05)' }}
+              >
+                <ShuffleIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          )}
+        </Box>
+
+        {/* Prompt Content Area */}
+        <Box sx={{ my: 'auto', textAlign: 'center', py: 2 }}>
+          {isRevealed && currentPrompt ? (
+            <Box>
+              <Typography
+                variant="h4"
+                fontWeight={900}
+                sx={{
+                  color: '#ffffff',
+                  lineHeight: 1.4,
+                  wordBreak: 'break-word',
+                  fontSize: { xs: '1.9rem', sm: '2.5rem' },
+                }}
+              >
+                {currentPrompt.text}
+              </Typography>
+            </Box>
+          ) : (
+            <Box>
+              <Typography variant="body1" color="text.secondary" gutterBottom>
+                کلمه برای مخفی ماندن از سایرین پوشانده شده است
+              </Typography>
+              <Button
+                variant="outlined"
+                color="primary"
+                startIcon={<VisibilityIcon />}
+                onClick={() => setIsRevealed(true)}
+                sx={{ mt: 1, borderRadius: 3, px: 3 }}
+              >
+                مشاهده کلمه
+              </Button>
+            </Box>
+          )}
+        </Box>
+
+        {/* Hide / Guard button */}
+        {isRevealed && (
+          <Box sx={{ textAlign: 'center' }}>
+            <Button
+              size="small"
+              color="inherit"
+              startIcon={<VisibilityOffIcon />}
+              onClick={() => setIsRevealed(false)}
+              sx={{ color: 'text.secondary', fontSize: '0.8rem' }}
+            >
+              مخفی کردن مجدد کلمه
+            </Button>
+          </Box>
+        )}
+      </Card>
+
+      {/* 3 Main Scoring Action Buttons */}
+      <Stack spacing={1.5}>
+        <Stack direction="row" spacing={1.5}>
+          {/* Correct Button */}
+          <Button
+            id="action-correct-btn"
+            variant="contained"
+            color="success"
+            fullWidth
+            disabled={isActionLocked || remainingSeconds <= 0}
+            startIcon={<CheckCircleIcon sx={{ fontSize: 26 }} />}
+            onClick={() => handleAction('CORRECT')}
+            sx={{
+              py: 2,
+              fontSize: '1.15rem',
+              fontWeight: 800,
+              flex: 1.2,
+              background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+              boxShadow: '0 6px 20px rgba(16, 185, 129, 0.35)',
+            }}
+          >
+            درست (+{toPersianDigits(roundConfig.pointsPerCorrect)})
+          </Button>
+
+          {/* Wrong / Skip Button */}
+          <Button
+            id="action-wrong-btn"
+            variant="contained"
+            color="warning"
+            fullWidth
+            disabled={isActionLocked || remainingSeconds <= 0}
+            startIcon={<HighlightOffIcon sx={{ fontSize: 24 }} />}
+            onClick={() => handleAction('WRONG')}
+            sx={{
+              py: 2,
+              fontSize: '1.05rem',
+              fontWeight: 800,
+              flex: 1,
+              bgcolor: 'rgba(245, 158, 11, 0.9)',
+              color: '#111827',
+              boxShadow: '0 6px 20px rgba(245, 158, 11, 0.25)',
+            }}
+          >
+            رد کردن (۰)
+          </Button>
+        </Stack>
+
+        <Stack direction="row" spacing={1.5} alignItems="center">
+          {/* Error Penalty Button */}
+          <Button
+            id="action-error-btn"
+            variant="outlined"
+            color="error"
+            disabled={isActionLocked || remainingSeconds <= 0}
+            startIcon={<WarningAmberIcon />}
+            onClick={() => handleAction('ERROR')}
+            sx={{
+              flex: 1,
+              py: 1.4,
+              fontWeight: 700,
+              borderColor: 'rgba(239, 68, 68, 0.5)',
+              '&:hover': { bgcolor: 'rgba(239, 68, 68, 0.1)' },
+            }}
+          >
+            ثبت خطا (-۱)
+          </Button>
+
+          {/* Manual End Turn Button */}
+          <Button
+            id="action-end-turn-btn"
+            variant="text"
+            color="inherit"
+            startIcon={<StopCircleIcon />}
+            onClick={() => setConfirmEndOpen(true)}
+            sx={{
+              py: 1.4,
+              px: 2,
+              color: 'text.secondary',
+              fontSize: '0.85rem',
+            }}
+          >
+            پایان نوبت
+          </Button>
+        </Stack>
+      </Stack>
+
+      {/* Manual End Turn Confirmation Dialog */}
+      <Dialog
+        open={confirmEndOpen}
+        onClose={() => setConfirmEndOpen(false)}
+        PaperProps={{ sx: { borderRadius: 4, p: 1 } }}
+      >
+        <DialogTitle sx={{ fontWeight: 800 }}>پایان زودهنگام نوبت؟</DialogTitle>
+        <DialogContent>
+          <Typography variant="body2" color="text.secondary">
+            هنوز {formatTimeMMSS(remainingSeconds)} از زمان نوبت تیم {team.name} باقی مانده است. آیا مایلید نوبت را پایان دهید؟
+          </Typography>
+        </DialogContent>
+        <DialogActions sx={{ p: 2 }}>
+          <Button onClick={() => setConfirmEndOpen(false)} color="inherit">
+            ادامه نوبت
+          </Button>
+          <Button
+            onClick={() => {
+              setConfirmEndOpen(false);
+              finishTurn();
+            }}
+            variant="contained"
+            color="error"
+          >
+            بله، پایان نوبت
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Clamped Score at Zero Feedback */}
+      <Snackbar
+        open={floorWarningOpen}
+        autoHideDuration={3000}
+        onClose={() => setFloorWarningOpen(false)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert severity="info" sx={{ borderRadius: 3 }}>
+          خطا ثبت شد، اما طبق قوانین امتیاز کل نمی‌تواند کمتر از صفر شود.
+        </Alert>
+      </Snackbar>
+    </Stack>
+  );
+};

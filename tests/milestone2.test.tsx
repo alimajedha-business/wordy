@@ -121,9 +121,9 @@ describe('Milestone 2: Team Setup, Ordering, and Game Review Flow', () => {
       const startOfficialBtn = screen.getByRole('button', { name: /شروع رسمی بازی/ });
       fireEvent.click(startOfficialBtn);
 
-      // Game started screen
-      expect(screen.getByText(/بازی با ۲ تیم آغاز شد!/)).toBeInTheDocument();
-      expect(screen.getByText(/نوبت اول: تیم ۱/)).toBeInTheDocument();
+      // Game started -> transitions to TurnReadyView for Team 1
+      expect(screen.getByText('نوبت تیم ۱')).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'شروع نوبت' })).toBeInTheDocument();
     });
   });
 });
