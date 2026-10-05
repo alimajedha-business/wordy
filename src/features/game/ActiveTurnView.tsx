@@ -452,13 +452,15 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
             color="success"
             fullWidth
             disabled={isActionLocked || remainingSeconds <= 0}
-            startIcon={<CheckCircleIcon sx={{ fontSize: 26 }} />}
+            startIcon={<CheckCircleIcon sx={{ fontSize: { xs: 22, sm: 26 } }} />}
             onClick={() => handleAction('CORRECT')}
             sx={{
               py: 2,
-              fontSize: '1.15rem',
+              px: { xs: 1, sm: 2 },
+              fontSize: { xs: '1rem', sm: '1.15rem' },
               fontWeight: 800,
-              flex: 1.2,
+              flex: 1,
+              whiteSpace: 'nowrap',
               background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
               boxShadow: '0 6px 20px rgba(16, 185, 129, 0.35)',
             }}
@@ -473,13 +475,15 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
             color="warning"
             fullWidth
             disabled={isActionLocked || remainingSeconds <= 0}
-            startIcon={<HighlightOffIcon sx={{ fontSize: 24 }} />}
+            startIcon={<HighlightOffIcon sx={{ fontSize: { xs: 20, sm: 24 } }} />}
             onClick={() => handleAction('WRONG')}
             sx={{
               py: 2,
-              fontSize: '1.05rem',
+              px: { xs: 1, sm: 2 },
+              fontSize: { xs: '0.92rem', sm: '1.05rem' },
               fontWeight: 800,
-              flex: 1,
+              flex: 1.5,
+              whiteSpace: 'nowrap',
               bgcolor: 'rgba(245, 158, 11, 0.9)',
               color: '#111827',
               boxShadow: '0 6px 20px rgba(245, 158, 11, 0.25)',
