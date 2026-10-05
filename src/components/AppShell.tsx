@@ -14,7 +14,6 @@ import {
   Button,
 } from '@mui/material';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
-import CasinoIcon from '@mui/icons-material/Casino';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import { RulesDialog } from './RulesDialog';
 
@@ -69,19 +68,17 @@ export const AppShell: React.FC<AppShellProps> = ({
               }}
             >
               <Box
+                component="img"
+                src="/app-icon.png"
+                alt="لوگوی کلمه‌بازی"
                 sx={{
                   width: 40,
                   height: 40,
-                  borderRadius: 3,
-                  background: 'linear-gradient(135deg, #6366f1 0%, #ec4899 100%)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  borderRadius: 2.5,
                   boxShadow: '0 4px 14px rgba(99, 102, 241, 0.35)',
+                  objectFit: 'cover',
                 }}
-              >
-                <CasinoIcon sx={{ color: '#fff', fontSize: 24 }} />
-              </Box>
+              />
               <Box>
                 <Typography variant="h6" fontWeight={800} sx={{ lineHeight: 1.2, letterSpacing: -0.5 }}>
                   کلمه‌بازی

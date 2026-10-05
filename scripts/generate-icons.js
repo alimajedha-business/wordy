@@ -89,6 +89,17 @@ if (!fs.existsSync(outDir)) {
   fs.mkdirSync(outDir, { recursive: true });
 }
 
+if (fs.existsSync(path.join(outDir, 'app-icon.png'))) {
+  try {
+    const { execSync } = await import('child_process');
+    execSync(`powershell -ExecutionPolicy Bypass -File "${path.join(__dirname, 'resize-icons.ps1')}"`, { stdio: 'inherit' });
+    console.log('Icons generated from app-icon.png successfully in', outDir);
+    process.exit(0);
+  } catch (e) {
+    console.warn('Could not run resize-icons.ps1, falling back to procedural generator:', e.message);
+  }
+}
+
 fs.writeFileSync(path.join(outDir, 'pwa-192x192.png'), createPNG(192, 192, [14, 19, 38]));
 fs.writeFileSync(path.join(outDir, 'pwa-512x512.png'), createPNG(512, 512, [14, 19, 38]));
 fs.writeFileSync(path.join(outDir, 'apple-touch-icon.png'), createPNG(180, 180, [14, 19, 38]));
