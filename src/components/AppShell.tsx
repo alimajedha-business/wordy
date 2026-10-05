@@ -69,7 +69,7 @@ export const AppShell: React.FC<AppShellProps> = ({
             >
               <Box
                 component="img"
-                src="/app-icon.png"
+                src="/pwa-192x192.png"
                 alt="لوگوی کلمه‌بازی"
                 sx={{
                   width: 40,

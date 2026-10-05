@@ -100,9 +100,19 @@ if (fs.existsSync(path.join(outDir, 'app-icon.png'))) {
   }
 }
 
-fs.writeFileSync(path.join(outDir, 'pwa-192x192.png'), createPNG(192, 192, [14, 19, 38]));
-fs.writeFileSync(path.join(outDir, 'pwa-512x512.png'), createPNG(512, 512, [14, 19, 38]));
-fs.writeFileSync(path.join(outDir, 'apple-touch-icon.png'), createPNG(180, 180, [14, 19, 38]));
-fs.writeFileSync(path.join(outDir, 'favicon.ico'), createPNG(64, 64, [14, 19, 38]));
+// Only create placeholder icons if files do not already exist
+const files = [
+  { name: 'pwa-192x192.png', size: 192 },
+  { name: 'pwa-512x512.png', size: 512 },
+  { name: 'apple-touch-icon.png', size: 180 },
+  { name: 'favicon.ico', size: 64 },
+];
 
-console.log('PWA icons generated successfully in', outDir);
+for (const file of files) {
+  const filePath = path.join(outDir, file.name);
+  if (!fs.existsSync(filePath)) {
+    fs.writeFileSync(filePath, createPNG(file.size, file.size, [14, 19, 38]));
+  }
+}
+
+console.log('Icons verified in', outDir);
