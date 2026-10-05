@@ -305,7 +305,7 @@ export const GameReviewView: React.FC<GameReviewViewProps> = ({
         <Stack direction="row" spacing={1} alignItems="flex-start">
           <WarningAmberIcon color="error" fontSize="small" sx={{ mt: 0.2 }} />
           <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.6 }}>
-            هر ثبت <b>خطا</b> در زمان نوبت، ۱ امتیاز از تیم کسر می‌کند (کف امتیاز صفر است). رد کردن کلمه بدون کسر امتیاز خواهد بود.
+            هر ثبت <b>خطا</b> در زمان نوبت، ۱ امتیاز از تیم کسر می‌کند (کف امتیاز صفر است). رد کردن کلمه <b>۷ ثانیه از زمان نوبت کسر می‌کند</b> اما امتیازی کم نمی‌شود.
           </Typography>
         </Stack>
       </Card>

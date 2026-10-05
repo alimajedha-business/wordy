@@ -31,6 +31,8 @@ import { calculatePointsDelta, applyScoreDelta } from '../../game/scoring';
 import { replacePlannedPrompt, drawNextPromptForTurn } from '../../game/promptPlanner';
 import { toPersianDigits } from '../../utils/persian';
 
+export const SKIP_TIME_PENALTY_SECONDS = 7;
+
 interface ActiveTurnViewProps {
   team: Team;
   round: RoundNumber;
@@ -38,7 +40,10 @@ interface ActiveTurnViewProps {
   plannedPrompts: PlannedPrompt[];
   allPromptsBank: Prompt[];
   allPlannedInRound: PlannedPrompt[];
-  onTurnComplete: (attempts: PromptAttempt[], finalScore: number) => void;
+  allUsedPromptIds?: string[];
+  allPlannedPrompts?: PlannedPrompt[];
+  onTurnComplete: (attempts: PromptAttempt[], finalScore: number, displayedPromptIds?: string[]) => void;
+  onDeadlineUpdate?: (newDeadlineAt: number) => void;
 }
 
 export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
@@ -48,9 +53,18 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
   plannedPrompts,
   allPromptsBank,
   allPlannedInRound,
+  allUsedPromptIds = [],
+  allPlannedPrompts = [],
   onTurnComplete,
+  onDeadlineUpdate,
 }) => {
   const roundConfig = ROUND_CONFIGS[round];
+
+  // Ref tracking the dynamic deadline (adjusted when skip penalty is applied)
+  const deadlineRef = useRef<number>(deadlineAt);
+  useEffect(() => {
+    deadlineRef.current = deadlineAt;
+  }, [deadlineAt]);
 
   // Timer state
   const [remainingSeconds, setRemainingSeconds] = useState<number>(() =>
@@ -64,13 +78,31 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
   const [isRevealed, setIsRevealed] = useState(true);
   const [isActionLocked, setIsActionLocked] = useState(false);
 
+  // Helper to gather all prompts that must not be repeated
+  const getAllExcludedIds = useCallback(
+    (currentTurnItems: PlannedPrompt[]) => {
+      const excluded = new Set<string>();
+      allUsedPromptIds.forEach((id) => excluded.add(id));
+      allPlannedPrompts.forEach((p) => excluded.add(p.promptId));
+      allPlannedInRound.forEach((p) => excluded.add(p.promptId));
+      currentTurnItems.forEach((p) => excluded.add(p.promptId));
+      return excluded;
+    },
+    [allUsedPromptIds, allPlannedPrompts, allPlannedInRound]
+  );
+
   // Active prompts sequence for this turn - unlimited dynamically expanding list
   const [turnPrompts, setTurnPrompts] = useState<PlannedPrompt[]>(() => {
     if (plannedPrompts && plannedPrompts.length > 0) {
       return [...plannedPrompts];
     }
+    const initialExcluded = new Set<string>([
+      ...allUsedPromptIds,
+      ...allPlannedPrompts.map((p) => p.promptId),
+      ...allPlannedInRound.map((p) => p.promptId),
+    ]);
     return [
-      drawNextPromptForTurn(round, team.id, 0, [], allPromptsBank, allPlannedInRound),
+      drawNextPromptForTurn(round, team.id, 0, [], allPromptsBank, allPlannedInRound, initialExcluded),
     ];
   });
 
@@ -83,6 +115,7 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
   // Feedback states
   const [confirmEndOpen, setConfirmEndOpen] = useState(false);
   const [floorWarningOpen, setFloorWarningOpen] = useState(false);
+  const [skipPenaltyOpen, setSkipPenaltyOpen] = useState(false);
 
   const completedRef = useRef(false);
   const lockTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -99,13 +132,16 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
   const finishTurn = useCallback(() => {
     if (completedRef.current) return;
     completedRef.current = true;
-    onTurnComplete(attempts, currentScore);
-  }, [attempts, currentScore, onTurnComplete]);
+    const displayedPromptIds = turnPrompts
+      .slice(0, currentPromptIndex + 1)
+      .map((p) => p.promptId);
+    onTurnComplete(attempts, currentScore, displayedPromptIds);
+  }, [attempts, currentScore, currentPromptIndex, turnPrompts, onTurnComplete]);
 
   // Wall-clock timer loop
   useEffect(() => {
     const updateTimer = () => {
-      const remaining = calculateRemainingSeconds(deadlineAt);
+      const remaining = calculateRemainingSeconds(deadlineRef.current);
       setRemainingSeconds(remaining);
 
       if (remaining <= 0) {
@@ -117,7 +153,7 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
     const interval = setInterval(updateTimer, 200);
 
     return () => clearInterval(interval);
-  }, [deadlineAt, finishTurn]);
+  }, [finishTurn]);
 
   // Current prompt lookup
   const currentPlanItem = turnPrompts[currentPromptIndex];
@@ -153,16 +189,40 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
     setAttempts(newAttempts);
     setCurrentScore(scoreResult.newScore);
 
-    // Advance to next prompt - unlimited: draw dynamically if needed
+    // If Skip ("رد کردن"), deduct 7 seconds from turn time
+    if (outcome === 'WRONG') {
+      const nextDeadline = deadlineRef.current - SKIP_TIME_PENALTY_SECONDS * 1000;
+      deadlineRef.current = nextDeadline;
+      if (onDeadlineUpdate) {
+        onDeadlineUpdate(nextDeadline);
+      }
+      setSkipPenaltyOpen(true);
+      const remainingAfterPenalty = calculateRemainingSeconds(nextDeadline);
+      setRemainingSeconds(remainingAfterPenalty);
+
+      if (remainingAfterPenalty <= 0) {
+        if (completedRef.current) return;
+        completedRef.current = true;
+        const displayedPromptIds = turnPrompts
+          .slice(0, currentPromptIndex + 1)
+          .map((p) => p.promptId);
+        onTurnComplete(newAttempts, scoreResult.newScore, displayedPromptIds);
+        return;
+      }
+    }
+
+    // Advance to next prompt - unlimited: draw dynamically if needed without repeating words
     const nextIndex = currentPromptIndex + 1;
     if (nextIndex >= turnPrompts.length) {
+      const excludedIds = getAllExcludedIds(turnPrompts);
       const drawn = drawNextPromptForTurn(
         round,
         team.id,
         nextIndex,
         turnPrompts,
         allPromptsBank,
-        allPlannedInRound
+        allPlannedInRound,
+        excludedIds
       );
       setTurnPrompts((prev) => [...prev, drawn]);
     }
@@ -182,10 +242,13 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
   const handleReplacePrompt = () => {
     const itemToReplace = activePlanItem || currentPlanItem;
     if (!itemToReplace) return;
-    const replacement = replacePlannedPrompt(itemToReplace, allPromptsBank, [
-      ...allPlannedInRound,
-      ...turnPrompts,
-    ]);
+    const excludedIds = getAllExcludedIds(turnPrompts);
+    const replacement = replacePlannedPrompt(
+      itemToReplace,
+      allPromptsBank,
+      allPlannedInRound,
+      excludedIds
+    );
     if (replacement) {
       itemToReplace.promptId = replacement.id;
       setActivePlanItem({ ...itemToReplace });
@@ -422,7 +485,7 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
               boxShadow: '0 6px 20px rgba(245, 158, 11, 0.25)',
             }}
           >
-            رد کردن (۰)
+            رد کردن (-۷ ثانیه)
           </Button>
         </Stack>
 
@@ -503,6 +566,18 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
       >
         <Alert severity="info" sx={{ borderRadius: 3 }}>
           خطا ثبت شد، اما طبق قوانین امتیاز کل نمی‌تواند کمتر از صفر شود.
+        </Alert>
+      </Snackbar>
+
+      {/* Skip Time Penalty Notification */}
+      <Snackbar
+        open={skipPenaltyOpen}
+        autoHideDuration={2000}
+        onClose={() => setSkipPenaltyOpen(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert severity="warning" sx={{ borderRadius: 3, fontWeight: 700 }}>
+          ۷ ثانیه به دلیل رد کردن کلمه کسر شد!
         </Alert>
       </Snackbar>
     </Stack>

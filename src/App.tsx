@@ -70,12 +70,18 @@ export function App() {
   const [lastTurnAttempts, setLastTurnAttempts] = useState<PromptAttempt[]>([]);
   const [lastTurnScore, setLastTurnScore] = useState<number>(0);
 
+  // Global set of prompts used so far in the game to prevent duplicates
+  const [usedPromptIds, setUsedPromptIds] = useState<string[]>([]);
+
   // Restore game state on mount (refresh recovery)
   useEffect(() => {
     loadActiveGameState().then((saved) => {
       if (saved && saved.step !== 'home' && saved.step !== 'final_results') {
         if (saved.settings) {
           setSettings(saved.settings);
+        }
+        if (saved.usedPromptIds) {
+          setUsedPromptIds(saved.usedPromptIds);
         }
         if (saved.step === 'active_turn') {
           const rem = calculateRemainingSeconds(saved.activeDeadlineAt);
@@ -116,6 +122,7 @@ export function App() {
         lastTurnAttempts,
         lastTurnScore,
         settings,
+        usedPromptIds,
         updatedAt: Date.now(),
       });
     } else if (step === 'home') {
@@ -141,6 +148,7 @@ export function App() {
     lastTurnAttempts,
     lastTurnScore,
     settings,
+    usedPromptIds,
   ]);
 
   // Game start from review
@@ -149,6 +157,7 @@ export function App() {
       setSettings(newSettings);
     }
     setPromptPlan(plan);
+    setUsedPromptIds(plan.map((p) => p.promptId));
     setCurrentRound(1);
     setCurrentTeamIndex(0);
     setStep('turn_ready');
@@ -162,7 +171,11 @@ export function App() {
   };
 
   // Turn completed
-  const handleTurnComplete = (attempts: PromptAttempt[], finalScore: number) => {
+  const handleTurnComplete = (
+    attempts: PromptAttempt[],
+    finalScore: number,
+    displayedPromptIds?: string[]
+  ) => {
     const activeTeam = teams[currentTeamIndex];
     // Update team score
     setTeams((prev) =>
@@ -170,6 +183,14 @@ export function App() {
     );
     setLastTurnAttempts(attempts);
     setLastTurnScore(finalScore);
+
+    // Track all prompt IDs displayed or attempted in this turn to avoid repetition
+    const promptIdsInThisTurn = [
+      ...attempts.map((a) => a.promptId),
+      ...(displayedPromptIds || []),
+    ];
+    setUsedPromptIds((prev) => Array.from(new Set([...prev, ...promptIdsInThisTurn])));
+
     setStep('turn_summary');
   };
 
@@ -198,6 +219,7 @@ export function App() {
     setTeams((prev) => prev.map((t) => ({ ...t, score: 0 })));
     setCurrentRound(1);
     setCurrentTeamIndex(0);
+    setUsedPromptIds([]);
     setStep('team_setup');
   };
 
@@ -206,6 +228,7 @@ export function App() {
     setCurrentRound(1);
     setCurrentTeamIndex(0);
     setTeams(INITIAL_TEAMS);
+    setUsedPromptIds([]);
   };
 
   const handleResetAll = () => {
@@ -218,6 +241,7 @@ export function App() {
     setActiveDeadlineAt(0);
     setLastTurnAttempts([]);
     setLastTurnScore(0);
+    setUsedPromptIds([]);
     setSettings({ roundDurationsSeconds: { ...DEFAULT_ROUND_DURATIONS } });
   };
 
@@ -474,7 +498,10 @@ export function App() {
           plannedPrompts={currentTeamPlannedPrompts}
           allPromptsBank={allPromptsBank}
           allPlannedInRound={allPlannedInRound}
+          allUsedPromptIds={usedPromptIds}
+          allPlannedPrompts={promptPlan}
           onTurnComplete={handleTurnComplete}
+          onDeadlineUpdate={(newDeadline) => setActiveDeadlineAt(newDeadline)}
         />
       )}
 

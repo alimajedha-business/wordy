@@ -105,7 +105,8 @@ export function createBalancedPromptPlan(
 ): FairnessPlanResult {
   const plannedPrompts: PlannedPrompt[] = [];
 
-  // Track prompts used in the whole game to avoid reusing the same prompt across teams in a round
+  // Track prompts used across the entire game so words are never repeated in the game
+  const usedPromptIdsInGame = new Set<string>();
   const usedPromptIdsByRound: Record<RoundNumber, Set<string>> = {
     1: new Set(),
     2: new Set(),
@@ -116,14 +117,25 @@ export function createBalancedPromptPlan(
     const blueprints = generateRoundSlotBlueprints(round, slotsPerRound);
 
     for (const blueprint of blueprints) {
-      // Find candidate prompts matching round, type, and difficulty
-      const eligiblePrompts = promptBank.filter(
+      // Find candidate prompts matching round, type, and difficulty not yet used in the game
+      let eligiblePrompts = promptBank.filter(
         (p) =>
           p.allowedRounds.includes(round) &&
           p.type === blueprint.type &&
           p.difficulty === blueprint.difficulty &&
-          !usedPromptIdsByRound[round].has(p.id)
+          !usedPromptIdsInGame.has(p.id)
       );
+
+      // Fallback for minimal test banks that might not have enough prompts across all rounds combined
+      if (eligiblePrompts.length < teams.length) {
+        eligiblePrompts = promptBank.filter(
+          (p) =>
+            p.allowedRounds.includes(round) &&
+            p.type === blueprint.type &&
+            p.difficulty === blueprint.difficulty &&
+            !usedPromptIdsByRound[round].has(p.id)
+        );
+      }
 
       // We need at least teams.length prompts for this slot in this round
       if (eligiblePrompts.length < teams.length) {
@@ -148,6 +160,7 @@ export function createBalancedPromptPlan(
       // Assign each team a distinct prompt
       teams.forEach((team, tIdx) => {
         const assignedPrompt = selected[tIdx];
+        usedPromptIdsInGame.add(assignedPrompt.id);
         usedPromptIdsByRound[round].add(assignedPrompt.id);
 
         plannedPrompts.push({
@@ -170,21 +183,36 @@ export function createBalancedPromptPlan(
 
 /**
  * Replaces a prompt in an active plan while strictly preserving the slot's type and difficulty.
+ * Avoids any prompt already used in the game or assigned in the round.
  */
 export function replacePlannedPrompt(
   currentPlannedPrompt: PlannedPrompt,
   promptBank: Prompt[],
-  allPlannedInRound: PlannedPrompt[]
+  allPlannedInRound: PlannedPrompt[],
+  excludePromptIds: Set<string> | string[] = new Set()
 ): Prompt | null {
-  const currentlyAssignedIds = new Set(allPlannedInRound.map((p) => p.promptId));
+  const excludedIds = new Set<string>([
+    ...allPlannedInRound.map((p) => p.promptId),
+    currentPlannedPrompt.promptId,
+    ...(Array.isArray(excludePromptIds) ? excludePromptIds : Array.from(excludePromptIds || [])),
+  ]);
 
-  const replacementPool = promptBank.filter(
+  let replacementPool = promptBank.filter(
     (p) =>
       p.allowedRounds.includes(currentPlannedPrompt.round) &&
       p.type === currentPlannedPrompt.type &&
       p.difficulty === currentPlannedPrompt.difficulty &&
-      !currentlyAssignedIds.has(p.id)
+      !excludedIds.has(p.id)
   );
+
+  if (replacementPool.length === 0) {
+    replacementPool = promptBank.filter(
+      (p) =>
+        p.allowedRounds.includes(currentPlannedPrompt.round) &&
+        p.type === currentPlannedPrompt.type &&
+        !excludedIds.has(p.id)
+    );
+  }
 
   if (replacementPool.length === 0) {
     return null; // No alternative available
@@ -195,7 +223,8 @@ export function replacePlannedPrompt(
 
 /**
  * Draws the next prompt for a team's active turn dynamically.
- * Ensures the team never runs out of words while time remains on the clock.
+ * Ensures the team never runs out of words while time remains on the clock,
+ * and guarantees that words used in the game are never shown again.
  */
 export function drawNextPromptForTurn(
   round: RoundNumber,
@@ -203,46 +232,55 @@ export function drawNextPromptForTurn(
   slotIndex: number,
   currentTurnPrompts: PlannedPrompt[],
   allPromptsBank: Prompt[],
-  allPlannedInRound: PlannedPrompt[] = []
+  allPlannedInRound: PlannedPrompt[] = [],
+  excludePromptIds: Set<string> | string[] = new Set()
 ): PlannedPrompt {
   const blueprints = generateRoundSlotBlueprints(round, 10);
   const targetBlueprint = blueprints[slotIndex % blueprints.length];
   const targetType = targetBlueprint.type;
   const targetDifficulty = targetBlueprint.difficulty;
 
-  const usedInTurn = new Set(currentTurnPrompts.map((p) => p.promptId));
-  const usedInRound = new Set(allPlannedInRound.map((p) => p.promptId));
+  const excluded = new Set<string>([
+    ...currentTurnPrompts.map((p) => p.promptId),
+    ...allPlannedInRound.map((p) => p.promptId),
+    ...(Array.isArray(excludePromptIds) ? excludePromptIds : Array.from(excludePromptIds || [])),
+  ]);
 
-  // Tier 1: exact round, exact type, exact difficulty, not used in turn or round
+  // Tier 1: exact round, exact type, exact difficulty, never used in game
   let candidates = allPromptsBank.filter(
     (p) =>
       p.allowedRounds.includes(round) &&
       p.type === targetType &&
       p.difficulty === targetDifficulty &&
-      !usedInTurn.has(p.id) &&
-      !usedInRound.has(p.id)
+      !excluded.has(p.id)
   );
 
-  // Tier 2: exact round, exact type, not used in turn
+  // Tier 2: exact round, exact type, never used in game
   if (candidates.length === 0) {
     candidates = allPromptsBank.filter(
       (p) =>
         p.allowedRounds.includes(round) &&
         p.type === targetType &&
-        !usedInTurn.has(p.id)
+        !excluded.has(p.id)
     );
   }
 
-  // Tier 3: any prompt allowed in this round not used in this turn
+  // Tier 3: any prompt allowed in this round, never used in game
   if (candidates.length === 0) {
     candidates = allPromptsBank.filter(
-      (p) => p.allowedRounds.includes(round) && !usedInTurn.has(p.id)
+      (p) => p.allowedRounds.includes(round) && !excluded.has(p.id)
     );
   }
 
-  // Tier 4: any prompt allowed in this round (recycle if entire bank exhausted in one turn)
+  // Tier 4: any prompt not used anywhere in the game
   if (candidates.length === 0) {
-    candidates = allPromptsBank.filter((p) => p.allowedRounds.includes(round));
+    candidates = allPromptsBank.filter((p) => !excluded.has(p.id));
+  }
+
+  // Tier 5: fallback only if prompt bank is completely exhausted
+  if (candidates.length === 0) {
+    const usedInTurn = new Set(currentTurnPrompts.map((p) => p.promptId));
+    candidates = allPromptsBank.filter((p) => !usedInTurn.has(p.id));
   }
 
   // Fallback failsafe

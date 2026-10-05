@@ -12,6 +12,7 @@ export interface SavedGameState {
   lastTurnAttempts: PromptAttempt[];
   lastTurnScore: number;
   settings?: GameSettings;
+  usedPromptIds?: string[];
   updatedAt: number;
 }
 
