@@ -59,6 +59,9 @@ export const theme = createTheme({
       'Roboto',
       'sans-serif',
     ].join(','),
+    allVariants: {
+      fontFeatureSettings: '"ss01"',
+    },
     h1: { fontWeight: 800, letterSpacing: -0.5 },
     h2: { fontWeight: 800, letterSpacing: -0.5 },
     h3: { fontWeight: 700 },

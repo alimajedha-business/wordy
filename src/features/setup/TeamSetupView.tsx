@@ -43,7 +43,7 @@ export const TeamSetupView: React.FC<TeamSetupViewProps> = ({
     const trimmed = newTeamName.trim();
     if (!trimmed) {
       // Suggest automatic name like "تیم ۳"
-      const defaultName = `تیم ${teams.length + 1}`;
+      const defaultName = `تیم ${toPersianDigits(teams.length + 1)}`;
       onUpdateTeams([
         ...teams,
         { id: `team-${Date.now()}-${teams.length + 1}`, name: defaultName, score: 0 },
@@ -114,7 +114,7 @@ export const TeamSetupView: React.FC<TeamSetupViewProps> = ({
           <TextField
             fullWidth
             size="small"
-            placeholder={`نام تیم جدید (مثال: تیم ${teams.length + 1})`}
+            placeholder={`نام تیم جدید (مثال: تیم ${toPersianDigits(teams.length + 1)})`}
             value={newTeamName}
             onChange={(e) => {
               setNewTeamName(e.target.value);

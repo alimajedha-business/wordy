@@ -23,6 +23,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  font-feature-settings: 'ss01';
+  -webkit-font-feature-settings: 'ss01';
 }
 
 * {
@@ -51,6 +53,8 @@ body {
   text-align: right;
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
+  font-feature-settings: 'ss01';
+  -webkit-font-feature-settings: 'ss01';
 }
 
 button,
@@ -58,6 +62,8 @@ input,
 select,
 textarea {
   font-family: inherit;
+  font-feature-settings: 'ss01';
+  -webkit-font-feature-settings: 'ss01';
 }
 
 /* Prevent unwanted callouts or selection during fast gameplay taps */

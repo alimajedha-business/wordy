@@ -28,6 +28,7 @@ import { FinalResultsView } from './features/scoreboard/FinalResultsView';
 import { Team, RoundNumber, PlannedPrompt, PromptAttempt, Prompt, GameSettings } from './game/types';
 import { ROUND_CONFIGS, DEFAULT_ROUND_DURATIONS } from './game/rules';
 import { calculateRemainingSeconds } from './game/timer';
+import { toPersianDigits } from './utils/persian';
 import {
   saveActiveGameState,
   loadActiveGameState,
@@ -331,7 +332,7 @@ export function App() {
                       <Typography variant="subtitle1" fontWeight={700}>
                         {ROUND_CONFIGS[1].title}
                       </Typography>
-                      <Chip label={`+${ROUND_CONFIGS[1].pointsPerCorrect} امتیاز`} size="small" color="success" sx={{ height: 20, fontSize: '0.7rem' }} />
+                      <Chip label={`+${toPersianDigits(ROUND_CONFIGS[1].pointsPerCorrect)} امتیاز`} size="small" color="success" sx={{ height: 20, fontSize: '0.7rem' }} />
                     </Stack>
                     <Typography variant="body2" color="text.secondary">
                       {ROUND_CONFIGS[1].activity}
@@ -340,7 +341,7 @@ export function App() {
                   <Grid item>
                     <Chip
                       icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 16 } }} />}
-                      label={`${ROUND_CONFIGS[1].durationSeconds / 60} دقیقه`}
+                      label={`${toPersianDigits(ROUND_CONFIGS[1].durationSeconds / 60)} دقیقه`}
                       variant="outlined"
                       size="small"
                       sx={{ borderColor: 'rgba(255,255,255,0.15)' }}
@@ -375,7 +376,7 @@ export function App() {
                       <Typography variant="subtitle1" fontWeight={700}>
                         {ROUND_CONFIGS[2].title}
                       </Typography>
-                      <Chip label={`+${ROUND_CONFIGS[2].pointsPerCorrect} امتیاز`} size="small" color="success" sx={{ height: 20, fontSize: '0.7rem' }} />
+                      <Chip label={`+${toPersianDigits(ROUND_CONFIGS[2].pointsPerCorrect)} امتیاز`} size="small" color="success" sx={{ height: 20, fontSize: '0.7rem' }} />
                     </Stack>
                     <Typography variant="body2" color="text.secondary">
                       {ROUND_CONFIGS[2].activity}
@@ -384,7 +385,7 @@ export function App() {
                   <Grid item>
                     <Chip
                       icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 16 } }} />}
-                      label={`${ROUND_CONFIGS[2].durationSeconds / 60} دقیقه`}
+                      label={`${toPersianDigits(ROUND_CONFIGS[2].durationSeconds / 60)} دقیقه`}
                       variant="outlined"
                       size="small"
                       sx={{ borderColor: 'rgba(255,255,255,0.15)' }}
@@ -419,7 +420,7 @@ export function App() {
                       <Typography variant="subtitle1" fontWeight={700}>
                         {ROUND_CONFIGS[3].title}
                       </Typography>
-                      <Chip label={`+${ROUND_CONFIGS[3].pointsPerCorrect} امتیاز`} size="small" color="success" sx={{ height: 20, fontSize: '0.7rem' }} />
+                      <Chip label={`+${toPersianDigits(ROUND_CONFIGS[3].pointsPerCorrect)} امتیاز`} size="small" color="success" sx={{ height: 20, fontSize: '0.7rem' }} />
                     </Stack>
                     <Typography variant="body2" color="text.secondary">
                       {ROUND_CONFIGS[3].activity}
@@ -428,7 +429,7 @@ export function App() {
                   <Grid item>
                     <Chip
                       icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 16 } }} />}
-                      label={`${ROUND_CONFIGS[3].durationSeconds / 60} دقیقه`}
+                      label={`${toPersianDigits(ROUND_CONFIGS[3].durationSeconds / 60)} دقیقه`}
                       variant="outlined"
                       size="small"
                       sx={{ borderColor: 'rgba(255,255,255,0.15)' }}

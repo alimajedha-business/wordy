@@ -59,7 +59,7 @@ export function validateTeams(teams: Team[]): string | null {
   for (let i = 0; i < teams.length; i++) {
     const trimmed = teams[i].name.trim();
     if (!trimmed) {
-      return `نام تیم شماره ${i + 1} نمی‌تواند خالی باشد.`;
+      return `نام تیم شماره ${toPersianDigits(i + 1)} نمی‌تواند خالی باشد.`;
     }
   }
 
