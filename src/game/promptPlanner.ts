@@ -1,5 +1,4 @@
 import { Prompt, PromptType, Difficulty, RoundNumber, Team, PlannedPrompt } from './types';
-import { toPersianDigits } from '../utils/persian';
 
 export interface SlotBlueprint {
   slotIndex: number;
