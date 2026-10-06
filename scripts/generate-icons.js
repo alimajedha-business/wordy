@@ -89,11 +89,21 @@ if (!fs.existsSync(outDir)) {
   fs.mkdirSync(outDir, { recursive: true });
 }
 
-if (fs.existsSync(path.join(outDir, 'app-icon.png'))) {
+const hasSourceIcon =
+  fs.existsSync(path.join(__dirname, 'app-icon.jpg')) ||
+  fs.existsSync(path.join(__dirname, 'app-icon.png')) ||
+  fs.existsSync(path.join(outDir, 'app-icon.jpg')) ||
+  fs.existsSync(path.join(outDir, 'app-icon.png'));
+
+if (hasSourceIcon) {
   try {
     const { execSync } = await import('child_process');
-    execSync(`powershell -ExecutionPolicy Bypass -File "${path.join(__dirname, 'resize-icons.ps1')}"`, { stdio: 'inherit' });
-    console.log('Icons generated from app-icon.png successfully in', outDir);
+    try {
+      execSync(`pwsh -ExecutionPolicy Bypass -File "${path.join(__dirname, 'resize-icons.ps1')}"`, { stdio: 'inherit' });
+    } catch {
+      execSync(`powershell -ExecutionPolicy Bypass -File "${path.join(__dirname, 'resize-icons.ps1')}"`, { stdio: 'inherit' });
+    }
+    console.log('Icons generated from app-icon successfully in', outDir);
     process.exit(0);
   } catch (e) {
     console.warn('Could not run resize-icons.ps1, falling back to procedural generator:', e.message);
