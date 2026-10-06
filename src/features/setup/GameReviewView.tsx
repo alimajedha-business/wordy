@@ -275,9 +275,6 @@ export const GameReviewView: React.FC<GameReviewViewProps> = ({
           <Stack direction="row" spacing={1.5} alignItems="center">
             <VerifiedUserIcon color="success" />
             <Box>
-              <Typography variant="subtitle2" fontWeight={800} color="success.light">
-                تضمین عدالت قرعه‌کشی کلمات تایید شد
-              </Typography>
               <Typography variant="caption" color="text.secondary">
                 تعداد کلمات در هر نوبت نامحدود است؛ تا پایان زمان‌سنج نوبت، کلمات جدید با توازن نوع و سختی نمایش داده می‌شوند.
               </Typography>

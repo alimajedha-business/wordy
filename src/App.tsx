@@ -297,7 +297,7 @@ export function App() {
             </Typography>
 
             <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 380, mx: 'auto', lineHeight: 1.7 }}>
-              رقابت جذاب تیمی در ۳ مرحله مختلف با کلمات، عبارت‌ها و ضرب‌المثل‌های اصیل فارسی و قرعه‌کشی عادلانه
+              رقابت جذاب تیمی در ۳ مرحله مختلف با کلمات، عبارت‌ها و ضرب‌المثل‌های اصیل فارسی
             </Typography>
           </Box>
 
