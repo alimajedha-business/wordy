@@ -264,7 +264,6 @@ export const TeamSetupView: React.FC<TeamSetupViewProps> = ({
           sx={{
             py: 1.6,
             fontSize: '1.1rem',
-            borderRadius: 4,
           }}
         >
           ادامه به بررسی و شروع بازی

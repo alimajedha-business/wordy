@@ -160,7 +160,6 @@ export const RoundScoreboardView: React.FC<RoundScoreboardViewProps> = ({
           sx={{
             py: 1.8,
             fontSize: '1.15rem',
-            borderRadius: 4,
             boxShadow: '0 8px 30px rgba(99, 102, 241, 0.4)',
           }}
         >

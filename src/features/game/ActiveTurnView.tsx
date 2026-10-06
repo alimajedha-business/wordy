@@ -418,7 +418,7 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
                 color="primary"
                 startIcon={<VisibilityIcon />}
                 onClick={() => setIsRevealed(true)}
-                sx={{ mt: 1, borderRadius: 3, px: 3 }}
+                sx={{ mt: 1, px: 3 }}
               >
                 مشاهده کلمه
               </Button>

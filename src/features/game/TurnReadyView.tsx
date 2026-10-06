@@ -110,7 +110,6 @@ export const TurnReadyView: React.FC<TurnReadyViewProps> = ({
           sx={{
             py: 2,
             fontSize: '1.2rem',
-            borderRadius: 4,
             boxShadow: '0 8px 30px rgba(99, 102, 241, 0.4)',
           }}
         >

@@ -205,7 +205,7 @@ export const RulesDialog: React.FC<RulesDialogProps> = ({ open, onClose }) => {
       </DialogContent>
 
       <DialogActions sx={{ px: { xs: 2, sm: 3 }, py: 1.5 }}>
-        <Button onClick={onClose} variant="contained" fullWidth size="large" sx={{ borderRadius: 2.5 }}>
+        <Button onClick={onClose} variant="contained" fullWidth size="large">
           متوجه شدم
         </Button>
       </DialogActions>
