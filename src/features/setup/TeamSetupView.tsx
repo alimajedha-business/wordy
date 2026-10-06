@@ -110,10 +110,9 @@ export const TeamSetupView: React.FC<TeamSetupViewProps> = ({
 
       {/* Add New Team Input */}
       <Card sx={{ p: 2, bgcolor: 'rgba(255, 255, 255, 0.03)' }}>
-        <Stack direction="row" spacing={1.5} alignItems="center">
+        <Stack direction="row" spacing={1.5} alignItems="flex-start">
           <TextField
             fullWidth
-            size="small"
             placeholder={`نام تیم جدید (مثال: تیم ${toPersianDigits(teams.length + 1)})`}
             value={newTeamName}
             onChange={(e) => {
@@ -129,13 +128,25 @@ export const TeamSetupView: React.FC<TeamSetupViewProps> = ({
             error={!!inputError}
             helperText={inputError}
             inputProps={{ 'aria-label': 'نام تیم جدید' }}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                height: 48,
+                borderRadius: '16px',
+              },
+            }}
           />
           <Button
             variant="contained"
             color="primary"
             startIcon={<AddCircleOutlineIcon />}
             onClick={handleAddTeam}
-            sx={{ minWidth: 120, height: 40 }}
+            sx={{
+              minWidth: 120,
+              height: 48,
+              minHeight: 48,
+              px: 2,
+              whiteSpace: 'nowrap',
+            }}
           >
             افزودن
           </Button>
