@@ -118,153 +118,189 @@ export const GameReviewView: React.FC<GameReviewViewProps> = ({
         {/* Round 1 */}
         <Card sx={{ borderRight: '4px solid #6366f1' }}>
           <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
-            <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
-              <Typography variant="subtitle2" fontWeight={800} color="primary.light">
+            <Stack spacing={1}>
+              {/* سطر اول: عنوان کامل مرحله */}
+              <Typography variant="subtitle1" fontWeight={800} color="primary.light">
                 {ROUND_CONFIGS[1].title}
               </Typography>
-              <Stack direction="row" spacing={1} alignItems="center">
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    bgcolor: 'rgba(255, 255, 255, 0.06)',
-                    borderRadius: 2,
-                    px: 0.5,
-                  }}
-                >
-                  <IconButton
-                    size="small"
-                    onClick={() => handleAdjustDuration(1, -1)}
-                    disabled={roundDurations[1] <= 60}
-                    aria-label="کاهش زمان مرحله ۱"
-                  >
-                    <RemoveCircleOutlineIcon fontSize="small" />
-                  </IconButton>
-                  <Typography variant="caption" fontWeight={800} sx={{ px: 0.8, minWidth: 48, textAlign: 'center' }}>
-                    {toPersianDigits(Math.round(roundDurations[1] / 60))} دقیقه
+
+              {/* سطر دوم: توضیح مرحله */}
+              <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
+                {ROUND_CONFIGS[1].description}
+              </Typography>
+
+              {/* سطر سوم: زمان و امتیاز مرحله */}
+              <Stack direction="row" justifyContent="space-between" alignItems="center" flexWrap="wrap" gap={1} sx={{ pt: 0.5 }}>
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <Typography variant="caption" color="text.secondary" fontWeight={700}>
+                    زمان:
                   </Typography>
-                  <IconButton
-                    size="small"
-                    onClick={() => handleAdjustDuration(1, 1)}
-                    disabled={roundDurations[1] >= 3600}
-                    aria-label="افزایش زمان مرحله ۱"
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      bgcolor: 'rgba(255, 255, 255, 0.06)',
+                      borderRadius: 2,
+                      px: 0.5,
+                    }}
                   >
-                    <AddCircleOutlineIcon fontSize="small" />
-                  </IconButton>
-                </Box>
+                    <IconButton
+                      size="small"
+                      onClick={() => handleAdjustDuration(1, -1)}
+                      disabled={roundDurations[1] <= 60}
+                      aria-label="کاهش زمان مرحله ۱"
+                    >
+                      <RemoveCircleOutlineIcon fontSize="small" />
+                    </IconButton>
+                    <Typography variant="caption" fontWeight={800} sx={{ px: 0.8, minWidth: 48, textAlign: 'center' }}>
+                      {toPersianDigits(Math.round(roundDurations[1] / 60))} دقیقه
+                    </Typography>
+                    <IconButton
+                      size="small"
+                      onClick={() => handleAdjustDuration(1, 1)}
+                      disabled={roundDurations[1] >= 3600}
+                      aria-label="افزایش زمان مرحله ۱"
+                    >
+                      <AddCircleOutlineIcon fontSize="small" />
+                    </IconButton>
+                  </Box>
+                </Stack>
+
                 <Chip
                   icon={<StarRateIcon sx={{ '&&': { fontSize: 14 } }} />}
-                  label="+۱ امتیاز"
+                  label={`+${toPersianDigits(ROUND_CONFIGS[1].pointsPerCorrect)} امتیاز`}
                   size="small"
                   color="success"
+                  sx={{ height: 26, fontWeight: 700 }}
                 />
               </Stack>
             </Stack>
-            <Typography variant="body2" color="text.secondary">
-              {ROUND_CONFIGS[1].description}
-            </Typography>
           </CardContent>
         </Card>
 
         {/* Round 2 */}
         <Card sx={{ borderRight: '4px solid #ec4899' }}>
           <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
-            <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
-              <Typography variant="subtitle2" fontWeight={800} color="secondary.light">
+            <Stack spacing={1}>
+              {/* سطر اول: عنوان کامل مرحله */}
+              <Typography variant="subtitle1" fontWeight={800} color="secondary.light">
                 {ROUND_CONFIGS[2].title}
               </Typography>
-              <Stack direction="row" spacing={1} alignItems="center">
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    bgcolor: 'rgba(255, 255, 255, 0.06)',
-                    borderRadius: 2,
-                    px: 0.5,
-                  }}
-                >
-                  <IconButton
-                    size="small"
-                    onClick={() => handleAdjustDuration(2, -1)}
-                    disabled={roundDurations[2] <= 60}
-                    aria-label="کاهش زمان مرحله ۲"
-                  >
-                    <RemoveCircleOutlineIcon fontSize="small" />
-                  </IconButton>
-                  <Typography variant="caption" fontWeight={800} sx={{ px: 0.8, minWidth: 48, textAlign: 'center' }}>
-                    {toPersianDigits(Math.round(roundDurations[2] / 60))} دقیقه
+
+              {/* سطر دوم: توضیح مرحله */}
+              <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
+                {ROUND_CONFIGS[2].description}
+              </Typography>
+
+              {/* سطر سوم: زمان و امتیاز مرحله */}
+              <Stack direction="row" justifyContent="space-between" alignItems="center" flexWrap="wrap" gap={1} sx={{ pt: 0.5 }}>
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <Typography variant="caption" color="text.secondary" fontWeight={700}>
+                    زمان:
                   </Typography>
-                  <IconButton
-                    size="small"
-                    onClick={() => handleAdjustDuration(2, 1)}
-                    disabled={roundDurations[2] >= 3600}
-                    aria-label="افزایش زمان مرحله ۲"
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      bgcolor: 'rgba(255, 255, 255, 0.06)',
+                      borderRadius: 2,
+                      px: 0.5,
+                    }}
                   >
-                    <AddCircleOutlineIcon fontSize="small" />
-                  </IconButton>
-                </Box>
+                    <IconButton
+                      size="small"
+                      onClick={() => handleAdjustDuration(2, -1)}
+                      disabled={roundDurations[2] <= 60}
+                      aria-label="کاهش زمان مرحله ۲"
+                    >
+                      <RemoveCircleOutlineIcon fontSize="small" />
+                    </IconButton>
+                    <Typography variant="caption" fontWeight={800} sx={{ px: 0.8, minWidth: 48, textAlign: 'center' }}>
+                      {toPersianDigits(Math.round(roundDurations[2] / 60))} دقیقه
+                    </Typography>
+                    <IconButton
+                      size="small"
+                      onClick={() => handleAdjustDuration(2, 1)}
+                      disabled={roundDurations[2] >= 3600}
+                      aria-label="افزایش زمان مرحله ۲"
+                    >
+                      <AddCircleOutlineIcon fontSize="small" />
+                    </IconButton>
+                  </Box>
+                </Stack>
+
                 <Chip
                   icon={<StarRateIcon sx={{ '&&': { fontSize: 14 } }} />}
-                  label="+۳ امتیاز"
+                  label={`+${toPersianDigits(ROUND_CONFIGS[2].pointsPerCorrect)} امتیاز`}
                   size="small"
                   color="success"
+                  sx={{ height: 26, fontWeight: 700 }}
                 />
               </Stack>
             </Stack>
-            <Typography variant="body2" color="text.secondary">
-              {ROUND_CONFIGS[2].description}
-            </Typography>
           </CardContent>
         </Card>
 
         {/* Round 3 */}
         <Card sx={{ borderRight: '4px solid #8b5cf6' }}>
           <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
-            <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
-              <Typography variant="subtitle2" fontWeight={800} sx={{ color: '#c4b5fd' }}>
+            <Stack spacing={1}>
+              {/* سطر اول: عنوان کامل مرحله */}
+              <Typography variant="subtitle1" fontWeight={800} sx={{ color: '#c4b5fd' }}>
                 {ROUND_CONFIGS[3].title}
               </Typography>
-              <Stack direction="row" spacing={1} alignItems="center">
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    bgcolor: 'rgba(255, 255, 255, 0.06)',
-                    borderRadius: 2,
-                    px: 0.5,
-                  }}
-                >
-                  <IconButton
-                    size="small"
-                    onClick={() => handleAdjustDuration(3, -1)}
-                    disabled={roundDurations[3] <= 60}
-                    aria-label="کاهش زمان مرحله ۳"
-                  >
-                    <RemoveCircleOutlineIcon fontSize="small" />
-                  </IconButton>
-                  <Typography variant="caption" fontWeight={800} sx={{ px: 0.8, minWidth: 48, textAlign: 'center' }}>
-                    {toPersianDigits(Math.round(roundDurations[3] / 60))} دقیقه
+
+              {/* سطر دوم: توضیح مرحله */}
+              <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
+                {ROUND_CONFIGS[3].description}
+              </Typography>
+
+              {/* سطر سوم: زمان و امتیاز مرحله */}
+              <Stack direction="row" justifyContent="space-between" alignItems="center" flexWrap="wrap" gap={1} sx={{ pt: 0.5 }}>
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <Typography variant="caption" color="text.secondary" fontWeight={700}>
+                    زمان:
                   </Typography>
-                  <IconButton
-                    size="small"
-                    onClick={() => handleAdjustDuration(3, 1)}
-                    disabled={roundDurations[3] >= 3600}
-                    aria-label="افزایش زمان مرحله ۳"
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      bgcolor: 'rgba(255, 255, 255, 0.06)',
+                      borderRadius: 2,
+                      px: 0.5,
+                    }}
                   >
-                    <AddCircleOutlineIcon fontSize="small" />
-                  </IconButton>
-                </Box>
+                    <IconButton
+                      size="small"
+                      onClick={() => handleAdjustDuration(3, -1)}
+                      disabled={roundDurations[3] <= 60}
+                      aria-label="کاهش زمان مرحله ۳"
+                    >
+                      <RemoveCircleOutlineIcon fontSize="small" />
+                    </IconButton>
+                    <Typography variant="caption" fontWeight={800} sx={{ px: 0.8, minWidth: 48, textAlign: 'center' }}>
+                      {toPersianDigits(Math.round(roundDurations[3] / 60))} دقیقه
+                    </Typography>
+                    <IconButton
+                      size="small"
+                      onClick={() => handleAdjustDuration(3, 1)}
+                      disabled={roundDurations[3] >= 3600}
+                      aria-label="افزایش زمان مرحله ۳"
+                    >
+                      <AddCircleOutlineIcon fontSize="small" />
+                    </IconButton>
+                  </Box>
+                </Stack>
+
                 <Chip
                   icon={<StarRateIcon sx={{ '&&': { fontSize: 14 } }} />}
-                  label="+۵ امتیاز"
+                  label={`+${toPersianDigits(ROUND_CONFIGS[3].pointsPerCorrect)} امتیاز`}
                   size="small"
                   color="success"
+                  sx={{ height: 26, fontWeight: 700 }}
                 />
               </Stack>
             </Stack>
-            <Typography variant="body2" color="text.secondary">
-              {ROUND_CONFIGS[3].description}
-            </Typography>
           </CardContent>
         </Card>
       </Stack>

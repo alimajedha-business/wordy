@@ -7,7 +7,6 @@ import {
   CardContent,
   Stack,
   Chip,
-  Grid,
 } from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
@@ -292,132 +291,179 @@ export function App() {
             {/* Round 1 Card */}
             <Card sx={{ borderRight: '4px solid #6366f1' }}>
               <CardContent sx={{ p: { xs: 1.25, sm: 2 }, '&:last-child': { pb: { xs: 1.25, sm: 2 } } }}>
-                <Grid container alignItems="center" spacing={1.5}>
-                  <Grid item>
+                <Stack spacing={0.6}>
+                  {/* سطر اول: عنوان کامل مرحله */}
+                  <Stack direction="row" alignItems="center" spacing={1}>
                     <Box
                       sx={{
-                        width: { xs: 38, sm: 44 },
-                        height: { xs: 38, sm: 44 },
-                        borderRadius: 2,
+                        width: { xs: 26, sm: 30 },
+                        height: { xs: 26, sm: 30 },
+                        borderRadius: 1.5,
                         bgcolor: 'rgba(99, 102, 241, 0.15)',
                         color: 'primary.light',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
+                        flexShrink: 0,
                       }}
                     >
-                      <RecordVoiceOverIcon sx={{ fontSize: { xs: 20, sm: 24 } }} />
+                      <RecordVoiceOverIcon sx={{ fontSize: { xs: 16, sm: 18 } }} />
                     </Box>
-                  </Grid>
-                  <Grid item xs>
-                    <Stack direction="row" alignItems="center" spacing={1} mb={0.25}>
-                      <Typography variant="subtitle1" fontWeight={700} sx={{ fontSize: { xs: '0.95rem', sm: '1rem' } }}>
-                        {ROUND_CONFIGS[1].title}
-                      </Typography>
-                      <Chip label={`+${toPersianDigits(ROUND_CONFIGS[1].pointsPerCorrect)} امتیاز`} size="small" color="success" sx={{ height: 18, fontSize: '0.65rem' }} />
-                    </Stack>
-                    <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.78rem', sm: '0.875rem' } }}>
-                      {ROUND_CONFIGS[1].activity}
+                    <Typography
+                      variant="subtitle1"
+                      fontWeight={800}
+                      color="primary.light"
+                      sx={{ fontSize: { xs: '0.95rem', sm: '1.05rem' }, lineHeight: 1.3 }}
+                    >
+                      {ROUND_CONFIGS[1].title}
                     </Typography>
-                  </Grid>
-                  <Grid item>
+                  </Stack>
+
+                  {/* سطر دوم: توضیح مرحله */}
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ fontSize: { xs: '0.78rem', sm: '0.85rem' }, lineHeight: 1.5 }}
+                  >
+                    {ROUND_CONFIGS[1].activity}
+                  </Typography>
+
+                  {/* سطر سوم: امتیاز و زمان مرحله */}
+                  <Stack direction="row" spacing={1} alignItems="center" sx={{ pt: 0.25 }}>
                     <Chip
-                      icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 14 } }} />}
+                      label={`+${toPersianDigits(ROUND_CONFIGS[1].pointsPerCorrect)} امتیاز`}
+                      size="small"
+                      color="success"
+                      sx={{ height: 20, fontSize: '0.68rem', fontWeight: 700 }}
+                    />
+                    <Chip
+                      icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 13 } }} />}
                       label={`${toPersianDigits(ROUND_CONFIGS[1].durationSeconds / 60)} دقیقه`}
                       variant="outlined"
                       size="small"
-                      sx={{ borderColor: 'rgba(255,255,255,0.15)', height: 24, fontSize: '0.72rem' }}
+                      sx={{ borderColor: 'rgba(255,255,255,0.15)', height: 20, fontSize: '0.68rem' }}
                     />
-                  </Grid>
-                </Grid>
+                  </Stack>
+                </Stack>
               </CardContent>
             </Card>
 
             {/* Round 2 Card */}
             <Card sx={{ borderRight: '4px solid #ec4899' }}>
               <CardContent sx={{ p: { xs: 1.25, sm: 2 }, '&:last-child': { pb: { xs: 1.25, sm: 2 } } }}>
-                <Grid container alignItems="center" spacing={1.5}>
-                  <Grid item>
+                <Stack spacing={0.6}>
+                  {/* سطر اول: عنوان کامل مرحله */}
+                  <Stack direction="row" alignItems="center" spacing={1}>
                     <Box
                       sx={{
-                        width: { xs: 38, sm: 44 },
-                        height: { xs: 38, sm: 44 },
-                        borderRadius: 2,
+                        width: { xs: 26, sm: 30 },
+                        height: { xs: 26, sm: 30 },
+                        borderRadius: 1.5,
                         bgcolor: 'rgba(236, 72, 153, 0.15)',
                         color: 'secondary.light',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
+                        flexShrink: 0,
                       }}
                     >
-                      <PanToolIcon sx={{ fontSize: { xs: 20, sm: 24 } }} />
+                      <PanToolIcon sx={{ fontSize: { xs: 16, sm: 18 } }} />
                     </Box>
-                  </Grid>
-                  <Grid item xs>
-                    <Stack direction="row" alignItems="center" spacing={1} mb={0.25}>
-                      <Typography variant="subtitle1" fontWeight={700} sx={{ fontSize: { xs: '0.95rem', sm: '1rem' } }}>
-                        {ROUND_CONFIGS[2].title}
-                      </Typography>
-                      <Chip label={`+${toPersianDigits(ROUND_CONFIGS[2].pointsPerCorrect)} امتیاز`} size="small" color="success" sx={{ height: 18, fontSize: '0.65rem' }} />
-                    </Stack>
-                    <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.78rem', sm: '0.875rem' } }}>
-                      {ROUND_CONFIGS[2].activity}
+                    <Typography
+                      variant="subtitle1"
+                      fontWeight={800}
+                      color="secondary.light"
+                      sx={{ fontSize: { xs: '0.95rem', sm: '1.05rem' }, lineHeight: 1.3 }}
+                    >
+                      {ROUND_CONFIGS[2].title}
                     </Typography>
-                  </Grid>
-                  <Grid item>
+                  </Stack>
+
+                  {/* سطر دوم: توضیح مرحله */}
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ fontSize: { xs: '0.78rem', sm: '0.85rem' }, lineHeight: 1.5 }}
+                  >
+                    {ROUND_CONFIGS[2].activity}
+                  </Typography>
+
+                  {/* سطر سوم: امتیاز و زمان مرحله */}
+                  <Stack direction="row" spacing={1} alignItems="center" sx={{ pt: 0.25 }}>
                     <Chip
-                      icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 14 } }} />}
+                      label={`+${toPersianDigits(ROUND_CONFIGS[2].pointsPerCorrect)} امتیاز`}
+                      size="small"
+                      color="success"
+                      sx={{ height: 20, fontSize: '0.68rem', fontWeight: 700 }}
+                    />
+                    <Chip
+                      icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 13 } }} />}
                       label={`${toPersianDigits(ROUND_CONFIGS[2].durationSeconds / 60)} دقیقه`}
                       variant="outlined"
                       size="small"
-                      sx={{ borderColor: 'rgba(255,255,255,0.15)', height: 24, fontSize: '0.72rem' }}
+                      sx={{ borderColor: 'rgba(255,255,255,0.15)', height: 20, fontSize: '0.68rem' }}
                     />
-                  </Grid>
-                </Grid>
+                  </Stack>
+                </Stack>
               </CardContent>
             </Card>
 
             {/* Round 3 Card */}
             <Card sx={{ borderRight: '4px solid #8b5cf6' }}>
               <CardContent sx={{ p: { xs: 1.25, sm: 2 }, '&:last-child': { pb: { xs: 1.25, sm: 2 } } }}>
-                <Grid container alignItems="center" spacing={1.5}>
-                  <Grid item>
+                <Stack spacing={0.6}>
+                  {/* سطر اول: عنوان کامل مرحله */}
+                  <Stack direction="row" alignItems="center" spacing={1}>
                     <Box
                       sx={{
-                        width: { xs: 38, sm: 44 },
-                        height: { xs: 38, sm: 44 },
-                        borderRadius: 2,
+                        width: { xs: 26, sm: 30 },
+                        height: { xs: 26, sm: 30 },
+                        borderRadius: 1.5,
                         bgcolor: 'rgba(139, 92, 246, 0.15)',
                         color: '#c4b5fd',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
+                        flexShrink: 0,
                       }}
                     >
-                      <GestureIcon sx={{ fontSize: { xs: 20, sm: 24 } }} />
+                      <GestureIcon sx={{ fontSize: { xs: 16, sm: 18 } }} />
                     </Box>
-                  </Grid>
-                  <Grid item xs>
-                    <Stack direction="row" alignItems="center" spacing={1} mb={0.25}>
-                      <Typography variant="subtitle1" fontWeight={700} sx={{ fontSize: { xs: '0.95rem', sm: '1rem' } }}>
-                        {ROUND_CONFIGS[3].title}
-                      </Typography>
-                      <Chip label={`+${toPersianDigits(ROUND_CONFIGS[3].pointsPerCorrect)} امتیاز`} size="small" color="success" sx={{ height: 18, fontSize: '0.65rem' }} />
-                    </Stack>
-                    <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.78rem', sm: '0.875rem' } }}>
-                      {ROUND_CONFIGS[3].activity}
+                    <Typography
+                      variant="subtitle1"
+                      fontWeight={800}
+                      sx={{ color: '#c4b5fd', fontSize: { xs: '0.95rem', sm: '1.05rem' }, lineHeight: 1.3 }}
+                    >
+                      {ROUND_CONFIGS[3].title}
                     </Typography>
-                  </Grid>
-                  <Grid item>
+                  </Stack>
+
+                  {/* سطر دوم: توضیح مرحله */}
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ fontSize: { xs: '0.78rem', sm: '0.85rem' }, lineHeight: 1.5 }}
+                  >
+                    {ROUND_CONFIGS[3].activity}
+                  </Typography>
+
+                  {/* سطر سوم: امتیاز و زمان مرحله */}
+                  <Stack direction="row" spacing={1} alignItems="center" sx={{ pt: 0.25 }}>
                     <Chip
-                      icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 14 } }} />}
+                      label={`+${toPersianDigits(ROUND_CONFIGS[3].pointsPerCorrect)} امتیاز`}
+                      size="small"
+                      color="success"
+                      sx={{ height: 20, fontSize: '0.68rem', fontWeight: 700 }}
+                    />
+                    <Chip
+                      icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 13 } }} />}
                       label={`${toPersianDigits(ROUND_CONFIGS[3].durationSeconds / 60)} دقیقه`}
                       variant="outlined"
                       size="small"
-                      sx={{ borderColor: 'rgba(255,255,255,0.15)', height: 24, fontSize: '0.72rem' }}
+                      sx={{ borderColor: 'rgba(255,255,255,0.15)', height: 20, fontSize: '0.68rem' }}
                     />
-                  </Grid>
-                </Grid>
+                  </Stack>
+                </Stack>
               </CardContent>
             </Card>
           </Stack>
