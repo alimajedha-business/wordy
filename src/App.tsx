@@ -281,20 +281,6 @@ export function App() {
               </Typography>
             </Box>
 
-            <Typography
-              variant="h3"
-              component="h1"
-              sx={{
-                fontWeight: 900,
-                background: 'linear-gradient(135deg, #ffffff 30%, #a5b4fc 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                fontSize: { xs: '2rem', sm: '2.8rem' },
-                lineHeight: 1.2,
-              }}
-            >
-              کلمه‌بازی
-            </Typography>
           </Box>
 
           {/* 3 Rounds Preview Cards */}
