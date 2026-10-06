@@ -38,7 +38,7 @@ export const AppShell: React.FC<AppShellProps> = ({
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '100vh',
+        minHeight: '100dvh',
         bgcolor: 'background.default',
         color: 'text.primary',
         pt: 'var(--safe-area-top)',
@@ -55,7 +55,7 @@ export const AppShell: React.FC<AppShellProps> = ({
         }}
       >
         <Container maxWidth="sm" disableGutters sx={{ px: 2 }}>
-          <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between', minHeight: 64 }}>
+          <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between', minHeight: { xs: 54, sm: 64 } }}>
             {/* Logo / Title */}
             <Box
               onClick={onHomeClick}
@@ -143,7 +143,7 @@ export const AppShell: React.FC<AppShellProps> = ({
             flex: 1,
             display: 'flex',
             flexDirection: 'column',
-            py: { xs: 2.5, sm: 3.5 },
+            py: { xs: 1.5, sm: 3 },
             px: { xs: 2, sm: 3 },
           }}
         >

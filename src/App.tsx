@@ -258,9 +258,9 @@ export function App() {
   return (
     <AppShell onHomeClick={handleResetToHome} onResetAll={handleResetAll}>
       {step === 'home' && (
-        <Stack spacing={3} sx={{ flex: 1, justifyContent: 'space-between' }}>
+        <Stack spacing={{ xs: 1.25, sm: 2.5 }} sx={{ flex: 1, justifyContent: 'space-between' }}>
           {/* Hero Banner */}
-          <Box sx={{ textAlign: 'center', pt: 1, pb: 1 }}>
+          <Box sx={{ textAlign: 'center', pt: { xs: 0.5, sm: 1 }, pb: 0 }}>
             <Box
               sx={{
                 display: 'inline-flex',
@@ -269,13 +269,13 @@ export function App() {
                 bgcolor: 'rgba(99, 102, 241, 0.12)',
                 color: 'primary.light',
                 px: 2,
-                py: 0.7,
+                py: 0.5,
                 borderRadius: 50,
-                mb: 2,
+                mb: { xs: 1, sm: 1.5 },
                 border: '1px solid rgba(99, 102, 241, 0.25)',
               }}
             >
-              <PeopleAltIcon sx={{ fontSize: 18 }} />
+              <PeopleAltIcon sx={{ fontSize: 16 }} />
               <Typography variant="caption" fontWeight={700}>
                 بازی دورهمی با یک گوشی هوشمند
               </Typography>
@@ -284,39 +284,35 @@ export function App() {
             <Typography
               variant="h3"
               component="h1"
-              gutterBottom
               sx={{
                 fontWeight: 900,
                 background: 'linear-gradient(135deg, #ffffff 30%, #a5b4fc 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
-                fontSize: { xs: '2.2rem', sm: '2.8rem' },
+                fontSize: { xs: '2rem', sm: '2.8rem' },
+                lineHeight: 1.2,
               }}
             >
               کلمه‌بازی
             </Typography>
-
-            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 380, mx: 'auto', lineHeight: 1.7 }}>
-              رقابت جذاب تیمی در ۳ مرحله مختلف با کلمات، عبارت‌ها و ضرب‌المثل‌های اصیل فارسی
-            </Typography>
           </Box>
 
           {/* 3 Rounds Preview Cards */}
-          <Stack spacing={1.8}>
+          <Stack spacing={{ xs: 1.2, sm: 1.8 }}>
             <Typography variant="subtitle2" color="text.secondary" fontWeight={700} sx={{ px: 0.5 }}>
               مراحل مسابقه
             </Typography>
 
             {/* Round 1 Card */}
             <Card sx={{ borderRight: '4px solid #6366f1' }}>
-              <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
+              <CardContent sx={{ p: { xs: 1.25, sm: 2 }, '&:last-child': { pb: { xs: 1.25, sm: 2 } } }}>
                 <Grid container alignItems="center" spacing={1.5}>
                   <Grid item>
                     <Box
                       sx={{
-                        width: 44,
-                        height: 44,
-                        borderRadius: 2.5,
+                        width: { xs: 38, sm: 44 },
+                        height: { xs: 38, sm: 44 },
+                        borderRadius: 2,
                         bgcolor: 'rgba(99, 102, 241, 0.15)',
                         color: 'primary.light',
                         display: 'flex',
@@ -324,27 +320,27 @@ export function App() {
                         justifyContent: 'center',
                       }}
                     >
-                      <RecordVoiceOverIcon />
+                      <RecordVoiceOverIcon sx={{ fontSize: { xs: 20, sm: 24 } }} />
                     </Box>
                   </Grid>
                   <Grid item xs>
-                    <Stack direction="row" alignItems="center" spacing={1} mb={0.5}>
-                      <Typography variant="subtitle1" fontWeight={700}>
+                    <Stack direction="row" alignItems="center" spacing={1} mb={0.25}>
+                      <Typography variant="subtitle1" fontWeight={700} sx={{ fontSize: { xs: '0.95rem', sm: '1rem' } }}>
                         {ROUND_CONFIGS[1].title}
                       </Typography>
-                      <Chip label={`+${toPersianDigits(ROUND_CONFIGS[1].pointsPerCorrect)} امتیاز`} size="small" color="success" sx={{ height: 20, fontSize: '0.7rem' }} />
+                      <Chip label={`+${toPersianDigits(ROUND_CONFIGS[1].pointsPerCorrect)} امتیاز`} size="small" color="success" sx={{ height: 18, fontSize: '0.65rem' }} />
                     </Stack>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.78rem', sm: '0.875rem' } }}>
                       {ROUND_CONFIGS[1].activity}
                     </Typography>
                   </Grid>
                   <Grid item>
                     <Chip
-                      icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 16 } }} />}
+                      icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 14 } }} />}
                       label={`${toPersianDigits(ROUND_CONFIGS[1].durationSeconds / 60)} دقیقه`}
                       variant="outlined"
                       size="small"
-                      sx={{ borderColor: 'rgba(255,255,255,0.15)' }}
+                      sx={{ borderColor: 'rgba(255,255,255,0.15)', height: 24, fontSize: '0.72rem' }}
                     />
                   </Grid>
                 </Grid>
@@ -353,14 +349,14 @@ export function App() {
 
             {/* Round 2 Card */}
             <Card sx={{ borderRight: '4px solid #ec4899' }}>
-              <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
+              <CardContent sx={{ p: { xs: 1.25, sm: 2 }, '&:last-child': { pb: { xs: 1.25, sm: 2 } } }}>
                 <Grid container alignItems="center" spacing={1.5}>
                   <Grid item>
                     <Box
                       sx={{
-                        width: 44,
-                        height: 44,
-                        borderRadius: 2.5,
+                        width: { xs: 38, sm: 44 },
+                        height: { xs: 38, sm: 44 },
+                        borderRadius: 2,
                         bgcolor: 'rgba(236, 72, 153, 0.15)',
                         color: 'secondary.light',
                         display: 'flex',
@@ -368,27 +364,27 @@ export function App() {
                         justifyContent: 'center',
                       }}
                     >
-                      <PanToolIcon />
+                      <PanToolIcon sx={{ fontSize: { xs: 20, sm: 24 } }} />
                     </Box>
                   </Grid>
                   <Grid item xs>
-                    <Stack direction="row" alignItems="center" spacing={1} mb={0.5}>
-                      <Typography variant="subtitle1" fontWeight={700}>
+                    <Stack direction="row" alignItems="center" spacing={1} mb={0.25}>
+                      <Typography variant="subtitle1" fontWeight={700} sx={{ fontSize: { xs: '0.95rem', sm: '1rem' } }}>
                         {ROUND_CONFIGS[2].title}
                       </Typography>
-                      <Chip label={`+${toPersianDigits(ROUND_CONFIGS[2].pointsPerCorrect)} امتیاز`} size="small" color="success" sx={{ height: 20, fontSize: '0.7rem' }} />
+                      <Chip label={`+${toPersianDigits(ROUND_CONFIGS[2].pointsPerCorrect)} امتیاز`} size="small" color="success" sx={{ height: 18, fontSize: '0.65rem' }} />
                     </Stack>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.78rem', sm: '0.875rem' } }}>
                       {ROUND_CONFIGS[2].activity}
                     </Typography>
                   </Grid>
                   <Grid item>
                     <Chip
-                      icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 16 } }} />}
+                      icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 14 } }} />}
                       label={`${toPersianDigits(ROUND_CONFIGS[2].durationSeconds / 60)} دقیقه`}
                       variant="outlined"
                       size="small"
-                      sx={{ borderColor: 'rgba(255,255,255,0.15)' }}
+                      sx={{ borderColor: 'rgba(255,255,255,0.15)', height: 24, fontSize: '0.72rem' }}
                     />
                   </Grid>
                 </Grid>
@@ -397,14 +393,14 @@ export function App() {
 
             {/* Round 3 Card */}
             <Card sx={{ borderRight: '4px solid #8b5cf6' }}>
-              <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
+              <CardContent sx={{ p: { xs: 1.25, sm: 2 }, '&:last-child': { pb: { xs: 1.25, sm: 2 } } }}>
                 <Grid container alignItems="center" spacing={1.5}>
                   <Grid item>
                     <Box
                       sx={{
-                        width: 44,
-                        height: 44,
-                        borderRadius: 2.5,
+                        width: { xs: 38, sm: 44 },
+                        height: { xs: 38, sm: 44 },
+                        borderRadius: 2,
                         bgcolor: 'rgba(139, 92, 246, 0.15)',
                         color: '#c4b5fd',
                         display: 'flex',
@@ -412,27 +408,27 @@ export function App() {
                         justifyContent: 'center',
                       }}
                     >
-                      <GestureIcon />
+                      <GestureIcon sx={{ fontSize: { xs: 20, sm: 24 } }} />
                     </Box>
                   </Grid>
                   <Grid item xs>
-                    <Stack direction="row" alignItems="center" spacing={1} mb={0.5}>
-                      <Typography variant="subtitle1" fontWeight={700}>
+                    <Stack direction="row" alignItems="center" spacing={1} mb={0.25}>
+                      <Typography variant="subtitle1" fontWeight={700} sx={{ fontSize: { xs: '0.95rem', sm: '1rem' } }}>
                         {ROUND_CONFIGS[3].title}
                       </Typography>
-                      <Chip label={`+${toPersianDigits(ROUND_CONFIGS[3].pointsPerCorrect)} امتیاز`} size="small" color="success" sx={{ height: 20, fontSize: '0.7rem' }} />
+                      <Chip label={`+${toPersianDigits(ROUND_CONFIGS[3].pointsPerCorrect)} امتیاز`} size="small" color="success" sx={{ height: 18, fontSize: '0.65rem' }} />
                     </Stack>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.78rem', sm: '0.875rem' } }}>
                       {ROUND_CONFIGS[3].activity}
                     </Typography>
                   </Grid>
                   <Grid item>
                     <Chip
-                      icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 16 } }} />}
+                      icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 14 } }} />}
                       label={`${toPersianDigits(ROUND_CONFIGS[3].durationSeconds / 60)} دقیقه`}
                       variant="outlined"
                       size="small"
-                      sx={{ borderColor: 'rgba(255,255,255,0.15)' }}
+                      sx={{ borderColor: 'rgba(255,255,255,0.15)', height: 24, fontSize: '0.72rem' }}
                     />
                   </Grid>
                 </Grid>
@@ -441,7 +437,7 @@ export function App() {
           </Stack>
 
           {/* Start CTA Button */}
-          <Box sx={{ pt: 2, pb: 1 }}>
+          <Box sx={{ pt: { xs: 1, sm: 2 }, pb: { xs: 0.5, sm: 1 } }}>
             <Button
               id="start-game-btn"
               variant="contained"
@@ -450,8 +446,8 @@ export function App() {
               startIcon={<PlayArrowIcon />}
               onClick={() => setStep('team_setup')}
               sx={{
-                py: 1.8,
-                fontSize: '1.15rem',
+                py: { xs: 1.4, sm: 1.8 },
+                fontSize: { xs: '1.05rem', sm: '1.15rem' },
                 borderRadius: 4,
                 boxShadow: '0 8px 30px rgba(99, 102, 241, 0.4)',
               }}
