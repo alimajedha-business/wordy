@@ -325,7 +325,7 @@ export function App() {
                     color="text.secondary"
                     sx={{ fontSize: { xs: '0.78rem', sm: '0.85rem' }, lineHeight: 1.5 }}
                   >
-                    {ROUND_CONFIGS[1].activity}
+                    توصیف کلمه یا عبارت با استفاده از فقط و فقط یک جمله بدون استفاده از خود کلمه
                   </Typography>
 
                   {/* سطر سوم: امتیاز و زمان مرحله */}
@@ -385,7 +385,7 @@ export function App() {
                     color="text.secondary"
                     sx={{ fontSize: { xs: '0.78rem', sm: '0.85rem' }, lineHeight: 1.5 }}
                   >
-                    {ROUND_CONFIGS[2].activity}
+                    اجرای کلمه یا عبارت از طریق اجرای آن بدون صحبت و یا لبزدن
                   </Typography>
 
                   {/* سطر سوم: امتیاز و زمان مرحله */}
@@ -444,7 +444,7 @@ export function App() {
                     color="text.secondary"
                     sx={{ fontSize: { xs: '0.78rem', sm: '0.85rem' }, lineHeight: 1.5 }}
                   >
-                    {ROUND_CONFIGS[3].activity}
+                    بیان کلمه یا عبارت با استفاده از نقاشی و ترسیم بدون نوشتن هیچگونه عبارت یا عددی
                   </Typography>
 
                   {/* سطر سوم: امتیاز و زمان مرحله */}
