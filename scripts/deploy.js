@@ -229,7 +229,7 @@ which nginx > /dev/null 2>&1 || (apt-get update -y && apt-get install -y nginx)`
           console.log('⚙️ 6. Configuring Nginx web server...');
           let nginxConf = fs.readFileSync(path.join(rootDir, 'nginx.conf'), 'utf-8');
           if (SERVER_DOMAIN) {
-            nginxConf = nginxConf.replace('server_name _;', `server_name ${SERVER_DOMAIN};`);
+            nginxConf = nginxConf.replace(/server_name\s+[^;]+;/, `server_name ${SERVER_DOMAIN} _;`);
           }
 
           const tempNginxPath = '/tmp/wordy_nginx.conf';
@@ -265,7 +265,9 @@ fi`
           console.log(`🌐 Application URL:`);
           console.log(`   http://${SERVER_IP}`);
           if (SERVER_DOMAIN) {
-            console.log(`   http://${SERVER_DOMAIN}`);
+            const firstDomain = SERVER_DOMAIN.split(/\s+/)[0];
+            console.log(`   http://${firstDomain}`);
+            console.log(`   https://${firstDomain} (via Cloudflare)`);
           }
           console.log('==============================================\n');
 
