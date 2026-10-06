@@ -237,7 +237,7 @@ Current team and round. - Current prompt, visible only after reveal. -
 
 Actions: - **Correct:** add the round's point value, record the prompt
 as correct, then show the next prompt. - **Wrong / Skip:** add zero
-points, record as skipped/wrong, then show the next prompt. - **Error:**
+points, deduct 7 seconds from remaining turn time as penalty, record as skipped/wrong, then show the next prompt. - **Error:**
 subtract one point from the team's score, record the error, then show
 the next prompt. - Every action is applied once only. Disable controls
 during transitions to prevent double taps. - The prompt outcome is

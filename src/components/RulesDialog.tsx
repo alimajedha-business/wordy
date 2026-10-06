@@ -116,9 +116,12 @@ export const RulesDialog: React.FC<RulesDialogProps> = ({ open, onClose }) => {
                 ثبت خطا و کسر امتیاز
               </Typography>
             </Stack>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" color="text.secondary" paragraph sx={{ mb: 1 }}>
               در صورت تخلف از قوانین در نوبت، داور دکمه <b>خطا</b> را می‌زند. هر خطا <b>۱ امتیاز</b> از تیم کسر می‌کند
-              (امتیاز کل هرگز زیر صفر نخواهد رفت). رد کردن کلمه امتیازی کم نمی‌کند اما <b>۷ ثانیه از زمان نوبت کسر می‌شود</b>.
+              (امتیاز کل هرگز زیر صفر نخواهد رفت).
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              ⏱ با هر بار <b>رد کردن کلمه</b>، امتیازی کم نمی‌شود اما <b>۷ ثانیه از زمان باقی‌مانده نوبت به عنوان جریمه کسر می‌شود</b>.
             </Typography>
           </Box>
         </Stack>
