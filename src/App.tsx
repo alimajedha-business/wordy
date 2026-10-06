@@ -334,14 +334,14 @@ export function App() {
                       label={`+${toPersianDigits(ROUND_CONFIGS[1].pointsPerCorrect)} امتیاز`}
                       size="small"
                       color="success"
-                      sx={{ height: 20, fontSize: '0.68rem', fontWeight: 700 }}
+                      sx={{ height: 26, fontSize: '0.8rem', fontWeight: 700 }}
                     />
                     <Chip
-                      icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 13 } }} />}
+                      icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 15 } }} />}
                       label={`${toPersianDigits(ROUND_CONFIGS[1].durationSeconds / 60)} دقیقه`}
                       variant="outlined"
                       size="small"
-                      sx={{ borderColor: 'rgba(255,255,255,0.15)', height: 20, fontSize: '0.68rem' }}
+                      sx={{ borderColor: 'rgba(255,255,255,0.18)', height: 26, fontSize: '0.8rem', fontWeight: 700 }}
                     />
                   </Stack>
                 </Stack>
@@ -394,14 +394,14 @@ export function App() {
                       label={`+${toPersianDigits(ROUND_CONFIGS[2].pointsPerCorrect)} امتیاز`}
                       size="small"
                       color="success"
-                      sx={{ height: 20, fontSize: '0.68rem', fontWeight: 700 }}
+                      sx={{ height: 26, fontSize: '0.8rem', fontWeight: 700 }}
                     />
                     <Chip
-                      icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 13 } }} />}
+                      icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 15 } }} />}
                       label={`${toPersianDigits(ROUND_CONFIGS[2].durationSeconds / 60)} دقیقه`}
                       variant="outlined"
                       size="small"
-                      sx={{ borderColor: 'rgba(255,255,255,0.15)', height: 20, fontSize: '0.68rem' }}
+                      sx={{ borderColor: 'rgba(255,255,255,0.18)', height: 26, fontSize: '0.8rem', fontWeight: 700 }}
                     />
                   </Stack>
                 </Stack>
@@ -453,14 +453,14 @@ export function App() {
                       label={`+${toPersianDigits(ROUND_CONFIGS[3].pointsPerCorrect)} امتیاز`}
                       size="small"
                       color="success"
-                      sx={{ height: 20, fontSize: '0.68rem', fontWeight: 700 }}
+                      sx={{ height: 26, fontSize: '0.8rem', fontWeight: 700 }}
                     />
                     <Chip
-                      icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 13 } }} />}
+                      icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 15 } }} />}
                       label={`${toPersianDigits(ROUND_CONFIGS[3].durationSeconds / 60)} دقیقه`}
                       variant="outlined"
                       size="small"
-                      sx={{ borderColor: 'rgba(255,255,255,0.15)', height: 20, fontSize: '0.68rem' }}
+                      sx={{ borderColor: 'rgba(255,255,255,0.18)', height: 26, fontSize: '0.8rem', fontWeight: 700 }}
                     />
                   </Stack>
                 </Stack>
