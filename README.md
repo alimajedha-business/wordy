@@ -41,7 +41,7 @@
 /
 ├── docs/                 # مستندات و مشخصات فنی (agent.md, spec.md)
 ├── public/               # دارایی‌های ایستا، آیکون‌های PWA (192, 512, apple-touch) و favicon
-├── scripts/              # اسکریپت ساخت آیکون‌های استاندارد PWA
+├── scripts/              # اسکریپت استقرار خودکار روی سرور (deploy.js)
 ├── src/
 │   ├── components/       # کامپوننت‌های پوسته و عمومی (AppShell, RulesDialog)
 │   ├── features/         # ماژول‌های نماهای بازی
