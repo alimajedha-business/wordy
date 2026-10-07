@@ -536,7 +536,7 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
       <Dialog
         open={confirmEndOpen}
         onClose={() => setConfirmEndOpen(false)}
-        PaperProps={{ sx: { borderRadius: 4, p: 1 } }}
+        PaperProps={{ sx: { borderRadius: '16px', p: 1 } }}
       >
         <DialogTitle sx={{ fontWeight: 800 }}>پایان زودهنگام نوبت؟</DialogTitle>
         <DialogContent>
