@@ -53,18 +53,15 @@ describe('Milestone 3: Prompt Data Model, Seed Bank, Validation, and Balanced Pl
   });
 
   describe('Slot Blueprints Generation', () => {
-    it('generates Round 1 blueprints with EASY difficulty and no PROVERB', () => {
+    it('generates Round 1 blueprints with EASY difficulty and 100% WORD', () => {
       const blueprints = generateRoundSlotBlueprints(1, 10);
       expect(blueprints).toHaveLength(10);
       blueprints.forEach((slot) => {
         expect(slot.difficulty).toBe('EASY');
-        expect(slot.type).not.toBe('PROVERB');
+        expect(slot.type).toBe('WORD');
       });
-      // Distribution: roughly 60% WORD, 40% PHRASE
       const words = blueprints.filter((s) => s.type === 'WORD');
-      const phrases = blueprints.filter((s) => s.type === 'PHRASE');
-      expect(words.length).toBe(6);
-      expect(phrases.length).toBe(4);
+      expect(words.length).toBe(10);
     });
 
     it('generates Round 2 blueprints with MEDIUM difficulty including proverbs', () => {

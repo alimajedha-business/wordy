@@ -11,9 +11,9 @@ export const ROUND_CONFIGS: Record<RoundNumber, RoundInfo> = {
     durationSeconds: 300, // 5 minutes
     pointsPerCorrect: 1,
     difficulty: 'EASY',
-    description: 'یار فعال کلمه یا عبارت را تنها با یک جمله توضیح می‌دهد بدون ذکر ریشه کلمه.',
-    rulesExplanation: 'فقط یک جمله؛ بدون گفتن کلمه یا مشتقات آن. استفاده از ضرب‌المثل در این مرحله ممنوع است.',
-    allowedTypes: ['WORD', 'PHRASE'],
+    description: 'یار فعال کلمه را تنها با یک جمله توضیح می‌دهد بدون ذکر ریشه کلمه.',
+    rulesExplanation: 'فقط یک جمله؛ بدون گفتن کلمه یا مشتقات آن. استفاده از ضرب‌المثل و عبارت در این مرحله ممنوع است.',
+    allowedTypes: ['WORD'],
   },
   2: {
     round: 2,

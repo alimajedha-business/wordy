@@ -34,14 +34,9 @@ export function generateRoundSlotBlueprints(
   let difficulty: Difficulty;
 
   if (round === 1) {
-    // 60% WORD, 40% PHRASE, 0% PROVERB
+    // 100% WORD, 0% PHRASE, 0% PROVERB
     difficulty = 'EASY';
-    const wordCount = Math.round(slotCount * 0.6);
-    const phraseCount = slotCount - wordCount;
-    typeDistribution = [
-      ...Array(wordCount).fill('WORD'),
-      ...Array(phraseCount).fill('PHRASE'),
-    ];
+    typeDistribution = Array(slotCount).fill('WORD');
   } else if (round === 2) {
     // 40% WORD, 40% PHRASE, 20% PROVERB
     difficulty = 'MEDIUM';
