@@ -184,6 +184,46 @@ describe('Milestone 4: Turn Screen, Timer, Prompt Reveal, and Scoring Actions', 
       expect(screen.getByText('مسواک زدن')).toBeInTheDocument();
     });
 
+    it('deducts 1 point on error without changing or advancing the current word', async () => {
+      const handleComplete = vi.fn();
+      render(
+        <CacheProvider value={cacheRtl}>
+          <ThemeProvider theme={theme}>
+            <ActiveTurnView
+              team={{ ...mockTeam, score: 3 }}
+              round={1}
+              deadlineAt={Date.now() + 300 * 1000}
+              plannedPrompts={mockPlannedPrompts}
+              allPromptsBank={mockPromptsBank}
+              allPlannedInRound={mockPlannedPrompts}
+              onTurnComplete={handleComplete}
+            />
+          </ThemeProvider>
+        </CacheProvider>
+      );
+
+      // Initially word 1 is visible and score is 3
+      expect(screen.getByText('هندوانه')).toBeInTheDocument();
+      expect(screen.getByText('کلمه ۱')).toBeInTheDocument();
+      expect(screen.getByText(/امتیاز: ۳/)).toBeInTheDocument();
+
+      // Click "ثبت خطا (-۱)"
+      const errorBtn = screen.getByRole('button', { name: /ثبت خطا/ });
+      fireEvent.click(errorBtn);
+
+      // Score reduced to 2
+      expect(screen.getByText(/امتیاز: ۲/)).toBeInTheDocument();
+
+      // Word DOES NOT CHANGE: stays on word 1 'هندوانه'
+      expect(screen.getByText('هندوانه')).toBeInTheDocument();
+      expect(screen.getByText('کلمه ۱')).toBeInTheDocument();
+      expect(screen.queryByText('کلمه ۲')).toBeNull();
+      expect(screen.queryByText('مسواک زدن')).toBeNull();
+
+      // Error penalty notification displayed
+      expect(screen.getByText(/۱ امتیاز به دلیل خطا کسر شد!/)).toBeInTheDocument();
+    });
+
     it('allows ending turn manually via confirmation dialog', () => {
       const handleComplete = vi.fn();
       render(

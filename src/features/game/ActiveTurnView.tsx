@@ -116,9 +116,15 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
   const [confirmEndOpen, setConfirmEndOpen] = useState(false);
   const [floorWarningOpen, setFloorWarningOpen] = useState(false);
   const [skipPenaltyOpen, setSkipPenaltyOpen] = useState(false);
+  const [errorPenaltyOpen, setErrorPenaltyOpen] = useState(false);
 
   const completedRef = useRef(false);
   const lockTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const attemptsRef = useRef(attempts);
+  attemptsRef.current = attempts;
+  const currentScoreRef = useRef(currentScore);
+  currentScoreRef.current = currentScore;
 
   useEffect(() => {
     return () => {
@@ -135,8 +141,8 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
     const displayedPromptIds = turnPrompts
       .slice(0, currentPromptIndex + 1)
       .map((p) => p.promptId);
-    onTurnComplete(attempts, currentScore, displayedPromptIds);
-  }, [attempts, currentScore, currentPromptIndex, turnPrompts, onTurnComplete]);
+    onTurnComplete(attemptsRef.current, currentScoreRef.current, displayedPromptIds);
+  }, [currentPromptIndex, turnPrompts, onTurnComplete]);
 
   // Wall-clock timer loop
   useEffect(() => {
@@ -186,6 +192,8 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
     };
 
     const newAttempts = [...attempts, attempt];
+    attemptsRef.current = newAttempts;
+    currentScoreRef.current = scoreResult.newScore;
     setAttempts(newAttempts);
     setCurrentScore(scoreResult.newScore);
 
@@ -209,6 +217,20 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
         onTurnComplete(newAttempts, scoreResult.newScore, displayedPromptIds);
         return;
       }
+    }
+
+    // If Error ("خطا"), deduct 1 point without advancing to next prompt
+    if (outcome === 'ERROR') {
+      if (!scoreResult.clampedAtZero) {
+        setErrorPenaltyOpen(true);
+      }
+      if (lockTimerRef.current) {
+        clearTimeout(lockTimerRef.current);
+      }
+      lockTimerRef.current = setTimeout(() => {
+        setIsActionLocked(false);
+      }, 180);
+      return;
     }
 
     // Advance to next prompt - unlimited: draw dynamically if needed without repeating words
@@ -582,6 +604,18 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
       >
         <Alert severity="warning" sx={{ borderRadius: 3, fontWeight: 700 }}>
           ۷ ثانیه به دلیل رد کردن کلمه کسر شد!
+        </Alert>
+      </Snackbar>
+
+      {/* Error Penalty Notification */}
+      <Snackbar
+        open={errorPenaltyOpen}
+        autoHideDuration={1500}
+        onClose={() => setErrorPenaltyOpen(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert severity="error" sx={{ borderRadius: 3, fontWeight: 700 }}>
+          ۱ امتیاز به دلیل خطا کسر شد!
         </Alert>
       </Snackbar>
     </Stack>

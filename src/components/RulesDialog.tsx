@@ -176,7 +176,7 @@ export const RulesDialog: React.FC<RulesDialogProps> = ({ open, onClose }) => {
               </Typography>
             </Stack>
             <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
-              در صورت تخلف از قوانین در نوبت، داور دکمه <b>خطا</b> را می‌زند. هر خطا <b>۱ امتیاز</b> از تیم کسر می‌کند
+              در صورت تخلف از قوانین در نوبت، داور دکمه <b>خطا</b> را می‌زند. هر خطا بدون تغییر کلمه <b>۱ امتیاز</b> از تیم کسر می‌کند
               (کف امتیاز کل صفر است و امتیاز هرگز منفی نمی‌شود).
             </Typography>
           </Box>
