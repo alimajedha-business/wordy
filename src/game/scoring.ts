@@ -1,4 +1,4 @@
-import { PromptOutcome, RoundNumber } from './types';
+import { PromptOutcome, RoundNumber, GameMode } from './types';
 import { ROUND_CONFIGS, ERROR_PENALTY } from './rules';
 
 export interface ScoreUpdateResult {
@@ -10,11 +10,24 @@ export interface ScoreUpdateResult {
 
 /**
  * Calculates score delta for a single prompt attempt.
+ * In SPEED mode: CORRECT awards base round points.
+ * In INDIVIDUAL mode: CORRECT awards base round points + 1 bonus point per 10 seconds remaining.
  */
-export function calculatePointsDelta(outcome: PromptOutcome, round: RoundNumber): number {
+export function calculatePointsDelta(
+  outcome: PromptOutcome,
+  round: RoundNumber,
+  mode: GameMode = 'SPEED',
+  remainingSeconds: number = 0
+): number {
   switch (outcome) {
-    case 'CORRECT':
-      return ROUND_CONFIGS[round].pointsPerCorrect;
+    case 'CORRECT': {
+      const basePoints = ROUND_CONFIGS[round].pointsPerCorrect;
+      if (mode === 'INDIVIDUAL') {
+        const timeBonus = Math.floor(Math.max(0, remainingSeconds) / 10);
+        return basePoints + timeBonus;
+      }
+      return basePoints;
+    }
     case 'WRONG':
       return 0;
     case 'ERROR':

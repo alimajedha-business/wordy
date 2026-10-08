@@ -27,7 +27,7 @@ import PauseIcon from '@mui/icons-material/Pause';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 
-import { Team, RoundNumber, Prompt, PlannedPrompt, PromptAttempt, PromptOutcome } from '../../game/types';
+import { Team, RoundNumber, Prompt, PlannedPrompt, PromptAttempt, PromptOutcome, GameMode } from '../../game/types';
 import { ROUND_CONFIGS } from '../../game/rules';
 import { calculateRemainingSeconds, formatTimeMMSS, getTimeUrgency } from '../../game/timer';
 import { calculatePointsDelta, applyScoreDelta } from '../../game/scoring';
@@ -45,6 +45,8 @@ interface ActiveTurnViewProps {
   allPlannedInRound: PlannedPrompt[];
   allUsedPromptIds?: string[];
   allPlannedPrompts?: PlannedPrompt[];
+  mode?: GameMode;
+  memberIndex?: number;
   onTurnComplete: (attempts: PromptAttempt[], finalScore: number, displayedPromptIds?: string[]) => void;
   onDeadlineUpdate?: (newDeadlineAt: number) => void;
 }
@@ -58,6 +60,8 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
   allPlannedInRound,
   allUsedPromptIds = [],
   allPlannedPrompts = [],
+  mode = 'SPEED',
+  memberIndex,
   onTurnComplete,
   onDeadlineUpdate,
 }) => {
@@ -214,7 +218,7 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
     if (isActionLocked || isPaused || remainingSeconds <= 0 || !currentPrompt) return;
     setIsActionLocked(true);
 
-    const delta = calculatePointsDelta(outcome, round);
+    const delta = calculatePointsDelta(outcome, round, mode, remainingSeconds);
     const scoreResult = applyScoreDelta(currentScore, delta);
 
     if (scoreResult.clampedAtZero && delta < 0) {
@@ -233,6 +237,14 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
     currentScoreRef.current = scoreResult.newScore;
     setAttempts(newAttempts);
     setCurrentScore(scoreResult.newScore);
+
+    // In INDIVIDUAL mode, guessing CORRECT immediately completes the turn!
+    if (mode === 'INDIVIDUAL' && outcome === 'CORRECT') {
+      if (completedRef.current) return;
+      completedRef.current = true;
+      onTurnComplete(newAttempts, scoreResult.newScore, [currentPrompt.id]);
+      return;
+    }
 
     // If Skip ("رد کردن"), deduct 7 seconds from turn time
     if (outcome === 'WRONG') {
@@ -362,7 +374,9 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Box>
           <Typography variant="h6" fontWeight={800} sx={{ lineHeight: 1.1 }}>
-            {team.name}
+            {mode === 'INDIVIDUAL' && memberIndex
+              ? `${team.name} • نفر ${toPersianDigits(memberIndex)}`
+              : team.name}
           </Typography>
           <Typography variant="caption" color="text.secondary">
             {roundConfig.title}
@@ -467,12 +481,14 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
               color={currentPlanItem?.type === 'PROVERB' ? 'secondary' : 'default'}
               variant="outlined"
             />
-            <Chip
-              label={`کلمه ${toPersianDigits(currentPromptIndex + 1)}`}
-              size="small"
-              variant="filled"
-              sx={{ bgcolor: 'rgba(255,255,255,0.08)' }}
-            />
+            {mode !== 'INDIVIDUAL' && (
+              <Chip
+                label={`کلمه ${toPersianDigits(currentPromptIndex + 1)}`}
+                size="small"
+                variant="filled"
+                sx={{ bgcolor: 'rgba(255,255,255,0.08)' }}
+              />
+            )}
           </Stack>
 
           <Tooltip title="تعویض کلمه">
@@ -577,7 +593,7 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
             sx={{
               py: 2,
               px: { xs: 1, sm: 2 },
-              fontSize: { xs: '1rem', sm: '1.15rem' },
+              fontSize: { xs: '0.98rem', sm: '1.12rem' },
               fontWeight: 800,
               flex: 1,
               whiteSpace: 'nowrap',
@@ -585,32 +601,36 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
               boxShadow: '0 6px 20px rgba(16, 185, 129, 0.35)',
             }}
           >
-            درست (+{toPersianDigits(roundConfig.pointsPerCorrect)})
+            {mode === 'INDIVIDUAL'
+              ? `درست (+${toPersianDigits(roundConfig.pointsPerCorrect)} + پاداش زمان)`
+              : `درست (+${toPersianDigits(roundConfig.pointsPerCorrect)})`}
           </Button>
 
-          {/* Wrong / Skip Button */}
-          <Button
-            id="action-wrong-btn"
-            variant="contained"
-            color="warning"
-            fullWidth
-            disabled={isActionLocked || isPaused || remainingSeconds <= 0}
-            startIcon={<HighlightOffIcon sx={{ fontSize: { xs: 20, sm: 24 } }} />}
-            onClick={() => handleAction('WRONG')}
-            sx={{
-              py: 2,
-              px: { xs: 1, sm: 2 },
-              fontSize: { xs: '0.92rem', sm: '1.05rem' },
-              fontWeight: 800,
-              flex: 1.5,
-              whiteSpace: 'nowrap',
-              bgcolor: 'rgba(245, 158, 11, 0.9)',
-              color: '#111827',
-              boxShadow: '0 6px 20px rgba(245, 158, 11, 0.25)',
-            }}
-          >
-            رد کردن (-۷ ثانیه)
-          </Button>
+          {/* Wrong / Skip Button - Only in SPEED mode */}
+          {mode !== 'INDIVIDUAL' && (
+            <Button
+              id="action-wrong-btn"
+              variant="contained"
+              color="warning"
+              fullWidth
+              disabled={isActionLocked || isPaused || remainingSeconds <= 0}
+              startIcon={<HighlightOffIcon sx={{ fontSize: { xs: 20, sm: 24 } }} />}
+              onClick={() => handleAction('WRONG')}
+              sx={{
+                py: 2,
+                px: { xs: 1, sm: 2 },
+                fontSize: { xs: '0.92rem', sm: '1.05rem' },
+                fontWeight: 800,
+                flex: 1.5,
+                whiteSpace: 'nowrap',
+                bgcolor: 'rgba(245, 158, 11, 0.9)',
+                color: '#111827',
+                boxShadow: '0 6px 20px rgba(245, 158, 11, 0.25)',
+              }}
+            >
+              رد کردن (-۷ ثانیه)
+            </Button>
+          )}
         </Stack>
 
         <Stack direction="row" spacing={1.5} alignItems="center">

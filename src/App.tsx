@@ -7,6 +7,7 @@ import {
   CardContent,
   Stack,
   Chip,
+  Grid,
 } from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
@@ -14,6 +15,8 @@ import RecordVoiceOverIcon from '@mui/icons-material/RecordVoiceOver';
 import PanToolIcon from '@mui/icons-material/PanTool';
 import GestureIcon from '@mui/icons-material/Gesture';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import SpeedIcon from '@mui/icons-material/Speed';
+import PersonIcon from '@mui/icons-material/Person';
 
 import { AppShell } from './components/AppShell';
 import { TeamSetupView } from './features/setup/TeamSetupView';
@@ -24,8 +27,8 @@ import { TurnSummaryView } from './features/game/TurnSummaryView';
 import { RoundScoreboardView } from './features/scoreboard/RoundScoreboardView';
 import { FinalResultsView } from './features/scoreboard/FinalResultsView';
 
-import { Team, RoundNumber, PlannedPrompt, PromptAttempt, Prompt, GameSettings } from './game/types';
-import { ROUND_CONFIGS, DEFAULT_ROUND_DURATIONS } from './game/rules';
+import { Team, RoundNumber, PlannedPrompt, PromptAttempt, Prompt, GameSettings, GameMode } from './game/types';
+import { ROUND_CONFIGS, DEFAULT_SPEED_DURATIONS, DEFAULT_INDIVIDUAL_DURATIONS } from './game/rules';
 import { calculateRemainingSeconds } from './game/timer';
 import { toPersianDigits } from './utils/persian';
 import {
@@ -58,12 +61,14 @@ export function App() {
   const [teams, setTeams] = useState<Team[]>(INITIAL_TEAMS);
   const [promptPlan, setPromptPlan] = useState<PlannedPrompt[]>([]);
   const [settings, setSettings] = useState<GameSettings>({
-    roundDurationsSeconds: { ...DEFAULT_ROUND_DURATIONS },
+    mode: 'SPEED',
+    membersPerTeam: 4,
+    roundDurationsSeconds: { ...DEFAULT_SPEED_DURATIONS },
   });
 
   // Turn progression
   const [currentRound, setCurrentRound] = useState<RoundNumber>(1);
-  const [currentTeamIndex, setCurrentTeamIndex] = useState<number>(0);
+  const [currentTurnInRound, setCurrentTurnInRound] = useState<number>(0);
   const [activeDeadlineAt, setActiveDeadlineAt] = useState<number>(0);
 
   // Turn summary temp storage
@@ -72,6 +77,24 @@ export function App() {
 
   // Global set of prompts used so far in the game to prevent duplicates
   const [usedPromptIds, setUsedPromptIds] = useState<string[]>([]);
+
+  const currentTeamIndex = currentTurnInRound % (teams.length || 1);
+  const currentMemberIndex =
+    settings.mode === 'INDIVIDUAL'
+      ? Math.floor(currentTurnInRound / (teams.length || 1)) + 1
+      : 1;
+
+  // Mode selection from Home
+  const handleSelectMode = (newMode: GameMode) => {
+    setSettings((prev) => ({
+      ...prev,
+      mode: newMode,
+      roundDurationsSeconds:
+        newMode === 'INDIVIDUAL'
+          ? { ...DEFAULT_INDIVIDUAL_DURATIONS }
+          : { ...DEFAULT_SPEED_DURATIONS },
+    }));
+  };
 
   // Restore game state on mount (refresh recovery)
   useEffect(() => {
@@ -83,6 +106,11 @@ export function App() {
         if (saved.usedPromptIds) {
           setUsedPromptIds(saved.usedPromptIds);
         }
+        if (saved.currentTurnInRound !== undefined) {
+          setCurrentTurnInRound(saved.currentTurnInRound);
+        } else if (saved.currentTeamIndex !== undefined) {
+          setCurrentTurnInRound(saved.currentTeamIndex);
+        }
         if (saved.step === 'active_turn') {
           const rem = calculateRemainingSeconds(saved.activeDeadlineAt);
           if (rem <= 0) {
@@ -90,7 +118,6 @@ export function App() {
             setTeams(saved.teams);
             setPromptPlan(saved.promptPlan);
             setCurrentRound(saved.currentRound);
-            setCurrentTeamIndex(saved.currentTeamIndex);
             setLastTurnAttempts(saved.lastTurnAttempts || []);
             setLastTurnScore(saved.lastTurnScore || 0);
             setStep('turn_summary');
@@ -100,7 +127,6 @@ export function App() {
         setTeams(saved.teams);
         setPromptPlan(saved.promptPlan);
         setCurrentRound(saved.currentRound);
-        setCurrentTeamIndex(saved.currentTeamIndex);
         setActiveDeadlineAt(saved.activeDeadlineAt);
         setLastTurnAttempts(saved.lastTurnAttempts || []);
         setLastTurnScore(saved.lastTurnScore || 0);
@@ -118,6 +144,7 @@ export function App() {
         promptPlan,
         currentRound,
         currentTeamIndex,
+        currentTurnInRound,
         activeDeadlineAt,
         lastTurnAttempts,
         lastTurnScore,
@@ -144,6 +171,7 @@ export function App() {
     promptPlan,
     currentRound,
     currentTeamIndex,
+    currentTurnInRound,
     activeDeadlineAt,
     lastTurnAttempts,
     lastTurnScore,
@@ -159,7 +187,7 @@ export function App() {
     setPromptPlan(plan);
     setUsedPromptIds(plan.map((p) => p.promptId));
     setCurrentRound(1);
-    setCurrentTeamIndex(0);
+    setCurrentTurnInRound(0);
     setStep('turn_ready');
   };
 
@@ -196,8 +224,13 @@ export function App() {
 
   // Continue from turn summary to next team or round scoreboard
   const handleContinueAfterSummary = () => {
-    if (currentTeamIndex + 1 < teams.length) {
-      setCurrentTeamIndex((prev) => prev + 1);
+    const totalTurnsInRound =
+      settings.mode === 'INDIVIDUAL'
+        ? (settings.membersPerTeam || 4) * teams.length
+        : teams.length;
+
+    if (currentTurnInRound + 1 < totalTurnsInRound) {
+      setCurrentTurnInRound((prev) => prev + 1);
       setStep('turn_ready');
     } else {
       // Completed round for all teams
@@ -211,14 +244,14 @@ export function App() {
 
   const handleStartNextRound = () => {
     setCurrentRound((prev) => (prev + 1) as RoundNumber);
-    setCurrentTeamIndex(0);
+    setCurrentTurnInRound(0);
     setStep('turn_ready');
   };
 
   const handleNewGame = () => {
     setTeams((prev) => prev.map((t) => ({ ...t, score: 0 })));
     setCurrentRound(1);
-    setCurrentTeamIndex(0);
+    setCurrentTurnInRound(0);
     setUsedPromptIds([]);
     setStep('team_setup');
   };
@@ -226,7 +259,7 @@ export function App() {
   const handleResetToHome = () => {
     setStep('home');
     setCurrentRound(1);
-    setCurrentTeamIndex(0);
+    setCurrentTurnInRound(0);
     setTeams(INITIAL_TEAMS);
     setUsedPromptIds([]);
   };
@@ -235,14 +268,18 @@ export function App() {
     clearActiveGameState();
     setStep('home');
     setCurrentRound(1);
-    setCurrentTeamIndex(0);
+    setCurrentTurnInRound(0);
     setTeams(INITIAL_TEAMS);
     setPromptPlan([]);
     setActiveDeadlineAt(0);
     setLastTurnAttempts([]);
     setLastTurnScore(0);
     setUsedPromptIds([]);
-    setSettings({ roundDurationsSeconds: { ...DEFAULT_ROUND_DURATIONS } });
+    setSettings({
+      mode: 'SPEED',
+      membersPerTeam: 4,
+      roundDurationsSeconds: { ...DEFAULT_SPEED_DURATIONS },
+    });
   };
 
   const currentTeam = teams[currentTeamIndex] || teams[0];
@@ -251,6 +288,11 @@ export function App() {
   const currentTeamPlannedPrompts = promptPlan.filter(
     (p) => p.teamId === currentTeam.id && p.round === currentRound
   );
+
+  const activePlannedPrompts =
+    settings.mode === 'INDIVIDUAL'
+      ? currentTeamPlannedPrompts.filter((p) => p.slotIndex === currentMemberIndex - 1)
+      : currentTeamPlannedPrompts;
 
   const allPlannedInRound = promptPlan.filter((p) => p.round === currentRound);
 
@@ -281,6 +323,148 @@ export function App() {
             </Box>
 
           </Box>
+
+          {/* Mode Selection Section */}
+          <Stack spacing={{ xs: 1, sm: 1.5 }}>
+            <Typography variant="subtitle2" color="text.secondary" fontWeight={700} sx={{ px: 0.5 }}>
+              انتخاب حالت بازی
+            </Typography>
+            <Grid container spacing={1.5}>
+              {/* Speed Mode Card */}
+              <Grid item xs={6}>
+                <Card
+                  id="mode-speed-btn"
+                  onClick={() => handleSelectMode('SPEED')}
+                  sx={{
+                    cursor: 'pointer',
+                    p: { xs: 1.25, sm: 1.75 },
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    borderRadius: 2.5,
+                    border:
+                      (settings.mode || 'SPEED') === 'SPEED'
+                        ? '2px solid #6366f1'
+                        : '1px solid rgba(255, 255, 255, 0.1)',
+                    bgcolor:
+                      (settings.mode || 'SPEED') === 'SPEED'
+                        ? 'rgba(99, 102, 241, 0.14)'
+                        : 'background.paper',
+                    boxShadow:
+                      (settings.mode || 'SPEED') === 'SPEED'
+                        ? '0 0 20px rgba(99, 102, 241, 0.25)'
+                        : 'none',
+                    transition: 'all 0.2s ease',
+                    '&:hover': {
+                      bgcolor: 'rgba(99, 102, 241, 0.18)',
+                      transform: 'translateY(-2px)',
+                    },
+                  }}
+                >
+                  <Stack spacing={0.7} alignItems="center" textAlign="center">
+                    <SpeedIcon
+                      color={(settings.mode || 'SPEED') === 'SPEED' ? 'primary' : 'disabled'}
+                      sx={{ fontSize: { xs: 28, sm: 34 } }}
+                    />
+                    <Typography
+                      variant="subtitle2"
+                      fontWeight={800}
+                      color={(settings.mode || 'SPEED') === 'SPEED' ? 'primary.light' : 'text.primary'}
+                      sx={{ fontSize: { xs: '0.88rem', sm: '1rem' } }}
+                    >
+                      حالت سرعتی
+                    </Typography>
+                    <Typography
+                      variant="caption"
+                      color="text.secondary"
+                      sx={{ fontSize: { xs: '0.72rem', sm: '0.8rem' }, lineHeight: 1.35 }}
+                    >
+                      تیم در زمان مشخص هر تعداد کلمه که بتواند حدس می‌زند (امکان رد کردن)
+                    </Typography>
+                  </Stack>
+                  <Box sx={{ pt: 1, textAlign: 'center' }}>
+                    <Chip
+                      label={(settings.mode || 'SPEED') === 'SPEED' ? 'فعال' : 'انتخاب'}
+                      color={(settings.mode || 'SPEED') === 'SPEED' ? 'primary' : 'default'}
+                      variant={(settings.mode || 'SPEED') === 'SPEED' ? 'filled' : 'outlined'}
+                      size="small"
+                      sx={{ height: 22, fontSize: '0.72rem', fontWeight: 700 }}
+                    />
+                  </Box>
+                </Card>
+              </Grid>
+
+              {/* Individual Mode Card */}
+              <Grid item xs={6}>
+                <Card
+                  id="mode-individual-btn"
+                  onClick={() => handleSelectMode('INDIVIDUAL')}
+                  sx={{
+                    cursor: 'pointer',
+                    p: { xs: 1.25, sm: 1.75 },
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    borderRadius: 2.5,
+                    border:
+                      settings.mode === 'INDIVIDUAL'
+                        ? '2px solid #ec4899'
+                        : '1px solid rgba(255, 255, 255, 0.1)',
+                    bgcolor:
+                      settings.mode === 'INDIVIDUAL'
+                        ? 'rgba(236, 72, 153, 0.14)'
+                        : 'background.paper',
+                    boxShadow:
+                      settings.mode === 'INDIVIDUAL'
+                        ? '0 0 20px rgba(236, 72, 153, 0.25)'
+                        : 'none',
+                    transition: 'all 0.2s ease',
+                    '&:hover': {
+                      bgcolor: 'rgba(236, 72, 153, 0.18)',
+                      transform: 'translateY(-2px)',
+                    },
+                  }}
+                >
+                  <Stack spacing={0.7} alignItems="center" textAlign="center">
+                    <PersonIcon
+                      sx={{
+                        fontSize: { xs: 28, sm: 34 },
+                        color: settings.mode === 'INDIVIDUAL' ? '#ec4899' : 'text.disabled',
+                      }}
+                    />
+                    <Typography
+                      variant="subtitle2"
+                      fontWeight={800}
+                      sx={{
+                        color: settings.mode === 'INDIVIDUAL' ? '#f472b6' : 'text.primary',
+                        fontSize: { xs: '0.88rem', sm: '1rem' },
+                      }}
+                    >
+                      حالت دانه‌ای
+                    </Typography>
+                    <Typography
+                      variant="caption"
+                      color="text.secondary"
+                      sx={{ fontSize: { xs: '0.72rem', sm: '0.8rem' }, lineHeight: 1.35 }}
+                    >
+                      نفر به نفر برای هر کلمه با پاداش زمان باقی‌مانده (بدون امکان رد کردن)
+                    </Typography>
+                  </Stack>
+                  <Box sx={{ pt: 1, textAlign: 'center' }}>
+                    <Chip
+                      label={settings.mode === 'INDIVIDUAL' ? 'فعال' : 'انتخاب'}
+                      color={settings.mode === 'INDIVIDUAL' ? 'secondary' : 'default'}
+                      variant={settings.mode === 'INDIVIDUAL' ? 'filled' : 'outlined'}
+                      size="small"
+                      sx={{ height: 22, fontSize: '0.72rem', fontWeight: 700 }}
+                    />
+                  </Box>
+                </Card>
+              </Grid>
+            </Grid>
+          </Stack>
 
           {/* 3 Rounds Preview Cards */}
           <Stack spacing={{ xs: 1.2, sm: 1.8 }}>
@@ -338,7 +522,11 @@ export function App() {
                     />
                     <Chip
                       icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 15 } }} />}
-                      label={`${toPersianDigits(ROUND_CONFIGS[1].durationSeconds / 60)} دقیقه`}
+                      label={
+                        settings.mode === 'INDIVIDUAL'
+                          ? `${toPersianDigits(settings.roundDurationsSeconds[1] || 60)} ثانیه برای هر نفر`
+                          : `${toPersianDigits((settings.roundDurationsSeconds[1] || 300) / 60)} دقیقه برای تیم`
+                      }
                       variant="outlined"
                       size="small"
                       sx={{ borderColor: 'rgba(255,255,255,0.18)', height: 26, fontSize: '0.8rem', fontWeight: 700 }}
@@ -398,7 +586,11 @@ export function App() {
                     />
                     <Chip
                       icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 15 } }} />}
-                      label={`${toPersianDigits(ROUND_CONFIGS[2].durationSeconds / 60)} دقیقه`}
+                      label={
+                        settings.mode === 'INDIVIDUAL'
+                          ? `${toPersianDigits(settings.roundDurationsSeconds[2] || 90)} ثانیه برای هر نفر`
+                          : `${toPersianDigits((settings.roundDurationsSeconds[2] || 720) / 60)} دقیقه برای تیم`
+                      }
                       variant="outlined"
                       size="small"
                       sx={{ borderColor: 'rgba(255,255,255,0.18)', height: 26, fontSize: '0.8rem', fontWeight: 700 }}
@@ -457,7 +649,11 @@ export function App() {
                     />
                     <Chip
                       icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 15 } }} />}
-                      label={`${toPersianDigits(ROUND_CONFIGS[3].durationSeconds / 60)} دقیقه`}
+                      label={
+                        settings.mode === 'INDIVIDUAL'
+                          ? `${toPersianDigits(settings.roundDurationsSeconds[3] || 120)} ثانیه برای هر نفر`
+                          : `${toPersianDigits((settings.roundDurationsSeconds[3] || 1200) / 60)} دقیقه برای تیم`
+                      }
                       variant="outlined"
                       size="small"
                       sx={{ borderColor: 'rgba(255,255,255,0.18)', height: 26, fontSize: '0.8rem', fontWeight: 700 }}
@@ -495,6 +691,11 @@ export function App() {
           onUpdateTeams={setTeams}
           onContinue={() => setStep('review')}
           onBack={() => setStep('home')}
+          mode={settings.mode || 'SPEED'}
+          membersPerTeam={settings.membersPerTeam || 4}
+          onUpdateMembersPerTeam={(count) =>
+            setSettings((prev) => ({ ...prev, membersPerTeam: count }))
+          }
         />
       )}
 
@@ -502,6 +703,8 @@ export function App() {
         <GameReviewView
           teams={teams}
           initialSettings={settings}
+          mode={settings.mode || 'SPEED'}
+          membersPerTeam={settings.membersPerTeam || 4}
           onStartGame={handleStartGame}
           onBackToSetup={() => setStep('team_setup')}
         />
@@ -514,6 +717,9 @@ export function App() {
           teamIndex={currentTeamIndex}
           totalTeams={teams.length}
           durationSeconds={settings.roundDurationsSeconds[currentRound]}
+          mode={settings.mode || 'SPEED'}
+          memberIndex={currentMemberIndex}
+          totalMembers={settings.membersPerTeam || 4}
           onStartTurn={handleStartTurn}
         />
       )}
@@ -523,11 +729,13 @@ export function App() {
           team={currentTeam}
           round={currentRound}
           deadlineAt={activeDeadlineAt}
-          plannedPrompts={currentTeamPlannedPrompts}
+          plannedPrompts={activePlannedPrompts}
           allPromptsBank={allPromptsBank}
           allPlannedInRound={allPlannedInRound}
           allUsedPromptIds={usedPromptIds}
           allPlannedPrompts={promptPlan}
+          mode={settings.mode || 'SPEED'}
+          memberIndex={currentMemberIndex}
           onTurnComplete={handleTurnComplete}
           onDeadlineUpdate={(newDeadline) => setActiveDeadlineAt(newDeadline)}
         />
@@ -539,6 +747,8 @@ export function App() {
           round={currentRound}
           attempts={lastTurnAttempts}
           updatedScore={lastTurnScore}
+          mode={settings.mode || 'SPEED'}
+          memberIndex={currentMemberIndex}
           onContinue={handleContinueAfterSummary}
         />
       )}

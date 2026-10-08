@@ -22,8 +22,8 @@ import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { Team, PlannedPrompt, Prompt, GameSettings, RoundNumber } from '../../game/types';
-import { ROUND_CONFIGS, DEFAULT_ROUND_DURATIONS } from '../../game/rules';
+import { Team, PlannedPrompt, Prompt, GameSettings, RoundNumber, GameMode } from '../../game/types';
+import { ROUND_CONFIGS, DEFAULT_SPEED_DURATIONS, DEFAULT_INDIVIDUAL_DURATIONS } from '../../game/rules';
 import { toPersianDigits } from '../../utils/persian';
 import { createBalancedPromptPlan } from '../../game/promptPlanner';
 import seedPromptsData from '../../data/seedPrompts.json';
@@ -33,6 +33,8 @@ const seedPrompts = seedPromptsData as Prompt[];
 interface GameReviewViewProps {
   teams: Team[];
   initialSettings?: GameSettings;
+  mode?: GameMode;
+  membersPerTeam?: number;
   onStartGame: (promptPlan: PlannedPrompt[], settings: GameSettings) => void;
   onBackToSetup: () => void;
 }
@@ -40,17 +42,32 @@ interface GameReviewViewProps {
 export const GameReviewView: React.FC<GameReviewViewProps> = ({
   teams,
   initialSettings,
+  mode: propMode,
+  membersPerTeam: propMembersPerTeam,
   onStartGame,
   onBackToSetup,
 }) => {
+  const mode: GameMode = propMode || initialSettings?.mode || 'SPEED';
+  const membersPerTeam = propMembersPerTeam || initialSettings?.membersPerTeam || 4;
+
+  const defaultDurations = mode === 'INDIVIDUAL' ? DEFAULT_INDIVIDUAL_DURATIONS : DEFAULT_SPEED_DURATIONS;
+
   const [roundDurations, setRoundDurations] = useState<Record<RoundNumber, number>>(
-    initialSettings?.roundDurationsSeconds || DEFAULT_ROUND_DURATIONS
+    initialSettings?.roundDurationsSeconds || defaultDurations
   );
 
-  const handleAdjustDuration = (round: RoundNumber, deltaMinutes: number) => {
+  const handleAdjustDuration = (round: RoundNumber, delta: number) => {
     setRoundDurations((prev) => {
+      if (mode === 'INDIVIDUAL') {
+        const currentSec = prev[round];
+        const newSec = Math.max(20, Math.min(300, currentSec + delta * 10));
+        return {
+          ...prev,
+          [round]: newSec,
+        };
+      }
       const currentMinutes = Math.round(prev[round] / 60);
-      const newMinutes = Math.max(1, Math.min(60, currentMinutes + deltaMinutes));
+      const newMinutes = Math.max(1, Math.min(60, currentMinutes + delta));
       return {
         ...prev,
         [round]: newMinutes * 60,
@@ -58,9 +75,11 @@ export const GameReviewView: React.FC<GameReviewViewProps> = ({
     });
   };
 
+  const slotsNeeded = mode === 'INDIVIDUAL' ? membersPerTeam : 6;
+
   const planResult = React.useMemo(() => {
-    return createBalancedPromptPlan(teams, seedPrompts, [1, 2, 3], 6);
-  }, [teams]);
+    return createBalancedPromptPlan(teams, seedPrompts, [1, 2, 3], slotsNeeded);
+  }, [teams, slotsNeeded]);
   return (
     <Stack spacing={3} sx={{ flex: 1 }}>
       {/* Header */}
@@ -78,11 +97,27 @@ export const GameReviewView: React.FC<GameReviewViewProps> = ({
         </Typography>
       </Box>
 
+      {/* Mode Badge Card */}
+      <Card sx={{ p: 1.5, bgcolor: mode === 'INDIVIDUAL' ? 'rgba(99, 102, 241, 0.1)' : 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(255, 255, 255, 0.12)' }}>
+        <Stack direction="row" justifyContent="space-between" alignItems="center">
+          <Typography variant="subtitle2" fontWeight={800}>
+            {mode === 'INDIVIDUAL' ? '🎯 حالت مسابقه: دانه‌ای (تک‌کلمه‌ای اعضا)' : '🚀 حالت مسابقه: سرعتی (کلمات نامحدود)'}
+          </Typography>
+          <Chip
+            label={mode === 'INDIVIDUAL' ? `${toPersianDigits(membersPerTeam)} نفره` : 'تیمی سرعتی'}
+            size="small"
+            color="primary"
+            variant="filled"
+            sx={{ fontWeight: 700 }}
+          />
+        </Stack>
+      </Card>
+
       {/* Teams Order Card */}
       <Card sx={{ p: 2 }}>
         <Typography variant="subtitle1" fontWeight={700} gutterBottom sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <CheckCircleOutlineIcon color="primary" fontSize="small" />
-          ترتیب نوبت تیم‌ها در تمامی مراحل
+          {mode === 'INDIVIDUAL' ? 'ترتیب نوبت اعضای تیم‌ها در هر مرحله' : 'ترتیب نوبت تیم‌ها در تمامی مراحل'}
         </Typography>
         <List dense disablePadding>
           {teams.map((team, idx) => (
@@ -95,13 +130,14 @@ export const GameReviewView: React.FC<GameReviewViewProps> = ({
               }}
             >
               <Chip
-                label={`نوبت ${toPersianDigits(idx + 1)}`}
+                label={`تیم ${toPersianDigits(idx + 1)}`}
                 size="small"
                 variant="outlined"
                 sx={{ mr: 1.5, minWidth: 64, borderColor: 'rgba(255,255,255,0.15)' }}
               />
               <ListItemText
                 primary={team.name}
+                secondary={mode === 'INDIVIDUAL' ? `${toPersianDigits(membersPerTeam)} نوبت کلمه در هر مرحله (یک کلمه برای هر عضو)` : undefined}
                 primaryTypographyProps={{ fontWeight: 700, fontSize: '0.95rem' }}
               />
             </ListItem>
@@ -147,18 +183,20 @@ export const GameReviewView: React.FC<GameReviewViewProps> = ({
                     <IconButton
                       size="small"
                       onClick={() => handleAdjustDuration(1, -1)}
-                      disabled={roundDurations[1] <= 60}
+                      disabled={mode === 'INDIVIDUAL' ? roundDurations[1] <= 20 : roundDurations[1] <= 60}
                       aria-label="کاهش زمان مرحله ۱"
                     >
                       <RemoveCircleOutlineIcon fontSize="small" />
                     </IconButton>
-                    <Typography variant="caption" fontWeight={800} sx={{ px: 0.8, minWidth: 48, textAlign: 'center' }}>
-                      {toPersianDigits(Math.round(roundDurations[1] / 60))} دقیقه
+                    <Typography variant="caption" fontWeight={800} sx={{ px: 0.8, minWidth: 55, textAlign: 'center' }}>
+                      {mode === 'INDIVIDUAL'
+                        ? `${toPersianDigits(roundDurations[1])} ثانیه`
+                        : `${toPersianDigits(Math.round(roundDurations[1] / 60))} دقیقه`}
                     </Typography>
                     <IconButton
                       size="small"
                       onClick={() => handleAdjustDuration(1, 1)}
-                      disabled={roundDurations[1] >= 3600}
+                      disabled={mode === 'INDIVIDUAL' ? roundDurations[1] >= 300 : roundDurations[1] >= 3600}
                       aria-label="افزایش زمان مرحله ۱"
                     >
                       <AddCircleOutlineIcon fontSize="small" />
@@ -210,18 +248,20 @@ export const GameReviewView: React.FC<GameReviewViewProps> = ({
                     <IconButton
                       size="small"
                       onClick={() => handleAdjustDuration(2, -1)}
-                      disabled={roundDurations[2] <= 60}
+                      disabled={mode === 'INDIVIDUAL' ? roundDurations[2] <= 20 : roundDurations[2] <= 60}
                       aria-label="کاهش زمان مرحله ۲"
                     >
                       <RemoveCircleOutlineIcon fontSize="small" />
                     </IconButton>
-                    <Typography variant="caption" fontWeight={800} sx={{ px: 0.8, minWidth: 48, textAlign: 'center' }}>
-                      {toPersianDigits(Math.round(roundDurations[2] / 60))} دقیقه
+                    <Typography variant="caption" fontWeight={800} sx={{ px: 0.8, minWidth: 55, textAlign: 'center' }}>
+                      {mode === 'INDIVIDUAL'
+                        ? `${toPersianDigits(roundDurations[2])} ثانیه`
+                        : `${toPersianDigits(Math.round(roundDurations[2] / 60))} دقیقه`}
                     </Typography>
                     <IconButton
                       size="small"
                       onClick={() => handleAdjustDuration(2, 1)}
-                      disabled={roundDurations[2] >= 3600}
+                      disabled={mode === 'INDIVIDUAL' ? roundDurations[2] >= 300 : roundDurations[2] >= 3600}
                       aria-label="افزایش زمان مرحله ۲"
                     >
                       <AddCircleOutlineIcon fontSize="small" />
@@ -273,18 +313,20 @@ export const GameReviewView: React.FC<GameReviewViewProps> = ({
                     <IconButton
                       size="small"
                       onClick={() => handleAdjustDuration(3, -1)}
-                      disabled={roundDurations[3] <= 60}
+                      disabled={mode === 'INDIVIDUAL' ? roundDurations[3] <= 20 : roundDurations[3] <= 60}
                       aria-label="کاهش زمان مرحله ۳"
                     >
                       <RemoveCircleOutlineIcon fontSize="small" />
                     </IconButton>
-                    <Typography variant="caption" fontWeight={800} sx={{ px: 0.8, minWidth: 48, textAlign: 'center' }}>
-                      {toPersianDigits(Math.round(roundDurations[3] / 60))} دقیقه
+                    <Typography variant="caption" fontWeight={800} sx={{ px: 0.8, minWidth: 55, textAlign: 'center' }}>
+                      {mode === 'INDIVIDUAL'
+                        ? `${toPersianDigits(roundDurations[3])} ثانیه`
+                        : `${toPersianDigits(Math.round(roundDurations[3] / 60))} دقیقه`}
                     </Typography>
                     <IconButton
                       size="small"
                       onClick={() => handleAdjustDuration(3, 1)}
-                      disabled={roundDurations[3] >= 3600}
+                      disabled={mode === 'INDIVIDUAL' ? roundDurations[3] >= 300 : roundDurations[3] >= 3600}
                       aria-label="افزایش زمان مرحله ۳"
                     >
                       <AddCircleOutlineIcon fontSize="small" />
@@ -312,7 +354,9 @@ export const GameReviewView: React.FC<GameReviewViewProps> = ({
             <VerifiedUserIcon color="success" />
             <Box>
               <Typography variant="caption" color="text.secondary">
-                تعداد کلمات در هر نوبت نامحدود است؛ تا پایان زمان‌سنج نوبت، کلمات جدید با توازن نوع و سختی نمایش داده می‌شوند.
+                {mode === 'INDIVIDUAL'
+                  ? `توزیع عادلانه کلمات: برای هر مرحله ${toPersianDigits(membersPerTeam)} کلمه با سطح سختی و نوع متناظر و یکسان بین تیم‌ها آماده شده است.`
+                  : 'تعداد کلمات در هر نوبت نامحدود است؛ تا پایان زمان‌سنج نوبت، کلمات جدید با توازن نوع و سختی نمایش داده می‌شوند.'}
               </Typography>
             </Box>
           </Stack>
@@ -338,7 +382,15 @@ export const GameReviewView: React.FC<GameReviewViewProps> = ({
         <Stack direction="row" spacing={1} alignItems="flex-start">
           <WarningAmberIcon color="error" fontSize="small" sx={{ mt: 0.2 }} />
           <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.6 }}>
-            هر ثبت <b>خطا</b> در زمان نوبت، بدون تغییر کلمه ۱ امتیاز از تیم کسر می‌کند (کف امتیاز صفر است). رد کردن کلمه <b>۷ ثانیه از زمان نوبت کسر می‌کند</b> اما امتیازی کم نمی‌شود.
+            {mode === 'INDIVIDUAL' ? (
+              <>
+                در حالت دانه‌ای، هر فرد ۱ کلمه برای حدس در نوبت خود دارد. با حدس درست، علاوه بر امتیاز کلمه، به ازای <b>هر ۱۰ ثانیه زمان باقی‌مانده ۱ امتیاز پاداش</b> کسب می‌شود. اگر زمان تمام شود امتیازی داده نمی‌شود. هر خطا ۱ امتیاز از تیم کسر می‌کند.
+              </>
+            ) : (
+              <>
+                هر ثبت <b>خطا</b> در زمان نوبت، بدون تغییر کلمه ۱ امتیاز از تیم کسر می‌کند (کف امتیاز صفر است). رد کردن کلمه <b>۷ ثانیه از زمان نوبت کسر می‌کند</b> اما امتیازی کم نمی‌شود.
+              </>
+            )}
           </Typography>
         </Stack>
       </Card>
@@ -356,7 +408,11 @@ export const GameReviewView: React.FC<GameReviewViewProps> = ({
           color="primary"
           startIcon={<PlayCircleFilledWhiteIcon />}
           onClick={() =>
-            onStartGame(planResult.promptPlan, { roundDurationsSeconds: roundDurations })
+            onStartGame(planResult.promptPlan, {
+              mode,
+              membersPerTeam,
+              roundDurationsSeconds: roundDurations,
+            })
           }
           sx={{
             py: 1.8,

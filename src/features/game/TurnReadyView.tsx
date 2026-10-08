@@ -13,7 +13,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
 import StarRateIcon from '@mui/icons-material/StarRate';
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
-import { Team, RoundNumber } from '../../game/types';
+import { Team, RoundNumber, GameMode } from '../../game/types';
 import { ROUND_CONFIGS } from '../../game/rules';
 import { toPersianDigits } from '../../utils/persian';
 
@@ -23,6 +23,9 @@ interface TurnReadyViewProps {
   teamIndex: number;
   totalTeams: number;
   durationSeconds?: number;
+  mode?: GameMode;
+  memberIndex?: number;
+  totalMembers?: number;
   onStartTurn: () => void;
 }
 
@@ -32,24 +35,37 @@ export const TurnReadyView: React.FC<TurnReadyViewProps> = ({
   teamIndex,
   totalTeams,
   durationSeconds,
+  mode = 'SPEED',
+  memberIndex,
+  totalMembers,
   onStartTurn,
 }) => {
   const roundConfig = ROUND_CONFIGS[round];
   const effectiveDuration = durationSeconds ?? roundConfig.durationSeconds;
+
+  const durationLabel = mode === 'INDIVIDUAL'
+    ? `${toPersianDigits(effectiveDuration)} ثانیه`
+    : `${toPersianDigits(Math.round(effectiveDuration / 60))} دقیقه`;
 
   return (
     <Stack spacing={3} sx={{ flex: 1, justifyContent: 'space-between' }}>
       {/* Turn & Team Banner */}
       <Box sx={{ textAlign: 'center', pt: 1 }}>
         <Chip
-          label={`مرحله ${toPersianDigits(round)} از ۳ • نوبت ${toPersianDigits(teamIndex + 1)} از ${toPersianDigits(totalTeams)}`}
+          label={
+            mode === 'INDIVIDUAL' && memberIndex
+              ? `مرحله ${toPersianDigits(round)} از ۳ • نفر ${toPersianDigits(memberIndex)} از ${toPersianDigits(totalMembers || 4)} • ${team.name}`
+              : `مرحله ${toPersianDigits(round)} از ۳ • نوبت ${toPersianDigits(teamIndex + 1)} از ${toPersianDigits(totalTeams)}`
+          }
           color="primary"
           variant="outlined"
           sx={{ mb: 2, fontWeight: 700 }}
         />
 
         <Typography variant="h4" fontWeight={900} gutterBottom>
-          نوبت {team.name}
+          {mode === 'INDIVIDUAL' && memberIndex
+            ? `نوبت نفر ${toPersianDigits(memberIndex)} (${team.name})`
+            : `نوبت ${team.name}`}
         </Typography>
 
         <Typography variant="body1" color="text.secondary">
@@ -73,13 +89,17 @@ export const TurnReadyView: React.FC<TurnReadyViewProps> = ({
           <Stack direction="row" spacing={1.5} justifyContent="space-between" alignItems="center">
             <Chip
               icon={<TimerOutlinedIcon />}
-              label={`مدت نوبت: ${toPersianDigits(Math.round(effectiveDuration / 60))} دقیقه`}
+              label={`مدت نوبت: ${durationLabel}`}
               variant="outlined"
               size="small"
             />
             <Chip
               icon={<StarRateIcon />}
-              label={`هر پاسخ: +${toPersianDigits(roundConfig.pointsPerCorrect)}`}
+              label={
+                mode === 'INDIVIDUAL'
+                  ? `پایه: +${toPersianDigits(roundConfig.pointsPerCorrect)} (+ پاداش زمان)`
+                  : `هر پاسخ: +${toPersianDigits(roundConfig.pointsPerCorrect)}`
+              }
               color="success"
               size="small"
             />
@@ -92,7 +112,15 @@ export const TurnReadyView: React.FC<TurnReadyViewProps> = ({
         <Stack direction="row" spacing={1.5} alignItems="center">
           <SmartphoneIcon color="primary" sx={{ fontSize: 32 }} />
           <Typography variant="body2" color="text.secondary">
-            گوشی را به <b>یار فعال تیم {team.name}</b> تحویل دهید. پس از زدن دکمه شروع، کلمه اول نمایش داده شده و زمان‌سنج آغاز می‌شود.
+            {mode === 'INDIVIDUAL' && memberIndex ? (
+              <>
+                گوشی را به <b>نفر {toPersianDigits(memberIndex)} تیم {team.name}</b> تحویل دهید. پس از زدن دکمه شروع، کلمه نمایش داده می‌شود و تا پایان زمان فرصت حدس دارد.
+              </>
+            ) : (
+              <>
+                گوشی را به <b>یار فعال تیم {team.name}</b> تحویل دهید. پس از زدن دکمه شروع، کلمه اول نمایش داده شده و زمان‌سنج آغاز می‌شود.
+              </>
+            )}
           </Typography>
         </Stack>
       </Card>

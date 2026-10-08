@@ -8,6 +8,7 @@ export interface SavedGameState {
   promptPlan: PlannedPrompt[];
   currentRound: RoundNumber;
   currentTeamIndex: number;
+  currentTurnInRound?: number;
   activeDeadlineAt: number;
   lastTurnAttempts: PromptAttempt[];
   lastTurnScore: number;

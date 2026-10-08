@@ -57,8 +57,12 @@ export interface TeamTurn {
   currentPromptIndex: number;
 }
 
+export type GameMode = 'SPEED' | 'INDIVIDUAL';
+
 export interface GameSettings {
-  /** Per-team turn duration in seconds; editable only before game start. */
+  mode: GameMode;
+  membersPerTeam: number;
+  /** Per-team/member turn duration in seconds; editable only before game start. */
   roundDurationsSeconds: Record<RoundNumber, number>;
 }
 

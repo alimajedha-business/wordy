@@ -41,10 +41,24 @@ export const ROUND_CONFIGS: Record<RoundNumber, RoundInfo> = {
 
 export const ERROR_PENALTY = 1;
 
-export const DEFAULT_ROUND_DURATIONS: Record<RoundNumber, number> = {
+export const DEFAULT_SPEED_DURATIONS: Record<RoundNumber, number> = {
   1: 300, // 5 minutes
   2: 720, // 12 minutes
   3: 1200, // 20 minutes
+};
+
+export const DEFAULT_INDIVIDUAL_DURATIONS: Record<RoundNumber, number> = {
+  1: 60, // 60 seconds
+  2: 90, // 90 seconds
+  3: 120, // 120 seconds
+};
+
+export const DEFAULT_ROUND_DURATIONS: Record<RoundNumber, number> = { ...DEFAULT_SPEED_DURATIONS };
+
+export const DEFAULT_GAME_SETTINGS = {
+  mode: 'SPEED' as const,
+  membersPerTeam: 4,
+  roundDurationsSeconds: { ...DEFAULT_SPEED_DURATIONS },
 };
 
 /**
