@@ -348,10 +348,12 @@ export function App() {
                   flexDirection: 'column',
                   justifyContent: 'space-between',
                   borderRadius: 2.5,
-                  border:
+                  boxSizing: 'border-box',
+                  border: '2px solid',
+                  borderColor:
                     (settings.mode || 'SPEED') === 'SPEED'
-                      ? '2px solid #6366f1'
-                      : '1px solid rgba(255, 255, 255, 0.1)',
+                      ? '#6366f1'
+                      : 'rgba(255, 255, 255, 0.1)',
                   bgcolor:
                     (settings.mode || 'SPEED') === 'SPEED'
                       ? 'rgba(99, 102, 241, 0.14)'
@@ -360,10 +362,9 @@ export function App() {
                     (settings.mode || 'SPEED') === 'SPEED'
                       ? '0 0 20px rgba(99, 102, 241, 0.25)'
                       : 'none',
-                  transition: 'all 0.2s ease',
+                  transition: 'border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease',
                   '&:hover': {
                     bgcolor: 'rgba(99, 102, 241, 0.18)',
-                    transform: 'translateY(-2px)',
                   },
                 }}
               >
@@ -383,18 +384,37 @@ export function App() {
                   <Typography
                     variant="caption"
                     color="text.secondary"
-                    sx={{ fontSize: { xs: '0.72rem', sm: '0.8rem' }, lineHeight: 1.35 }}
+                    sx={{
+                      fontSize: { xs: '0.72rem', sm: '0.8rem' },
+                      lineHeight: 1.4,
+                      minHeight: { xs: 36, sm: 40 },
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
                   >
-                    تیم در زمان مشخص هر تعداد کلمه که بتواند حدس می‌زند (امکان رد کردن)
+                    تیم در زمان مشخص هر تعداد کلمه که بتواند حدس می‌زند
                   </Typography>
                 </Stack>
                 <Box sx={{ pt: 1, textAlign: 'center' }}>
                   <Chip
                     label={(settings.mode || 'SPEED') === 'SPEED' ? 'فعال' : 'انتخاب'}
                     color={(settings.mode || 'SPEED') === 'SPEED' ? 'primary' : 'default'}
-                    variant={(settings.mode || 'SPEED') === 'SPEED' ? 'filled' : 'outlined'}
                     size="small"
-                    sx={{ height: 22, fontSize: '0.72rem', fontWeight: 700 }}
+                    sx={{
+                      height: 24,
+                      minWidth: 54,
+                      fontSize: '0.72rem',
+                      fontWeight: 700,
+                      bgcolor:
+                        (settings.mode || 'SPEED') === 'SPEED'
+                          ? undefined
+                          : 'rgba(255, 255, 255, 0.08)',
+                      color:
+                        (settings.mode || 'SPEED') === 'SPEED'
+                          ? undefined
+                          : 'text.secondary',
+                    }}
                   />
                 </Box>
               </Card>
@@ -411,10 +431,12 @@ export function App() {
                   flexDirection: 'column',
                   justifyContent: 'space-between',
                   borderRadius: 2.5,
-                  border:
+                  boxSizing: 'border-box',
+                  border: '2px solid',
+                  borderColor:
                     settings.mode === 'INDIVIDUAL'
-                      ? '2px solid #ec4899'
-                      : '1px solid rgba(255, 255, 255, 0.1)',
+                      ? '#ec4899'
+                      : 'rgba(255, 255, 255, 0.1)',
                   bgcolor:
                     settings.mode === 'INDIVIDUAL'
                       ? 'rgba(236, 72, 153, 0.14)'
@@ -423,10 +445,9 @@ export function App() {
                     settings.mode === 'INDIVIDUAL'
                       ? '0 0 20px rgba(236, 72, 153, 0.25)'
                       : 'none',
-                  transition: 'all 0.2s ease',
+                  transition: 'border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease',
                   '&:hover': {
                     bgcolor: 'rgba(236, 72, 153, 0.18)',
-                    transform: 'translateY(-2px)',
                   },
                 }}
               >
@@ -450,18 +471,37 @@ export function App() {
                   <Typography
                     variant="caption"
                     color="text.secondary"
-                    sx={{ fontSize: { xs: '0.72rem', sm: '0.8rem' }, lineHeight: 1.35 }}
+                    sx={{
+                      fontSize: { xs: '0.72rem', sm: '0.8rem' },
+                      lineHeight: 1.4,
+                      minHeight: { xs: 36, sm: 40 },
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
                   >
-                    نفر به نفر برای هر کلمه با پاداش زمان باقی‌مانده (بدون امکان رد کردن)
+                    نفر به نفر برای هر کلمه با پاداش زمان باقی‌مانده
                   </Typography>
                 </Stack>
                 <Box sx={{ pt: 1, textAlign: 'center' }}>
                   <Chip
                     label={settings.mode === 'INDIVIDUAL' ? 'فعال' : 'انتخاب'}
                     color={settings.mode === 'INDIVIDUAL' ? 'secondary' : 'default'}
-                    variant={settings.mode === 'INDIVIDUAL' ? 'filled' : 'outlined'}
                     size="small"
-                    sx={{ height: 22, fontSize: '0.72rem', fontWeight: 700 }}
+                    sx={{
+                      height: 24,
+                      minWidth: 54,
+                      fontSize: '0.72rem',
+                      fontWeight: 700,
+                      bgcolor:
+                        settings.mode === 'INDIVIDUAL'
+                          ? undefined
+                          : 'rgba(255, 255, 255, 0.08)',
+                      color:
+                        settings.mode === 'INDIVIDUAL'
+                          ? undefined
+                          : 'text.secondary',
+                    }}
                   />
                 </Box>
               </Card>
@@ -526,8 +566,8 @@ export function App() {
                       icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 15 } }} />}
                       label={
                         settings.mode === 'INDIVIDUAL'
-                          ? `${toPersianDigits(settings.roundDurationsSeconds[1] || 60)} ثانیه برای هر نفر`
-                          : `${toPersianDigits((settings.roundDurationsSeconds[1] || 300) / 60)} دقیقه برای تیم`
+                          ? `${toPersianDigits(settings.roundDurationsSeconds[1] || 60)} ثانیه`
+                          : `${toPersianDigits((settings.roundDurationsSeconds[1] || 300) / 60)} دقیقه`
                       }
                       variant="outlined"
                       size="small"
@@ -590,8 +630,8 @@ export function App() {
                       icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 15 } }} />}
                       label={
                         settings.mode === 'INDIVIDUAL'
-                          ? `${toPersianDigits(settings.roundDurationsSeconds[2] || 90)} ثانیه برای هر نفر`
-                          : `${toPersianDigits((settings.roundDurationsSeconds[2] || 720) / 60)} دقیقه برای تیم`
+                          ? `${toPersianDigits(settings.roundDurationsSeconds[2] || 90)} ثانیه`
+                          : `${toPersianDigits((settings.roundDurationsSeconds[2] || 720) / 60)} دقیقه`
                       }
                       variant="outlined"
                       size="small"
@@ -653,8 +693,8 @@ export function App() {
                       icon={<TimerOutlinedIcon sx={{ '&&': { fontSize: 15 } }} />}
                       label={
                         settings.mode === 'INDIVIDUAL'
-                          ? `${toPersianDigits(settings.roundDurationsSeconds[3] || 120)} ثانیه برای هر نفر`
-                          : `${toPersianDigits((settings.roundDurationsSeconds[3] || 1200) / 60)} دقیقه برای تیم`
+                          ? `${toPersianDigits(settings.roundDurationsSeconds[3] || 120)} ثانیه`
+                          : `${toPersianDigits((settings.roundDurationsSeconds[3] || 1200) / 60)} دقیقه`
                       }
                       variant="outlined"
                       size="small"
