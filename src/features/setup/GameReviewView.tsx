@@ -101,7 +101,7 @@ export const GameReviewView: React.FC<GameReviewViewProps> = ({
       <Card sx={{ p: 1.5, bgcolor: mode === 'INDIVIDUAL' ? 'rgba(99, 102, 241, 0.1)' : 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(255, 255, 255, 0.12)' }}>
         <Stack direction="row" justifyContent="space-between" alignItems="center">
           <Typography variant="subtitle2" fontWeight={800}>
-            {mode === 'INDIVIDUAL' ? '🎯 حالت مسابقه: دانه‌ای (تک‌کلمه‌ای اعضا)' : '🚀 حالت مسابقه: سرعتی (کلمات نامحدود)'}
+            {mode === 'INDIVIDUAL' ? '🎯 حالت مسابقه: تکی (تک‌کلمه‌ای اعضا)' : '🚀 حالت مسابقه: سرعتی (کلمات نامحدود)'}
           </Typography>
           <Chip
             label={mode === 'INDIVIDUAL' ? `${toPersianDigits(membersPerTeam)} نفره` : 'تیمی سرعتی'}
@@ -384,7 +384,7 @@ export const GameReviewView: React.FC<GameReviewViewProps> = ({
           <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.6 }}>
             {mode === 'INDIVIDUAL' ? (
               <>
-                در حالت دانه‌ای، هر فرد ۱ کلمه برای حدس در نوبت خود دارد. با حدس درست، علاوه بر امتیاز کلمه، به ازای <b>هر ۱۰ ثانیه زمان باقی‌مانده ۱ امتیاز پاداش</b> کسب می‌شود. اگر زمان تمام شود امتیازی داده نمی‌شود. هر خطا ۱ امتیاز از تیم کسر می‌کند.
+                در حالت تکی، هر فرد ۱ کلمه برای حدس در نوبت خود دارد. با حدس درست، علاوه بر امتیاز کلمه، به ازای <b>هر ۱۰ ثانیه زمان باقی‌مانده ۱ امتیاز پاداش</b> کسب می‌شود. اگر زمان تمام شود امتیازی داده نمی‌شود. هر خطا ۱ امتیاز از تیم کسر می‌کند.
               </>
             ) : (
               <>

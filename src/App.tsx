@@ -7,7 +7,6 @@ import {
   CardContent,
   Stack,
   Chip,
-  Grid,
 } from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import TimerOutlinedIcon from '@mui/icons-material/TimerOutlined';
@@ -325,145 +324,148 @@ export function App() {
           </Box>
 
           {/* Mode Selection Section */}
-          <Stack spacing={{ xs: 1, sm: 1.5 }}>
+          <Stack spacing={{ xs: 1, sm: 1.5 }} sx={{ width: '100%' }}>
             <Typography variant="subtitle2" color="text.secondary" fontWeight={700} sx={{ px: 0.5 }}>
               انتخاب حالت بازی
             </Typography>
-            <Grid container spacing={1.5}>
+            <Box
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+                gap: { xs: 1.25, sm: 1.5 },
+                width: '100%',
+              }}
+            >
               {/* Speed Mode Card */}
-              <Grid item xs={6}>
-                <Card
-                  id="mode-speed-btn"
-                  onClick={() => handleSelectMode('SPEED')}
-                  sx={{
-                    cursor: 'pointer',
-                    p: { xs: 1.25, sm: 1.75 },
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    borderRadius: 2.5,
-                    border:
-                      (settings.mode || 'SPEED') === 'SPEED'
-                        ? '2px solid #6366f1'
-                        : '1px solid rgba(255, 255, 255, 0.1)',
-                    bgcolor:
-                      (settings.mode || 'SPEED') === 'SPEED'
-                        ? 'rgba(99, 102, 241, 0.14)'
-                        : 'background.paper',
-                    boxShadow:
-                      (settings.mode || 'SPEED') === 'SPEED'
-                        ? '0 0 20px rgba(99, 102, 241, 0.25)'
-                        : 'none',
-                    transition: 'all 0.2s ease',
-                    '&:hover': {
-                      bgcolor: 'rgba(99, 102, 241, 0.18)',
-                      transform: 'translateY(-2px)',
-                    },
-                  }}
-                >
-                  <Stack spacing={0.7} alignItems="center" textAlign="center">
-                    <SpeedIcon
-                      color={(settings.mode || 'SPEED') === 'SPEED' ? 'primary' : 'disabled'}
-                      sx={{ fontSize: { xs: 28, sm: 34 } }}
-                    />
-                    <Typography
-                      variant="subtitle2"
-                      fontWeight={800}
-                      color={(settings.mode || 'SPEED') === 'SPEED' ? 'primary.light' : 'text.primary'}
-                      sx={{ fontSize: { xs: '0.88rem', sm: '1rem' } }}
-                    >
-                      حالت سرعتی
-                    </Typography>
-                    <Typography
-                      variant="caption"
-                      color="text.secondary"
-                      sx={{ fontSize: { xs: '0.72rem', sm: '0.8rem' }, lineHeight: 1.35 }}
-                    >
-                      تیم در زمان مشخص هر تعداد کلمه که بتواند حدس می‌زند (امکان رد کردن)
-                    </Typography>
-                  </Stack>
-                  <Box sx={{ pt: 1, textAlign: 'center' }}>
-                    <Chip
-                      label={(settings.mode || 'SPEED') === 'SPEED' ? 'فعال' : 'انتخاب'}
-                      color={(settings.mode || 'SPEED') === 'SPEED' ? 'primary' : 'default'}
-                      variant={(settings.mode || 'SPEED') === 'SPEED' ? 'filled' : 'outlined'}
-                      size="small"
-                      sx={{ height: 22, fontSize: '0.72rem', fontWeight: 700 }}
-                    />
-                  </Box>
-                </Card>
-              </Grid>
+              <Card
+                id="mode-speed-btn"
+                onClick={() => handleSelectMode('SPEED')}
+                sx={{
+                  cursor: 'pointer',
+                  p: { xs: 1.25, sm: 1.75 },
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  borderRadius: 2.5,
+                  border:
+                    (settings.mode || 'SPEED') === 'SPEED'
+                      ? '2px solid #6366f1'
+                      : '1px solid rgba(255, 255, 255, 0.1)',
+                  bgcolor:
+                    (settings.mode || 'SPEED') === 'SPEED'
+                      ? 'rgba(99, 102, 241, 0.14)'
+                      : 'background.paper',
+                  boxShadow:
+                    (settings.mode || 'SPEED') === 'SPEED'
+                      ? '0 0 20px rgba(99, 102, 241, 0.25)'
+                      : 'none',
+                  transition: 'all 0.2s ease',
+                  '&:hover': {
+                    bgcolor: 'rgba(99, 102, 241, 0.18)',
+                    transform: 'translateY(-2px)',
+                  },
+                }}
+              >
+                <Stack spacing={0.7} alignItems="center" textAlign="center">
+                  <SpeedIcon
+                    color={(settings.mode || 'SPEED') === 'SPEED' ? 'primary' : 'disabled'}
+                    sx={{ fontSize: { xs: 28, sm: 34 } }}
+                  />
+                  <Typography
+                    variant="subtitle2"
+                    fontWeight={800}
+                    color={(settings.mode || 'SPEED') === 'SPEED' ? 'primary.light' : 'text.primary'}
+                    sx={{ fontSize: { xs: '0.88rem', sm: '1rem' } }}
+                  >
+                    حالت سرعتی
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    color="text.secondary"
+                    sx={{ fontSize: { xs: '0.72rem', sm: '0.8rem' }, lineHeight: 1.35 }}
+                  >
+                    تیم در زمان مشخص هر تعداد کلمه که بتواند حدس می‌زند (امکان رد کردن)
+                  </Typography>
+                </Stack>
+                <Box sx={{ pt: 1, textAlign: 'center' }}>
+                  <Chip
+                    label={(settings.mode || 'SPEED') === 'SPEED' ? 'فعال' : 'انتخاب'}
+                    color={(settings.mode || 'SPEED') === 'SPEED' ? 'primary' : 'default'}
+                    variant={(settings.mode || 'SPEED') === 'SPEED' ? 'filled' : 'outlined'}
+                    size="small"
+                    sx={{ height: 22, fontSize: '0.72rem', fontWeight: 700 }}
+                  />
+                </Box>
+              </Card>
 
               {/* Individual Mode Card */}
-              <Grid item xs={6}>
-                <Card
-                  id="mode-individual-btn"
-                  onClick={() => handleSelectMode('INDIVIDUAL')}
-                  sx={{
-                    cursor: 'pointer',
-                    p: { xs: 1.25, sm: 1.75 },
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    borderRadius: 2.5,
-                    border:
-                      settings.mode === 'INDIVIDUAL'
-                        ? '2px solid #ec4899'
-                        : '1px solid rgba(255, 255, 255, 0.1)',
-                    bgcolor:
-                      settings.mode === 'INDIVIDUAL'
-                        ? 'rgba(236, 72, 153, 0.14)'
-                        : 'background.paper',
-                    boxShadow:
-                      settings.mode === 'INDIVIDUAL'
-                        ? '0 0 20px rgba(236, 72, 153, 0.25)'
-                        : 'none',
-                    transition: 'all 0.2s ease',
-                    '&:hover': {
-                      bgcolor: 'rgba(236, 72, 153, 0.18)',
-                      transform: 'translateY(-2px)',
-                    },
-                  }}
-                >
-                  <Stack spacing={0.7} alignItems="center" textAlign="center">
-                    <PersonIcon
-                      sx={{
-                        fontSize: { xs: 28, sm: 34 },
-                        color: settings.mode === 'INDIVIDUAL' ? '#ec4899' : 'text.disabled',
-                      }}
-                    />
-                    <Typography
-                      variant="subtitle2"
-                      fontWeight={800}
-                      sx={{
-                        color: settings.mode === 'INDIVIDUAL' ? '#f472b6' : 'text.primary',
-                        fontSize: { xs: '0.88rem', sm: '1rem' },
-                      }}
-                    >
-                      حالت دانه‌ای
-                    </Typography>
-                    <Typography
-                      variant="caption"
-                      color="text.secondary"
-                      sx={{ fontSize: { xs: '0.72rem', sm: '0.8rem' }, lineHeight: 1.35 }}
-                    >
-                      نفر به نفر برای هر کلمه با پاداش زمان باقی‌مانده (بدون امکان رد کردن)
-                    </Typography>
-                  </Stack>
-                  <Box sx={{ pt: 1, textAlign: 'center' }}>
-                    <Chip
-                      label={settings.mode === 'INDIVIDUAL' ? 'فعال' : 'انتخاب'}
-                      color={settings.mode === 'INDIVIDUAL' ? 'secondary' : 'default'}
-                      variant={settings.mode === 'INDIVIDUAL' ? 'filled' : 'outlined'}
-                      size="small"
-                      sx={{ height: 22, fontSize: '0.72rem', fontWeight: 700 }}
-                    />
-                  </Box>
-                </Card>
-              </Grid>
-            </Grid>
+              <Card
+                id="mode-individual-btn"
+                onClick={() => handleSelectMode('INDIVIDUAL')}
+                sx={{
+                  cursor: 'pointer',
+                  p: { xs: 1.25, sm: 1.75 },
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  borderRadius: 2.5,
+                  border:
+                    settings.mode === 'INDIVIDUAL'
+                      ? '2px solid #ec4899'
+                      : '1px solid rgba(255, 255, 255, 0.1)',
+                  bgcolor:
+                    settings.mode === 'INDIVIDUAL'
+                      ? 'rgba(236, 72, 153, 0.14)'
+                      : 'background.paper',
+                  boxShadow:
+                    settings.mode === 'INDIVIDUAL'
+                      ? '0 0 20px rgba(236, 72, 153, 0.25)'
+                      : 'none',
+                  transition: 'all 0.2s ease',
+                  '&:hover': {
+                    bgcolor: 'rgba(236, 72, 153, 0.18)',
+                    transform: 'translateY(-2px)',
+                  },
+                }}
+              >
+                <Stack spacing={0.7} alignItems="center" textAlign="center">
+                  <PersonIcon
+                    sx={{
+                      fontSize: { xs: 28, sm: 34 },
+                      color: settings.mode === 'INDIVIDUAL' ? '#ec4899' : 'text.disabled',
+                    }}
+                  />
+                  <Typography
+                    variant="subtitle2"
+                    fontWeight={800}
+                    sx={{
+                      color: settings.mode === 'INDIVIDUAL' ? '#f472b6' : 'text.primary',
+                      fontSize: { xs: '0.88rem', sm: '1rem' },
+                    }}
+                  >
+                    حالت تکی
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    color="text.secondary"
+                    sx={{ fontSize: { xs: '0.72rem', sm: '0.8rem' }, lineHeight: 1.35 }}
+                  >
+                    نفر به نفر برای هر کلمه با پاداش زمان باقی‌مانده (بدون امکان رد کردن)
+                  </Typography>
+                </Stack>
+                <Box sx={{ pt: 1, textAlign: 'center' }}>
+                  <Chip
+                    label={settings.mode === 'INDIVIDUAL' ? 'فعال' : 'انتخاب'}
+                    color={settings.mode === 'INDIVIDUAL' ? 'secondary' : 'default'}
+                    variant={settings.mode === 'INDIVIDUAL' ? 'filled' : 'outlined'}
+                    size="small"
+                    sx={{ height: 22, fontSize: '0.72rem', fontWeight: 700 }}
+                  />
+                </Box>
+              </Card>
+            </Box>
           </Stack>
 
           {/* 3 Rounds Preview Cards */}

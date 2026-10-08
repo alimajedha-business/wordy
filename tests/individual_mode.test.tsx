@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, beforeEach } from 'vitest';
 import { CacheProvider } from '@emotion/react';
 import { ThemeProvider } from '@mui/material';
@@ -8,7 +8,7 @@ import App from '../src/App';
 import { clearActiveGameState } from '../src/storage/db';
 import { calculatePointsDelta } from '../src/game/scoring';
 
-describe('Individual (دانه‌ای) Mode Verification', () => {
+describe('Individual (تکی) Mode Verification', () => {
   beforeEach(async () => {
     await clearActiveGameState();
     if (typeof localStorage !== 'undefined') {
@@ -46,7 +46,7 @@ describe('Individual (دانه‌ای) Mode Verification', () => {
 
     // Mode cards should be present on home
     expect(screen.getByText('حالت سرعتی')).toBeInTheDocument();
-    expect(screen.getByText('حالت دانه‌ای')).toBeInTheDocument();
+    expect(screen.getByText('حالت تکی')).toBeInTheDocument();
 
     // Select INDIVIDUAL mode
     const individualBtn = document.getElementById('mode-individual-btn');
@@ -69,7 +69,7 @@ describe('Individual (دانه‌ای) Mode Verification', () => {
     fireEvent.click(screen.getByRole('button', { name: 'ادامه به بررسی و شروع بازی' }));
 
     // Game Review shows mode badge and member turn info
-    expect(screen.getByText(/حالت مسابقه: دانه‌ای/)).toBeInTheDocument();
+    expect(screen.getByText(/حالت مسابقه: تکی/)).toBeInTheDocument();
     expect(screen.getAllByText(/نوبت کلمه در هر مرحله/)).toHaveLength(2);
 
     // In INDIVIDUAL mode, default durations are in seconds (e.g. ۶۰ ثانیه)

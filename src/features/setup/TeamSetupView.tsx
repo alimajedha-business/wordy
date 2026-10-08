@@ -129,7 +129,7 @@ export const TeamSetupView: React.FC<TeamSetupViewProps> = ({
                 </Typography>
               </Stack>
               <Chip
-                label="حالت دانه‌ای (تک‌کلمه‌ای)"
+                label="حالت تکی (تک‌کلمه‌ای)"
                 size="small"
                 color="primary"
                 variant="outlined"

@@ -55,7 +55,7 @@ export const TurnSummaryView: React.FC<TurnSummaryViewProps> = ({
       {/* Header */}
       <Box sx={{ textAlign: 'center', pt: 1 }}>
         <Chip
-          label={mode === 'INDIVIDUAL' ? 'حالت دانه‌ای' : 'پایان نوبت'}
+          label={mode === 'INDIVIDUAL' ? 'حالت تکی' : 'پایان نوبت'}
           color="success"
           variant="outlined"
           sx={{ mb: 1.5, fontWeight: 700 }}
