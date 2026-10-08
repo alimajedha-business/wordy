@@ -224,6 +224,69 @@ describe('Milestone 4: Turn Screen, Timer, Prompt Reveal, and Scoring Actions', 
       expect(screen.getByText(/۱ امتیاز به دلیل خطا کسر شد!/)).toBeInTheDocument();
     });
 
+    it('allows pausing and resuming time during a turn in any round', async () => {
+      const handleComplete = vi.fn();
+      const handleDeadlineUpdate = vi.fn();
+      const initialDeadline = Date.now() + 120 * 1000;
+
+      render(
+        <CacheProvider value={cacheRtl}>
+          <ThemeProvider theme={theme}>
+            <ActiveTurnView
+              team={mockTeam}
+              round={2}
+              deadlineAt={initialDeadline}
+              plannedPrompts={mockPlannedPrompts}
+              allPromptsBank={mockPromptsBank}
+              allPlannedInRound={mockPlannedPrompts}
+              onTurnComplete={handleComplete}
+              onDeadlineUpdate={handleDeadlineUpdate}
+            />
+          </ThemeProvider>
+        </CacheProvider>
+      );
+
+      // Verify pause button exists
+      const pauseBtn = screen.getByRole('button', { name: 'توقف زمان' });
+      expect(pauseBtn).toBeInTheDocument();
+
+      // Action buttons are initially enabled
+      const correctBtn = screen.getByRole('button', { name: /درست/ });
+      const skipBtn = screen.getByRole('button', { name: /رد کردن/ });
+      const errorBtn = screen.getByRole('button', { name: /ثبت خطا/ });
+      expect(correctBtn).not.toBeDisabled();
+      expect(skipBtn).not.toBeDisabled();
+      expect(errorBtn).not.toBeDisabled();
+
+      // Click pause
+      fireEvent.click(pauseBtn);
+
+      // Verify paused UI state
+      expect(screen.getByText('زمان متوقف شده است')).toBeInTheDocument();
+      const resumeBtn = screen.getByRole('button', { name: 'ادامه زمان' });
+      expect(resumeBtn).toBeInTheDocument();
+
+      // Actions are disabled while paused
+      expect(correctBtn).toBeDisabled();
+      expect(skipBtn).toBeDisabled();
+      expect(errorBtn).toBeDisabled();
+
+      // Pause notification displayed
+      expect(screen.getByText('زمان نوبت متوقف شد')).toBeInTheDocument();
+
+      // Click resume
+      fireEvent.click(resumeBtn);
+
+      // Button is back to "توقف زمان" and actions are re-enabled
+      expect(screen.getByRole('button', { name: 'توقف زمان' })).toBeInTheDocument();
+      expect(correctBtn).not.toBeDisabled();
+      expect(skipBtn).not.toBeDisabled();
+      expect(errorBtn).not.toBeDisabled();
+
+      // Callback was invoked to update deadline for storage sync
+      expect(handleDeadlineUpdate).toHaveBeenCalled();
+    });
+
     it('allows ending turn manually via confirmation dialog', () => {
       const handleComplete = vi.fn();
       render(

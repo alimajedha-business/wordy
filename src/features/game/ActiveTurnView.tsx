@@ -23,6 +23,9 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import StopCircleIcon from '@mui/icons-material/StopCircle';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+import PauseIcon from '@mui/icons-material/Pause';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 
 import { Team, RoundNumber, Prompt, PlannedPrompt, PromptAttempt, PromptOutcome } from '../../game/types';
 import { ROUND_CONFIGS } from '../../game/rules';
@@ -117,6 +120,12 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
   const [floorWarningOpen, setFloorWarningOpen] = useState(false);
   const [skipPenaltyOpen, setSkipPenaltyOpen] = useState(false);
   const [errorPenaltyOpen, setErrorPenaltyOpen] = useState(false);
+  const [pauseNotificationOpen, setPauseNotificationOpen] = useState(false);
+  const [resumeNotificationOpen, setResumeNotificationOpen] = useState(false);
+
+  // Pause state
+  const [isPaused, setIsPaused] = useState(false);
+  const pausedRemainingMsRef = useRef<number | null>(null);
 
   const completedRef = useRef(false);
   const lockTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -144,8 +153,36 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
     onTurnComplete(attemptsRef.current, currentScoreRef.current, displayedPromptIds);
   }, [currentPromptIndex, turnPrompts, onTurnComplete]);
 
+  // Toggle pause handler
+  const handleTogglePause = () => {
+    if (remainingSeconds <= 0 || completedRef.current) return;
+
+    if (!isPaused) {
+      // Pause: capture remaining ms exactly from wall clock
+      const remainingMs = Math.max(0, deadlineRef.current - Date.now());
+      pausedRemainingMsRef.current = remainingMs;
+      setIsPaused(true);
+      setRemainingSeconds(Math.max(0, Math.ceil(remainingMs / 1000)));
+      setPauseNotificationOpen(true);
+    } else {
+      // Resume: reconstruct new deadline from saved remaining ms
+      const remainingMs = pausedRemainingMsRef.current ?? (remainingSeconds * 1000);
+      const newDeadline = Date.now() + remainingMs;
+      deadlineRef.current = newDeadline;
+      pausedRemainingMsRef.current = null;
+      setIsPaused(false);
+      setRemainingSeconds(calculateRemainingSeconds(newDeadline));
+      if (onDeadlineUpdate) {
+        onDeadlineUpdate(newDeadline);
+      }
+      setResumeNotificationOpen(true);
+    }
+  };
+
   // Wall-clock timer loop
   useEffect(() => {
+    if (isPaused) return;
+
     const updateTimer = () => {
       const remaining = calculateRemainingSeconds(deadlineRef.current);
       setRemainingSeconds(remaining);
@@ -159,7 +196,7 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
     const interval = setInterval(updateTimer, 200);
 
     return () => clearInterval(interval);
-  }, [finishTurn]);
+  }, [isPaused, finishTurn]);
 
   // Current prompt lookup
   const currentPlanItem = turnPrompts[currentPromptIndex];
@@ -174,7 +211,7 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
 
   // Handle host scoring action
   const handleAction = (outcome: PromptOutcome) => {
-    if (isActionLocked || remainingSeconds <= 0 || !currentPrompt) return;
+    if (isActionLocked || isPaused || remainingSeconds <= 0 || !currentPrompt) return;
     setIsActionLocked(true);
 
     const delta = calculatePointsDelta(outcome, round);
@@ -283,6 +320,13 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
   const urgency = getTimeUrgency(remainingSeconds);
 
   const getUrgencyStyles = () => {
+    if (isPaused) {
+      return {
+        color: '#fbbf24',
+        border: '2px dashed rgba(245, 158, 11, 0.8)',
+        bgcolor: 'rgba(245, 158, 11, 0.1)',
+      };
+    }
     switch (urgency) {
       case 'critical':
         return {
@@ -360,12 +404,42 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
         </Stack>
 
         <Typography variant="caption" sx={{ opacity: 0.8, display: 'block', mt: 0.5 }}>
-          {urgency === 'critical'
+          {isPaused
+            ? 'زمان متوقف شده است'
+            : urgency === 'critical'
             ? 'زمان رو به اتمام است!'
             : urgency === 'warning'
             ? 'کمتر از ۳۰ ثانیه باقی مانده'
             : 'زمان باقی‌مانده نوبت'}
         </Typography>
+
+        {/* Pause / Resume Button */}
+        <Box sx={{ mt: 1.2 }}>
+          <Button
+            id="toggle-pause-btn"
+            variant={isPaused ? 'contained' : 'outlined'}
+            color={isPaused ? 'warning' : 'inherit'}
+            size="small"
+            startIcon={isPaused ? <PlayArrowIcon /> : <PauseIcon />}
+            onClick={handleTogglePause}
+            disabled={remainingSeconds <= 0}
+            sx={{
+              fontWeight: 800,
+              fontSize: { xs: '0.82rem', sm: '0.9rem' },
+              borderRadius: 2,
+              px: { xs: 2.2, sm: 3 },
+              py: 0.6,
+              borderColor: isPaused ? undefined : 'rgba(255, 255, 255, 0.25)',
+              bgcolor: isPaused ? undefined : 'rgba(255, 255, 255, 0.06)',
+              '&:hover': {
+                bgcolor: isPaused ? undefined : 'rgba(255, 255, 255, 0.14)',
+              },
+              boxShadow: isPaused ? '0 4px 14px rgba(245, 158, 11, 0.4)' : undefined,
+            }}
+          >
+            {isPaused ? 'ادامه زمان' : 'توقف زمان'}
+          </Button>
+        </Box>
       </Card>
 
       {/* Secret Prompt Card */}
@@ -405,6 +479,7 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
             <IconButton
               size="small"
               onClick={handleReplacePrompt}
+              disabled={isPaused}
               aria-label="تعویض کلمه"
               sx={{ bgcolor: 'rgba(255,255,255,0.05)' }}
             >
@@ -412,6 +487,29 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
             </IconButton>
           </Tooltip>
         </Box>
+
+        {/* Pause Notice Banner on Prompt Card */}
+        {isPaused && (
+          <Box
+            sx={{
+              bgcolor: 'rgba(245, 158, 11, 0.14)',
+              border: '1px solid rgba(245, 158, 11, 0.35)',
+              borderRadius: 2,
+              py: 0.6,
+              px: 1.5,
+              my: 1,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 0.8,
+            }}
+          >
+            <PauseCircleOutlineIcon sx={{ color: '#fbbf24', fontSize: 18 }} />
+            <Typography variant="caption" sx={{ color: '#fbbf24', fontWeight: 700 }}>
+              زمان موقتاً متوقف شده است — برای ادامه دکمه «ادامه زمان» را بزنید
+            </Typography>
+          </Box>
+        )}
 
         {/* Prompt Content Area */}
         <Box sx={{ my: 'auto', textAlign: 'center', py: 2 }}>
@@ -473,7 +571,7 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
             variant="contained"
             color="success"
             fullWidth
-            disabled={isActionLocked || remainingSeconds <= 0}
+            disabled={isActionLocked || isPaused || remainingSeconds <= 0}
             startIcon={<CheckCircleIcon sx={{ fontSize: { xs: 22, sm: 26 } }} />}
             onClick={() => handleAction('CORRECT')}
             sx={{
@@ -496,7 +594,7 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
             variant="contained"
             color="warning"
             fullWidth
-            disabled={isActionLocked || remainingSeconds <= 0}
+            disabled={isActionLocked || isPaused || remainingSeconds <= 0}
             startIcon={<HighlightOffIcon sx={{ fontSize: { xs: 20, sm: 24 } }} />}
             onClick={() => handleAction('WRONG')}
             sx={{
@@ -521,7 +619,7 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
             id="action-error-btn"
             variant="outlined"
             color="error"
-            disabled={isActionLocked || remainingSeconds <= 0}
+            disabled={isActionLocked || isPaused || remainingSeconds <= 0}
             startIcon={<WarningAmberIcon />}
             onClick={() => handleAction('ERROR')}
             sx={{
@@ -616,6 +714,30 @@ export const ActiveTurnView: React.FC<ActiveTurnViewProps> = ({
       >
         <Alert severity="error" sx={{ borderRadius: 3, fontWeight: 700 }}>
           ۱ امتیاز به دلیل خطا کسر شد!
+        </Alert>
+      </Snackbar>
+
+      {/* Pause Notification */}
+      <Snackbar
+        open={pauseNotificationOpen}
+        autoHideDuration={1500}
+        onClose={() => setPauseNotificationOpen(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert severity="warning" sx={{ borderRadius: 3, fontWeight: 700 }}>
+          زمان نوبت متوقف شد
+        </Alert>
+      </Snackbar>
+
+      {/* Resume Notification */}
+      <Snackbar
+        open={resumeNotificationOpen}
+        autoHideDuration={1500}
+        onClose={() => setResumeNotificationOpen(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert severity="success" sx={{ borderRadius: 3, fontWeight: 700 }}>
+          زمان نوبت ادامه یافت
         </Alert>
       </Snackbar>
     </Stack>
