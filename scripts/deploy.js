@@ -227,9 +227,34 @@ which nginx > /dev/null 2>&1 || (apt-get update -y && apt-get install -y nginx)`
 
           // Configure Nginx
           console.log('⚙️ 6. Configuring Nginx web server...');
-          let nginxConf = fs.readFileSync(path.join(rootDir, 'nginx.conf'), 'utf-8');
+          const firstDomain = SERVER_DOMAIN ? SERVER_DOMAIN.split(/\s+/)[0] : '';
+          let useSsl = false;
+          if (firstDomain) {
+            try {
+              const checkCert = await executeRemote(
+                conn,
+                `test -f /etc/letsencrypt/live/${firstDomain}/fullchain.pem && test -f /etc/letsencrypt/options-ssl-nginx.conf && echo "YES" || echo "NO"`
+              );
+              useSsl = checkCert.trim() === 'YES';
+            } catch {
+              useSsl = false;
+            }
+          }
+
+          const confTemplate =
+            useSsl && fs.existsSync(path.join(rootDir, 'nginx.ssl.conf'))
+              ? 'nginx.ssl.conf'
+              : 'nginx.conf';
+
+          if (useSsl) {
+            console.log('🔒 Existing Let\'s Encrypt SSL certificates detected. Using SSL configuration.');
+          } else {
+            console.log('🌐 Serving over HTTP (Port 80). (SSL certificates can be configured via Certbot or Cloudflare).');
+          }
+
+          let nginxConf = fs.readFileSync(path.join(rootDir, confTemplate), 'utf-8');
           if (SERVER_DOMAIN) {
-            nginxConf = nginxConf.replace(/server_name\s+[^;]+;/, `server_name ${SERVER_DOMAIN} _;`);
+            nginxConf = nginxConf.replace(/server_name\s+[^;]+;/g, `server_name ${SERVER_DOMAIN} _;`);
           }
 
           const tempNginxPath = '/tmp/wordy_nginx.conf';
